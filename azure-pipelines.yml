@@ -12,6 +12,13 @@ pool:
 
 steps:
 - task: DotNetCoreCLI@2
+  displayName: Restore & Build
   inputs:
     command: 'build'
+    projects: 'Solutions/Corvus.ContentHandling.sln'
+
+- task: DotNetCoreCLI@2
+  displayName: Executable Specifications
+  inputs:
+    command: 'test'
     projects: 'Solutions/Corvus.ContentHandling.sln'
