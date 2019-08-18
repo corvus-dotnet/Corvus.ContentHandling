@@ -1,4 +1,4 @@
-﻿// <copyright file="ContentHandlerWithResultServiceCollectionExtensions.cs" company="Endjin Limited">
+﻿// <copyright file="ContentHandlerWithResultContentFactoryExtensions.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -12,7 +12,7 @@ namespace Corvus.ContentHandling
     /// <summary>
     /// Extensions to register handlers for a <see cref="IContentHandlerWithResult{TPayloadType, TResult}"/> with a particular payload.
     /// </summary>
-    public static class ContentHandlerWithResultServiceCollectionExtensions
+    public static class ContentHandlerWithResultContentFactoryExtensions
     {
         /// <summary>
         /// Registers a content handler for a particular type of payload.

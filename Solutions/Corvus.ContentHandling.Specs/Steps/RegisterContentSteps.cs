@@ -1,7 +1,6 @@
 ﻿namespace Corvus.Extensions.Specs.Steps
 {
     using System;
-    using System.Buffers;
     using System.Collections.Generic;
     using System.Linq;
     using Corvus.Extensions.Specs.Driver;
@@ -26,7 +25,7 @@
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddContentFactory(contentFactory =>
             {
-                IEnumerable<Registration> registrations = table.CreateSet<Registration>(row =>
+                IEnumerable<Registration> registrations = table.CreateSet(row =>
                 {
                     return new Registration(row.GetString("Type"), row.GetString("Explicit content type"), row.GetString("Registration kind"));
                 });
