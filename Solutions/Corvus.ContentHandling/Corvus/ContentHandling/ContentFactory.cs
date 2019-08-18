@@ -31,7 +31,7 @@ namespace Corvus.ContentHandling
     public class ContentFactory
     {
         /// <summary>
-        /// Construct a content factory instance for a given service collection.
+        /// Creates an instance of the <see cref="ContentFactory"/>.
         /// </summary>
         /// <param name="services">The service collection for which to create a content factory.</param>
         internal ContentFactory(IServiceCollection services)
