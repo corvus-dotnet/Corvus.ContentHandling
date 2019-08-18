@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
     using System.Collections.Generic;
     using System.Linq;
     using Corvus.ContentHandling;
+    using Corvus.ContentHandling.Internal;
 
     /// <summary>
     /// Generates instances for types identified by a content-type string.
@@ -34,12 +35,18 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Use the content factory pattern.
         /// </summary>
         /// <param name="serviceCollection">The service collection with which to register content handlers.</param>
-        /// <returns>An instance of the content registry for this factory.</returns>
-        public static ContentFactory UseContentFactory(IServiceCollection serviceCollection)
+        /// <param name="configure">Configure the content factory.</param>
+        /// <returns>An instance of the content factory for initialization.</returns>
+        public static IServiceCollection AddContentFactory(IServiceCollection serviceCollection, Action<ContentFactory> configure)
         {
             var contentFactory = new ContentFactory(serviceCollection);
             serviceCollection.AddSingleton(contentFactory);
-            return contentFactory;
+
+            // Register the generic factory for content handler dispatchers
+            serviceCollection.Add(ServiceDescriptor.Singleton(typeof(IContentHandlerDispatcher<>), typeof(ContentHandlerDispatcher<>)));
+
+            configure(contentFactory);
+            return serviceCollection;
         }
 
         /// <summary>
