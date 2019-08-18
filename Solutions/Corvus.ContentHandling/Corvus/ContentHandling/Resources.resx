@@ -127,7 +127,7 @@
     <value>The service named '{0}' is not assignable to type '{1}'.</value>
   </data>
   <data name="TypeNeedsStaticStringContentTypeField" xml:space="preserve">
-    <value>The type '{0}' must provide a static field 'contentFactoryType' of type 'String', or you must use the overload of this method that supplies a name.</value>
+    <value>The type '{0}' must provide a static field 'RegisteredContentType' of type 'String', or you must use the overload of this method that supplies a name.</value>
     <comment>{0} = implementation type</comment>
   </data>
   <data name="NoServiceRegistered" xml:space="preserve">

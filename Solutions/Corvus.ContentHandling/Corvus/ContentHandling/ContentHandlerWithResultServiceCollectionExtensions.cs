@@ -2,12 +2,12 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Corvus.ContentHandling
 {
     using System;
     using System.Threading.Tasks;
-    using Corvus.ContentHandling;
     using Corvus.ContentHandling.Internal;
+    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// Extensions to register handlers for a <see cref="IContentHandlerWithResult{TPayloadType, TResult}"/> with a particular payload.

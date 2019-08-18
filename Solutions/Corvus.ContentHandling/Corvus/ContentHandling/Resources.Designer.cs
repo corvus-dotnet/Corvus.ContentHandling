@@ -97,7 +97,7 @@ namespace Corvus.ContentHandling {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The type &apos;{0}&apos; must provide a static field &apos;contentFactoryType&apos; of type &apos;String&apos;, or you must use the overload of this method that supplies a name..
+        ///   Looks up a localized string similar to The type &apos;{0}&apos; must provide a static field &apos;RegisteredContentType&apos; of type &apos;String&apos;, or you must use the overload of this method that supplies a name..
         /// </summary>
         internal static string TypeNeedsStaticStringContentTypeField {
             get {

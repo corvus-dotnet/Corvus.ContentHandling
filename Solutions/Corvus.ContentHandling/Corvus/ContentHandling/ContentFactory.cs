@@ -22,7 +22,7 @@ namespace Corvus.ContentHandling
     /// </para>
     /// <para>
     /// You obtain an instance of the content factory by adding it to the <see cref="IServiceCollection"/> using
-    /// the <see cref="ContentFactoryExtensions.AddContentFactory"/> extension method.
+    /// the <see cref="ContentFactoryServiceCollectionExtensions.AddContentFactory"/> extension method.
     /// </para>
     /// <para>You can then register dotnet types for media types, using the various RegisterContent extensions. They follow the similar singleton/transient pattern to any other container.</para>
     /// <para>While you can explicitly specify a content type string for the content, it can also be derived from a static constant string <c>RegisteredContentType</c> field.</para>
@@ -54,7 +54,7 @@ namespace Corvus.ContentHandling
         /// </summary>
         /// <param name="type">The type for which to get the content type.</param>
         /// <returns>The content type registered for the type.</returns>
-        /// <remarks>The type must provide a static/const string called. <c>contentFactoryType</c> which defines its content type.</remarks>
+        /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static string GetContentType(Type type)
         {
             if (!TryGetContentType(type, out string contentType))
@@ -78,7 +78,7 @@ namespace Corvus.ContentHandling
             PropertyInfo contentTypeProp = targetType.GetProperty("ContentType", BindingFlags.Public | BindingFlags.Instance);
             contentType = (string)contentTypeProp?.GetValue(target);
 
-            // If we have a content type return true, otherwise try to fall back to the contentFactoryType for the class.
+            // If we have a content type return true, otherwise try to fall back to the RegisteredContentType for the class.
             return string.IsNullOrEmpty(contentType) ? TryGetContentType(targetType, out contentType) : true;
         }
 
@@ -88,10 +88,10 @@ namespace Corvus.ContentHandling
         /// <param name="type">The type for which to get the content type.</param>
         /// <param name="contentType">The content type registered for the type.</param>
         /// <returns>A boolean indicating success.</returns>
-        /// <remarks>The type must provide a static/const string called. <c>contentFactoryType</c> which defines its content type.</remarks>
+        /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static bool TryGetContentType(Type type, out string contentType)
         {
-            FieldInfo contentTypeField = type.GetTypeInfo().GetField("contentFactoryType");
+            FieldInfo contentTypeField = type.GetTypeInfo().GetField("RegisteredContentType");
             contentType = null;
 
             if (contentTypeField?.IsStatic == true && contentTypeField.FieldType == typeof(string))
@@ -107,7 +107,7 @@ namespace Corvus.ContentHandling
         /// </summary>
         /// <typeparam name="T">The type for which to retrieve the content type.</typeparam>
         /// <returns>The content type of the type.</returns>
-        /// <remarks>The type must provide a static/const string called. <c>contentFactoryType</c> which defines its content type.</remarks>
+        /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static string GetContentType<T>()
         {
             return GetContentType(typeof(T));
@@ -119,7 +119,7 @@ namespace Corvus.ContentHandling
         /// <typeparam name="T">The type for which to retrieve the content type.</typeparam>
         /// <param name="contentType">The content type of the type.</param>
         /// <returns>A boolean indicating success or failure.</returns>
-        /// <remarks>The type must provide a static/const string called. <c>contentFactoryType</c> which defines its content type.</remarks>
+        /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static bool TryGetContentType<T>(out string contentType)
         {
             return TryGetContentType(typeof(T), out contentType);

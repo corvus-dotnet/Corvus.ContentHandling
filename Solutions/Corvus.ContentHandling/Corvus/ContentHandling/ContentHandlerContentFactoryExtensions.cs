@@ -1,18 +1,18 @@
-﻿// <copyright file="ContentHandlerServiceCollectionExtensions.cs" company="Endjin Limited">
+﻿// <copyright file="ContentHandlerContentFactoryExtensions.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Corvus.ContentHandling
 {
     using System;
     using System.Threading.Tasks;
-    using Corvus.ContentHandling;
     using Corvus.ContentHandling.Internal;
+    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// Extensions to register handlers for a <see cref="IContentHandler{TPayloadType}"/> with a particular payload.
     /// </summary>
-    public static class ContentHandlerServiceCollectionExtensions
+    public static class ContentHandlerContentFactoryExtensions
     {
         /// <summary>
         /// Registers a content handler for a particular type of payload.

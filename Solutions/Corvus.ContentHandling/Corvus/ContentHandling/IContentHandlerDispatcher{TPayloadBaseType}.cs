@@ -30,20 +30,20 @@ namespace Corvus.ContentHandling
     ///
     /// public class Button : IUIElement
     /// {
-    ///     public const string contentFactoryType = "application/vnd.Corvus.uielement.button";
+    ///     public const string RegisteredContentType = "application/vnd.Corvus.uielement.button";
     ///
     ///     public string Caption { get; set; }
     ///
-    ///     public string ContentType => contentFactoryType;
+    ///     public string ContentType => RegisteredContentType;
     /// }
     ///
     /// public class TextBox : IUIElement
     /// {
-    ///     public const string contentFactoryType = "application/vnd.Corvus.uielement.button";
+    ///     public const string RegisteredContentType = "application/vnd.Corvus.uielement.button";
     ///
     ///     public string Text { get; set; }
     ///
-    ///     public string ContentType => contentFactoryType;
+    ///     public string ContentType => RegisteredContentType;
     /// }
     ///
     /// </code>
@@ -365,13 +365,13 @@ namespace Corvus.ContentHandling
     ///
     ///     public class Button : IUIElement
     ///     {
-    ///         public const string contentFactoryType = "application/vnd.Corvus.uielement.button";
+    ///         public const string RegisteredContentType = "application/vnd.Corvus.uielement.button";
     ///
     ///         public string ContentType
     ///         {
     ///             get
     ///             {
-    ///                 return contentFactoryType;
+    ///                 return RegisteredContentType;
     ///             }
     ///         }
     ///
@@ -380,13 +380,13 @@ namespace Corvus.ContentHandling
     ///
     ///     public class TextBox : IUIElement
     ///     {
-    ///         public const string contentFactoryType = "application/vnd.Corvus.uielement.textbox";
+    ///         public const string RegisteredContentType = "application/vnd.Corvus.uielement.textbox";
     ///
     ///         public string ContentType
     ///         {
     ///             get
     ///             {
-    ///                 return contentFactoryType;
+    ///                 return RegisteredContentType;
     ///             }
     ///         }
     ///
