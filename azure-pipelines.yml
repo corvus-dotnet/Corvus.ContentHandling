@@ -1,0 +1,24 @@
+# Starter pipeline
+
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore & Build
+  inputs:
+    command: 'build'
+    projects: 'Solutions/Corvus.ContentHandling.sln'
+
+- task: DotNetCoreCLI@2
+  displayName: Executable Specifications
+  inputs:
+    command: 'test'
+    projects: 'Solutions/Corvus.ContentHandling.sln'
