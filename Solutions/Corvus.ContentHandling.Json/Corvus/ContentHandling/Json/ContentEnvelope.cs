@@ -73,11 +73,11 @@ namespace Corvus.ContentHandling.Json
             this.SerializerSettings = jsonSerializerSettings ?? JsonConvert.DefaultSettings();
         }
 
-        private ContentEnvelope(JToken payload, string contentType, JsonSerializerSettings settings)
+        private ContentEnvelope(JToken payload, string contentType, JsonSerializerSettings settings = null)
         {
             this.SerializedPayload = payload;
             this.PayloadContentType = contentType;
-            this.SerializerSettings = settings;
+            this.SerializerSettings = settings ?? JsonConvert.DefaultSettings();
         }
 
         /// <summary>
