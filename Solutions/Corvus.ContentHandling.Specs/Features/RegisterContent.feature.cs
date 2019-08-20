@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Corvus.Extensions.Specs.Features
+namespace Corvus.ContentHandling.Specs.Features
 {
     using TechTalk.SpecFlow;
     
@@ -85,39 +85,39 @@ this.ScenarioInitialize(scenarioInfo);
                         "Registration kind"});
             table1.AddRow(new string[] {
                         "ExplicitType1",
-                        "application/vnd.endjin.explicittype1",
+                        "application/vnd.corvus.explicittype1",
                         "Singleton"});
             table1.AddRow(new string[] {
                         "ExplicitType2",
-                        "application/vnd.endjin.explicittype2",
+                        "application/vnd.corvus.explicittype2",
                         "Singleton"});
             table1.AddRow(new string[] {
                         "ExplicitType1Subtype1",
-                        "application/vnd.endjin.explicittype1.subtype1",
+                        "application/vnd.corvus.explicittype1.subtype1",
                         "Singleton"});
             table1.AddRow(new string[] {
                         "ExplicitType3",
-                        "application/vnd.endjin.explicittype3",
+                        "application/vnd.corvus.explicittype3",
                         "Transient"});
             table1.AddRow(new string[] {
                         "ExplicitType4",
-                        "application/vnd.endjin.explicittype4",
+                        "application/vnd.corvus.explicittype4",
                         "Transient"});
             table1.AddRow(new string[] {
                         "ExplicitType3Subtype1",
-                        "application/vnd.endjin.explicittype3.subtype1",
+                        "application/vnd.corvus.explicittype3.subtype1",
                         "Transient"});
             table1.AddRow(new string[] {
                         "ExplicitType5",
-                        "application/vnd.endjin.explicittype5",
+                        "application/vnd.corvus.explicittype5",
                         "Scoped"});
             table1.AddRow(new string[] {
                         "ExplicitType6",
-                        "application/vnd.endjin.explicittype6",
+                        "application/vnd.corvus.explicittype6",
                         "Scoped"});
             table1.AddRow(new string[] {
                         "ExplicitType5Subtype1",
-                        "application/vnd.endjin.explicittype5.subtype1",
+                        "application/vnd.corvus.explicittype5.subtype1",
                         "Scoped"});
             table1.AddRow(new string[] {
                         "ContentType1",
@@ -161,53 +161,53 @@ this.ScenarioInitialize(scenarioInfo);
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Content type"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype1"});
+                        "application/vnd.corvus.explicittype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype2"});
+                        "application/vnd.corvus.explicittype2"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype1.subtype1"});
+                        "application/vnd.corvus.explicittype1.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype2.subtype1"});
+                        "application/vnd.corvus.explicittype2.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype3"});
+                        "application/vnd.corvus.explicittype3"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype4"});
+                        "application/vnd.corvus.explicittype4"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype3.subtype1"});
+                        "application/vnd.corvus.explicittype3.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype4.subtype1"});
+                        "application/vnd.corvus.explicittype4.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype5"});
+                        "application/vnd.corvus.explicittype5"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype6"});
+                        "application/vnd.corvus.explicittype6"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype5.subtype1"});
+                        "application/vnd.corvus.explicittype5.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.explicittype6.subtype1"});
+                        "application/vnd.corvus.explicittype6.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype1"});
+                        "application/vnd.corvus.contenttype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype2"});
+                        "application/vnd.corvus.contenttype2"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype1.subtype1"});
+                        "application/vnd.corvus.contenttype1.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype2.subtype1"});
+                        "application/vnd.corvus.contenttype2.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype3"});
+                        "application/vnd.corvus.contenttype3"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype4"});
+                        "application/vnd.corvus.contenttype4"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype3.subtype1"});
+                        "application/vnd.corvus.contenttype3.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype4.subtype1"});
+                        "application/vnd.corvus.contenttype4.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype5"});
+                        "application/vnd.corvus.contenttype5"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype6"});
+                        "application/vnd.corvus.contenttype6"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype5.subtype1"});
+                        "application/vnd.corvus.contenttype5.subtype1"});
             table2.AddRow(new string[] {
-                        "application/vnd.endjin.contenttype6.subtype1"});
+                        "application/vnd.corvus.contenttype6.subtype1"});
 #line 27
  testRunner.When("I get the following content", ((string)(null)), table2, "When ");
 #line hidden

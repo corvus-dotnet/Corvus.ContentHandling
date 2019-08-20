@@ -4,10 +4,11 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
-    <RootNamespace>Corvus.ContentHandling.Specs</RootNamespace>
+    <RootNamespace>Corvus.ContentHandling.Json.Specs</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Corvus.SpecFlow.Extensions" Version="0.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="SpecFlow" Version="3.0.225" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Corvus.ContentHandling\Corvus.ContentHandling.csproj" />
+    <ProjectReference Include="..\Corvus.ContentHandling.Json\Corvus.ContentHandling.Json.csproj" />
   </ItemGroup>
 
   <ItemGroup>

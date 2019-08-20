@@ -6,15 +6,15 @@
 Scenario: Register and retrieve content
 	Given I have registered the following types
 	| Type                  | Explicit content type                         | Registration kind |
-	| ExplicitType1         | application/vnd.endjin.explicittype1          | Singleton         |
-	| ExplicitType2         | application/vnd.endjin.explicittype2          | Singleton         |
-	| ExplicitType1Subtype1 | application/vnd.endjin.explicittype1.subtype1 | Singleton         |
-	| ExplicitType3         | application/vnd.endjin.explicittype3          | Transient         |
-	| ExplicitType4         | application/vnd.endjin.explicittype4          | Transient         |
-	| ExplicitType3Subtype1 | application/vnd.endjin.explicittype3.subtype1 | Transient         |
-	| ExplicitType5         | application/vnd.endjin.explicittype5          | Scoped            |
-	| ExplicitType6         | application/vnd.endjin.explicittype6          | Scoped            |
-	| ExplicitType5Subtype1 | application/vnd.endjin.explicittype5.subtype1 | Scoped            |
+	| ExplicitType1         | application/vnd.corvus.explicittype1          | Singleton         |
+	| ExplicitType2         | application/vnd.corvus.explicittype2          | Singleton         |
+	| ExplicitType1Subtype1 | application/vnd.corvus.explicittype1.subtype1 | Singleton         |
+	| ExplicitType3         | application/vnd.corvus.explicittype3          | Transient         |
+	| ExplicitType4         | application/vnd.corvus.explicittype4          | Transient         |
+	| ExplicitType3Subtype1 | application/vnd.corvus.explicittype3.subtype1 | Transient         |
+	| ExplicitType5         | application/vnd.corvus.explicittype5          | Scoped            |
+	| ExplicitType6         | application/vnd.corvus.explicittype6          | Scoped            |
+	| ExplicitType5Subtype1 | application/vnd.corvus.explicittype5.subtype1 | Scoped            |
 	| ContentType1          |                                               | Singleton         |
 	| ContentType2          |                                               | Singleton         |
 	| ContentType1Subtype1  |                                               | Singleton         |
@@ -26,30 +26,30 @@ Scenario: Register and retrieve content
 	| ContentType5Subtype1  |                                               | Scoped            |
 	When I get the following content
 	| Content type                                  |
-	| application/vnd.endjin.explicittype1          |
-	| application/vnd.endjin.explicittype2          |
-	| application/vnd.endjin.explicittype1.subtype1 |
-	| application/vnd.endjin.explicittype2.subtype1 |
-	| application/vnd.endjin.explicittype3          |
-	| application/vnd.endjin.explicittype4          |
-	| application/vnd.endjin.explicittype3.subtype1 |
-	| application/vnd.endjin.explicittype4.subtype1 |
-	| application/vnd.endjin.explicittype5          |
-	| application/vnd.endjin.explicittype6          |
-	| application/vnd.endjin.explicittype5.subtype1 |
-	| application/vnd.endjin.explicittype6.subtype1 |
-	| application/vnd.endjin.contenttype1           |
-	| application/vnd.endjin.contenttype2           |
-	| application/vnd.endjin.contenttype1.subtype1  |
-	| application/vnd.endjin.contenttype2.subtype1  |
-	| application/vnd.endjin.contenttype3           |
-	| application/vnd.endjin.contenttype4           |
-	| application/vnd.endjin.contenttype3.subtype1  |
-	| application/vnd.endjin.contenttype4.subtype1  |
-	| application/vnd.endjin.contenttype5           |
-	| application/vnd.endjin.contenttype6           |
-	| application/vnd.endjin.contenttype5.subtype1  |
-	| application/vnd.endjin.contenttype6.subtype1  |
+	| application/vnd.corvus.explicittype1          |
+	| application/vnd.corvus.explicittype2          |
+	| application/vnd.corvus.explicittype1.subtype1 |
+	| application/vnd.corvus.explicittype2.subtype1 |
+	| application/vnd.corvus.explicittype3          |
+	| application/vnd.corvus.explicittype4          |
+	| application/vnd.corvus.explicittype3.subtype1 |
+	| application/vnd.corvus.explicittype4.subtype1 |
+	| application/vnd.corvus.explicittype5          |
+	| application/vnd.corvus.explicittype6          |
+	| application/vnd.corvus.explicittype5.subtype1 |
+	| application/vnd.corvus.explicittype6.subtype1 |
+	| application/vnd.corvus.contenttype1           |
+	| application/vnd.corvus.contenttype2           |
+	| application/vnd.corvus.contenttype1.subtype1  |
+	| application/vnd.corvus.contenttype2.subtype1  |
+	| application/vnd.corvus.contenttype3           |
+	| application/vnd.corvus.contenttype4           |
+	| application/vnd.corvus.contenttype3.subtype1  |
+	| application/vnd.corvus.contenttype4.subtype1  |
+	| application/vnd.corvus.contenttype5           |
+	| application/vnd.corvus.contenttype6           |
+	| application/vnd.corvus.contenttype5.subtype1  |
+	| application/vnd.corvus.contenttype6.subtype1  |
 	Then the results should be of types
 	| Type                  |
 	| ExplicitType1         |

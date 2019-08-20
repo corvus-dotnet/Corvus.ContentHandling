@@ -2,6 +2,6 @@
 {
     internal class ContentType5
     {
-        public const string RegisteredContentType = "application/vnd.endjin.contenttype5";
+        public const string RegisteredContentType = "application/vnd.corvus.contenttype5";
     }
 }

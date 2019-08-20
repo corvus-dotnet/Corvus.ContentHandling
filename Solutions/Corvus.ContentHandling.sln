@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{E72AE3
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.ContentHandling.Json", "Corvus.ContentHandling.Json\Corvus.ContentHandling.Json.csproj", "{F064A203-FDF2-4AED-BC9D-0D05974166B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Corvus.ContentHandling.Json.Specs", "Corvus.ContentHandling.Json.Specs\Corvus.ContentHandling.Json.Specs.csproj", "{158DB48E-BF78-49BB-AB75-1C5B5342477A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +30,14 @@ Global
 		{770300CF-FF0D-42E0-BC6F-52F8295508F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{770300CF-FF0D-42E0-BC6F-52F8295508F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{770300CF-FF0D-42E0-BC6F-52F8295508F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F064A203-FDF2-4AED-BC9D-0D05974166B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F064A203-FDF2-4AED-BC9D-0D05974166B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F064A203-FDF2-4AED-BC9D-0D05974166B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F064A203-FDF2-4AED-BC9D-0D05974166B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{158DB48E-BF78-49BB-AB75-1C5B5342477A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{158DB48E-BF78-49BB-AB75-1C5B5342477A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{158DB48E-BF78-49BB-AB75-1C5B5342477A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{158DB48E-BF78-49BB-AB75-1C5B5342477A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
