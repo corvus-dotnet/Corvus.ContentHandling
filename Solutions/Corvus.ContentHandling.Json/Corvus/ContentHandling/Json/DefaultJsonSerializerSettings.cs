@@ -4,14 +4,12 @@
 
 namespace Corvus.ContentHandling.Json
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Default serializer settings.
+    /// Initializes a new instance of the <see cref="DefaultJsonSerializerSettings"/> class.
     /// </summary>
     public class DefaultJsonSerializerSettings : IDefaultJsonSerializerSettings
     {
