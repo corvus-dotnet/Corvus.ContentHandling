@@ -8,6 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
     using Corvus.ContentHandling.Json.Internal;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using Newtonsoft.Json.Serialization;
 
     /// <summary>
     /// An installer for standard <see cref="JsonConverter"/>s.
@@ -25,7 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<JsonConverter, CultureInfoConverter>();
             services.AddSingleton<JsonConverter, DateTimeOffsetConverter>();
             services.AddSingleton<JsonConverter, PropertyBagConverter>();
-            services.AddSingleton<JsonConverter>(new StringEnumConverter(true));
+            services.AddSingleton<JsonConverter>(new StringEnumConverter(new CamelCaseNamingStrategy()));
             services.AddSingleton<IDefaultJsonSerializerSettings, DefaultJsonSerializerSettings>();
             return services;
         }
