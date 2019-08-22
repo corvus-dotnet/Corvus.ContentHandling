@@ -14,7 +14,7 @@ namespace Corvus.ContentHandling.Json
     public class DefaultJsonSerializerSettings : IDefaultJsonSerializerSettings
     {
         /// <summary>
-        /// A factory to get the default <see cref="DefaultJsonSerializerSettings"/> for the context.
+        /// Initializes a new instance of the <see cref="DefaultJsonSerializerSettings"/> class.
         /// </summary>
         /// <param name="converters">The list of JsonConverters to add.</param>
         /// <remarks>
