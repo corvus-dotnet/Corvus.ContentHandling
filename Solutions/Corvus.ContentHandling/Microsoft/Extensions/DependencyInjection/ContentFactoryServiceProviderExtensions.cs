@@ -221,7 +221,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>
         /// A boolean indicating whether or not a type was found.
         /// </returns>
-        public static bool TryGetTypeFor(IServiceProvider serviceProvider, string contentType, out Type serviceType)
+        public static bool TryGetTypeFor(this IServiceProvider serviceProvider, string contentType, out Type serviceType)
         {
             ContentFactory typesForNamedContent = serviceProvider.GetRequiredService<ContentFactory>();
             if (!typesForNamedContent.Handlers.TryGetValue(contentType, out serviceType))
