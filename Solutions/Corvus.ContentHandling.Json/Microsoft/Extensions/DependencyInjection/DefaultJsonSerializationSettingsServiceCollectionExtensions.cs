@@ -26,7 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<JsonConverter, CultureInfoConverter>();
             services.AddSingleton<JsonConverter, DateTimeOffsetConverter>();
             services.AddSingleton<JsonConverter, PropertyBagConverter>();
-            services.AddSingleton<JsonConverter>(new StringEnumConverter(new CamelCaseNamingStrategy()));
+            services.AddSingleton<JsonConverter>(new StringEnumConverter(true));
             services.AddSingleton<IDefaultJsonSerializerSettings, DefaultJsonSerializerSettings>();
             return services;
         }
