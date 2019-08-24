@@ -10,6 +10,7 @@ namespace Corvus.ContentHandling.Json.Specs
     using System.Linq;
 
     using Corvus.ContentHandling.Json.Specs.Samples;
+    using Corvus.Extensions.Json;
     using Corvus.SpecFlow.Extensions;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
@@ -71,7 +72,7 @@ namespace Corvus.ContentHandling.Json.Specs
         public void WhenISerializeTheContentObjectCalled(string instanceName, string resultName)
         {
             object instance = this.scenarioContext.Get<object>(instanceName);
-            string serializedValue = JsonConvert.SerializeObject(instance, ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IDefaultJsonSerializerSettings>().Instance);
+            string serializedValue = JsonConvert.SerializeObject(instance, ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IJsonSerializerSettingsProvider>().Instance);
             this.scenarioContext.Set(serializedValue, resultName);
         }
 

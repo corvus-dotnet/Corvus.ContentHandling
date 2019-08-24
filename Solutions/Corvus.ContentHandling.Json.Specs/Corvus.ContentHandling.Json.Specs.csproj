@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.1.0" />
     <PackageReference Include="Corvus.SpecFlow.Extensions" Version="0.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="SpecFlow" Version="3.0.225" />

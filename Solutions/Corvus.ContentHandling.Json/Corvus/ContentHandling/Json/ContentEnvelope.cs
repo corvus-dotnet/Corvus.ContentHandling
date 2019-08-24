@@ -70,14 +70,14 @@ namespace Corvus.ContentHandling.Json
         /// <param name="jsonSerializerSettings">The json serializer settings to use for the ContentEnvelope.</param>
         public ContentEnvelope(JsonSerializerSettings jsonSerializerSettings = null)
         {
-            this.SerializerSettings = jsonSerializerSettings ?? JsonConvert.DefaultSettings();
+            this.SerializerSettings = jsonSerializerSettings ?? JsonConvert.DefaultSettings?.Invoke();
         }
 
         private ContentEnvelope(JToken payload, string contentType, JsonSerializerSettings settings = null)
         {
             this.SerializedPayload = payload;
             this.PayloadContentType = contentType;
-            this.SerializerSettings = settings ?? JsonConvert.DefaultSettings();
+            this.SerializerSettings = settings ?? JsonConvert.DefaultSettings?.Invoke();
         }
 
         /// <summary>
@@ -88,6 +88,7 @@ namespace Corvus.ContentHandling.Json
         /// <summary>
         /// Gets the <see cref="JsonSerializerSettings"/> to use for the content envelope.
         /// </summary>
+        [JsonIgnore]
         public JsonSerializerSettings SerializerSettings { get; }
 
         /// <summary>

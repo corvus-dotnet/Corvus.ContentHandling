@@ -81,13 +81,13 @@ namespace Corvus.ContentHandling.Json.Specs
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table26.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "Hello"});
 #line 8
  testRunner.Given("I have an instance of a content object called \'item\' with content type \'applicati" +
-                    "on/vnd.corvus.somecontentwithinterface\'", ((string)(null)), table26, "Given ");
+                    "on/vnd.corvus.somecontentwithinterface\'", ((string)(null)), table21, "Given ");
 #line 11
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
@@ -110,15 +110,15 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table27.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "Hello",
                         "null"});
 #line 16
  testRunner.Given("I have an instance of a content object called \'item\' with content type \'applicati" +
-                    "on/vnd.corvus.somecontentwithinterfaceandchild\'", ((string)(null)), table27, "Given ");
+                    "on/vnd.corvus.somecontentwithinterfaceandchild\'", ((string)(null)), table22, "Given ");
 #line 19
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
@@ -142,23 +142,23 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table28.AddRow(new string[] {
+            table23.AddRow(new string[] {
                         "Dolly"});
 #line 24
  testRunner.Given("I have an instance of a content object called \'child\' with content type \'applicat" +
-                    "ion/vnd.corvus.somecontentwithinterface\'", ((string)(null)), table28, "Given ");
+                    "ion/vnd.corvus.somecontentwithinterface\'", ((string)(null)), table23, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table29.AddRow(new string[] {
+            table24.AddRow(new string[] {
                         "Hello",
                         "{child}"});
 #line 27
  testRunner.And("I have an instance of a content object called \'parent\' with content type \'applica" +
-                    "tion/vnd.corvus.somecontentwithinterfaceandchild\'", ((string)(null)), table29, "And ");
+                    "tion/vnd.corvus.somecontentwithinterfaceandchild\'", ((string)(null)), table24, "And ");
 #line 30
  testRunner.When("I serialize the content object called \'parent\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 31
@@ -183,22 +183,22 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table30.AddRow(new string[] {
+            table25.AddRow(new string[] {
                         "Dolly"});
 #line 35
- testRunner.Given("I have an instance of a poc object called \'child\'", ((string)(null)), table30, "Given ");
+ testRunner.Given("I have an instance of a poc object called \'child\'", ((string)(null)), table25, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table31 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table31.AddRow(new string[] {
+            table26.AddRow(new string[] {
                         "Hello",
                         "{child}"});
 #line 38
  testRunner.And("I have an instance of a content object called \'parent\' with content type \'applica" +
-                    "tion/vnd.corvus.somecontentwithinterfaceandpocchild\'", ((string)(null)), table31, "And ");
+                    "tion/vnd.corvus.somecontentwithinterfaceandpocchild\'", ((string)(null)), table26, "And ");
 #line 41
  testRunner.When("I serialize the content object called \'parent\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 42
@@ -218,13 +218,13 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table32.AddRow(new string[] {
+            table27.AddRow(new string[] {
                         "Hello"});
 #line 47
  testRunner.Given("I have an instance of a content object called \'item\' with content type \'applicati" +
-                    "on/vnd.corvus.somecontentwithabstractbase\'", ((string)(null)), table32, "Given ");
+                    "on/vnd.corvus.somecontentwithabstractbase\'", ((string)(null)), table27, "Given ");
 #line 50
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 51
@@ -247,15 +247,15 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table33 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table33.AddRow(new string[] {
+            table28.AddRow(new string[] {
                         "Hello",
                         "null"});
 #line 55
  testRunner.Given("I have an instance of a content object called \'item\' with content type \'applicati" +
-                    "on/vnd.corvus.somecontentwithabstractbaseandchild\'", ((string)(null)), table33, "Given ");
+                    "on/vnd.corvus.somecontentwithabstractbaseandchild\'", ((string)(null)), table28, "Given ");
 #line 58
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 59
@@ -279,23 +279,23 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table34 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table34.AddRow(new string[] {
+            table29.AddRow(new string[] {
                         "Dolly"});
 #line 63
  testRunner.Given("I have an instance of a content object called \'child\' with content type \'applicat" +
-                    "ion/vnd.corvus.somecontentwithabstractbase\'", ((string)(null)), table34, "Given ");
+                    "ion/vnd.corvus.somecontentwithabstractbase\'", ((string)(null)), table29, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table35 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table35.AddRow(new string[] {
+            table30.AddRow(new string[] {
                         "Hello",
                         "{child}"});
 #line 66
  testRunner.And("I have an instance of a content object called \'parent\' with content type \'applica" +
-                    "tion/vnd.corvus.somecontentwithabstractbaseandchild\'", ((string)(null)), table35, "And ");
+                    "tion/vnd.corvus.somecontentwithabstractbaseandchild\'", ((string)(null)), table30, "And ");
 #line 69
  testRunner.When("I serialize the content object called \'parent\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 70
@@ -317,22 +317,22 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table36 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table31 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table36.AddRow(new string[] {
+            table31.AddRow(new string[] {
                         "Dolly"});
 #line 74
- testRunner.Given("I have an instance of a poc object called \'child\'", ((string)(null)), table36, "Given ");
+ testRunner.Given("I have an instance of a poc object called \'child\'", ((string)(null)), table31, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table37 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table37.AddRow(new string[] {
+            table32.AddRow(new string[] {
                         "Hello",
                         "{child}"});
 #line 77
  testRunner.And("I have an instance of a content object called \'parent\' with content type \'applica" +
-                    "tion/vnd.corvus.somecontentwithabstractbaseandpocchild\'", ((string)(null)), table37, "And ");
+                    "tion/vnd.corvus.somecontentwithabstractbaseandpocchild\'", ((string)(null)), table32, "And ");
 #line 80
  testRunner.When("I serialize the content object called \'parent\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 81
@@ -352,13 +352,13 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table38 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table33 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table38.AddRow(new string[] {
+            table33.AddRow(new string[] {
                         "Hello"});
 #line 86
  testRunner.Given("I have an instance of a content object called \'item\' with content type \'applicati" +
-                    "on/vnd.corvus.somecontentwithbase\'", ((string)(null)), table38, "Given ");
+                    "on/vnd.corvus.somecontentwithbase\'", ((string)(null)), table33, "Given ");
 #line 89
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 90
@@ -381,15 +381,15 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table39 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table34 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table39.AddRow(new string[] {
+            table34.AddRow(new string[] {
                         "Hello",
                         "null"});
 #line 94
  testRunner.Given("I have an instance of a content object called \'item\' with content type \'applicati" +
-                    "on/vnd.corvus.somecontentwithbaseandchild\'", ((string)(null)), table39, "Given ");
+                    "on/vnd.corvus.somecontentwithbaseandchild\'", ((string)(null)), table34, "Given ");
 #line 97
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 98
@@ -412,23 +412,23 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table40 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table35 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table40.AddRow(new string[] {
+            table35.AddRow(new string[] {
                         "Dolly"});
 #line 102
  testRunner.Given("I have an instance of a content object called \'child\' with content type \'applicat" +
-                    "ion/vnd.corvus.somecontentwithbase\'", ((string)(null)), table40, "Given ");
+                    "ion/vnd.corvus.somecontentwithbase\'", ((string)(null)), table35, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table41 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table36 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table41.AddRow(new string[] {
+            table36.AddRow(new string[] {
                         "Hello",
                         "{child}"});
 #line 105
  testRunner.And("I have an instance of a content object called \'parent\' with content type \'applica" +
-                    "tion/vnd.corvus.somecontentwithbaseandchild\'", ((string)(null)), table41, "And ");
+                    "tion/vnd.corvus.somecontentwithbaseandchild\'", ((string)(null)), table36, "And ");
 #line 108
  testRunner.When("I serialize the content object called \'parent\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 109
@@ -453,22 +453,22 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table42 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table37 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue"});
-            table42.AddRow(new string[] {
+            table37.AddRow(new string[] {
                         "Dolly"});
 #line 113
- testRunner.Given("I have an instance of a poc object called \'child\'", ((string)(null)), table42, "Given ");
+ testRunner.Given("I have an instance of a poc object called \'child\'", ((string)(null)), table37, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table43 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table38 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "Child"});
-            table43.AddRow(new string[] {
+            table38.AddRow(new string[] {
                         "Hello",
                         "{child}"});
 #line 116
  testRunner.And("I have an instance of a content object called \'parent\' with content type \'applica" +
-                    "tion/vnd.corvus.somecontentwithbaseandpocchild\'", ((string)(null)), table43, "And ");
+                    "tion/vnd.corvus.somecontentwithbaseandpocchild\'", ((string)(null)), table38, "And ");
 #line 119
  testRunner.When("I serialize the content object called \'parent\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 120
@@ -490,14 +490,14 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
-            TechTalk.SpecFlow.Table table44 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table39 = new TechTalk.SpecFlow.Table(new string[] {
                         "SomeValue",
                         "SomeEnum"});
-            table44.AddRow(new string[] {
+            table39.AddRow(new string[] {
                         "Hello",
                         "ThirdTimeIsTheCharm"});
 #line 124
- testRunner.Given("I have an instance of a poc object with enum called \'subject\'", ((string)(null)), table44, "Given ");
+ testRunner.Given("I have an instance of a poc object with enum called \'subject\'", ((string)(null)), table39, "Given ");
 #line 127
  testRunner.When("I serialize the content object called \'subject\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 128
