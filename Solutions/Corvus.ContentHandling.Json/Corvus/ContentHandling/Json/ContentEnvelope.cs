@@ -67,8 +67,16 @@ namespace Corvus.ContentHandling.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="ContentEnvelope"/> class.
         /// </summary>
+        public ContentEnvelope()
+            : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentEnvelope"/> class.
+        /// </summary>
         /// <param name="jsonSerializerSettings">The json serializer settings to use for the ContentEnvelope.</param>
-        public ContentEnvelope(JsonSerializerSettings jsonSerializerSettings = null)
+        public ContentEnvelope(JsonSerializerSettings jsonSerializerSettings)
         {
             this.SerializerSettings = jsonSerializerSettings ?? JsonConvert.DefaultSettings?.Invoke();
         }
