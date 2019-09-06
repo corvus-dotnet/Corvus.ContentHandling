@@ -27,6 +27,11 @@ namespace Corvus.ContentHandling.Json.Internal.ContentEnvelopeHandler
         /// <inheritdoc/>
         public TResult Handle(ContentEnvelope payload)
         {
+            if (payload is null)
+            {
+                throw new System.ArgumentNullException(nameof(payload));
+            }
+
             return this.handler.Handle(payload.GetContents<TContents>());
         }
     }

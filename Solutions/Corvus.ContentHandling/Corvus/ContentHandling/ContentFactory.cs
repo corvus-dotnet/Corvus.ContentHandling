@@ -36,7 +36,7 @@ namespace Corvus.ContentHandling
         /// <param name="services">The service collection for which to create a content factory.</param>
         internal ContentFactory(IServiceCollection services)
         {
-            this.Services = services;
+            this.Services = services ?? throw new ArgumentNullException(nameof(services));
         }
 
         /// <summary>
@@ -57,6 +57,11 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static string GetContentType(Type type)
         {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             if (!TryGetContentType(type, out string contentType))
             {
                 throw new InvalidOperationException(string.Format(Resources.TypeNeedsStaticStringContentTypeField, type));
@@ -74,6 +79,11 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide an instance property called. <c>ContentType</c> which contains its content type.</remarks>
         public static bool TryGetContentType(object target, out string contentType)
         {
+            if (target is null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
             Type targetType = target.GetType();
             PropertyInfo contentTypeProp = targetType.GetProperty("ContentType", BindingFlags.Public | BindingFlags.Instance);
             contentType = (string)contentTypeProp?.GetValue(target);
@@ -91,6 +101,11 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static bool TryGetContentType(Type type, out string contentType)
         {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             FieldInfo contentTypeField = type.GetTypeInfo().GetField("RegisteredContentType");
             contentType = null;
 

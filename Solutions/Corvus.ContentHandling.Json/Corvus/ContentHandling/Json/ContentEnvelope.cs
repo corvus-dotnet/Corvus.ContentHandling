@@ -7,6 +7,7 @@ namespace Corvus.ContentHandling.Json
     using System;
     using System.IO;
     using System.Threading.Tasks;
+    using Corvus.Extensions.Json.Internal;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
@@ -65,6 +66,11 @@ namespace Corvus.ContentHandling.Json
     public class ContentEnvelope
     {
         /// <summary>
+        /// The default fallback json serializer settings.
+        /// </summary>
+        public static readonly JsonSerializerSettings DefaultJsonSerializerSettings = new JsonSerializerSettings();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ContentEnvelope"/> class.
         /// </summary>
         public ContentEnvelope()
@@ -78,14 +84,14 @@ namespace Corvus.ContentHandling.Json
         /// <param name="jsonSerializerSettings">The json serializer settings to use for the ContentEnvelope.</param>
         public ContentEnvelope(JsonSerializerSettings jsonSerializerSettings)
         {
-            this.SerializerSettings = jsonSerializerSettings ?? JsonConvert.DefaultSettings?.Invoke();
+            this.SerializerSettings = jsonSerializerSettings ?? JsonConvert.DefaultSettings?.Invoke() ?? DefaultJsonSerializerSettings;
         }
 
         private ContentEnvelope(JToken payload, string contentType, JsonSerializerSettings settings = null)
         {
             this.SerializedPayload = payload;
             this.PayloadContentType = contentType;
-            this.SerializerSettings = settings ?? JsonConvert.DefaultSettings?.Invoke();
+            this.SerializerSettings = settings ?? JsonConvert.DefaultSettings?.Invoke() ?? DefaultJsonSerializerSettings;
         }
 
         /// <summary>
@@ -134,6 +140,11 @@ namespace Corvus.ContentHandling.Json
         /// </remarks>
         public static ContentEnvelope FromJson(string jsonString, string contentType = null, JsonSerializerSettings settings = null)
         {
+            if (jsonString is null)
+            {
+                throw new ArgumentNullException(nameof(jsonString));
+            }
+
             var json = JToken.Parse(jsonString);
 
             return FromJson(json, contentType, settings);
@@ -153,6 +164,11 @@ namespace Corvus.ContentHandling.Json
         /// </remarks>
         public static ContentEnvelope FromJson(JToken json, string contentType = null, JsonSerializerSettings settings = null)
         {
+            if (json is null)
+            {
+                throw new ArgumentNullException(nameof(json));
+            }
+
             if (string.IsNullOrEmpty(contentType))
             {
                 contentType = (string)json["contentType"];
@@ -174,6 +190,11 @@ namespace Corvus.ContentHandling.Json
         /// </remarks>
         public static ContentEnvelope FromJson(Stream stream, string contentType = null)
         {
+            if (stream is null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
             using (var reader = new JsonTextReader(new StreamReader(stream)))
             {
                 var json = JToken.Load(reader);
@@ -194,6 +215,11 @@ namespace Corvus.ContentHandling.Json
         /// </remarks>
         public static async Task<ContentEnvelope> FromJsonAsync(Stream stream, string contentType = null)
         {
+            if (stream is null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
             using (var reader = new JsonTextReader(new StreamReader(stream)))
             {
                 JToken json = await JToken.LoadAsync(reader).ConfigureAwait(false);
@@ -276,6 +302,26 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -313,6 +359,36 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2, (string contentType, Func<T3, Task> match) match3)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
+            if (match3.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match3));
+            }
+
+            if (match3.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match3));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -363,6 +439,46 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3, T4>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2, (string contentType, Func<T3, Task> match) match3, (string contentType, Func<T4, Task> match) match4)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
+            if (match3.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match3));
+            }
+
+            if (match3.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match3));
+            }
+
+            if (match4.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match4));
+            }
+
+            if (match4.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match4));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -426,6 +542,56 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3, T4, T5>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2, (string contentType, Func<T3, Task> match) match3, (string contentType, Func<T4, Task> match) match4, (string contentType, Func<T5, Task> match) match5)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
+            if (match3.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match3));
+            }
+
+            if (match3.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match3));
+            }
+
+            if (match4.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match4));
+            }
+
+            if (match4.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match4));
+            }
+
+            if (match5.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match5));
+            }
+
+            if (match5.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match5));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -494,6 +660,16 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2>(Func<T1, Task> match1, Func<T2, Task> match2)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -533,6 +709,21 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3>(Func<T1, Task> match1, Func<T2, Task> match2, Func<T3, Task> match3)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
+            if (match3 is null)
+            {
+                throw new ArgumentNullException(nameof(match3));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -586,6 +777,26 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3, T4>(Func<T1, Task> match1, Func<T2, Task> match2, Func<T3, Task> match3, Func<T4, Task> match4)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
+            if (match3 is null)
+            {
+                throw new ArgumentNullException(nameof(match3));
+            }
+
+            if (match4 is null)
+            {
+                throw new ArgumentNullException(nameof(match4));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -653,6 +864,31 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3, T4, T5>(Func<T1, Task> match1, Func<T2, Task> match2, Func<T3, Task> match3, Func<T4, Task> match4, Func<T5, Task> match5)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
+            if (match3 is null)
+            {
+                throw new ArgumentNullException(nameof(match3));
+            }
+
+            if (match4 is null)
+            {
+                throw new ArgumentNullException(nameof(match4));
+            }
+
+            if (match5 is null)
+            {
+                throw new ArgumentNullException(nameof(match5));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -728,6 +964,26 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -765,6 +1021,36 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2, (string contentType, Action<T3> match) match3)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
+            if (match3.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match3));
+            }
+
+            if (match3.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match3));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -815,6 +1101,46 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3, T4>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2, (string contentType, Action<T3> match) match3, (string contentType, Action<T4> match) match4)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
+            if (match3.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match3));
+            }
+
+            if (match3.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match3));
+            }
+
+            if (match4.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match4));
+            }
+
+            if (match4.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match4));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -878,6 +1204,56 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3, T4, T5>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2, (string contentType, Action<T3> match) match3, (string contentType, Action<T4> match) match4, (string contentType, Action<T5> match) match5)
         {
+            if (match1.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match1));
+            }
+
+            if (match1.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match1));
+            }
+
+            if (match2.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match2));
+            }
+
+            if (match2.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match2));
+            }
+
+            if (match3.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match3));
+            }
+
+            if (match3.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match3));
+            }
+
+            if (match4.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match4));
+            }
+
+            if (match4.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match4));
+            }
+
+            if (match5.match is null)
+            {
+                throw new ArgumentException("You must provide a match function", nameof(match5));
+            }
+
+            if (match5.contentType is null)
+            {
+                throw new ArgumentException("You must provide a match content type", nameof(match5));
+            }
+
             if (this.PayloadContentType == match1.contentType)
             {
                 if (this.TryGetPayload(out T1 payload))
@@ -946,6 +1322,16 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2>(Action<T1> match1, Action<T2> match2)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -985,6 +1371,21 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3>(Action<T1> match1, Action<T2> match2, Action<T3> match3)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
+            if (match3 is null)
+            {
+                throw new ArgumentNullException(nameof(match3));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -1038,6 +1439,26 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3, T4>(Action<T1> match1, Action<T2> match2, Action<T3> match3, Action<T4> match4)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
+            if (match3 is null)
+            {
+                throw new ArgumentNullException(nameof(match3));
+            }
+
+            if (match4 is null)
+            {
+                throw new ArgumentNullException(nameof(match4));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -1105,6 +1526,31 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3, T4, T5>(Action<T1> match1, Action<T2> match2, Action<T3> match3, Action<T4> match4, Action<T5> match5)
         {
+            if (match1 is null)
+            {
+                throw new ArgumentNullException(nameof(match1));
+            }
+
+            if (match2 is null)
+            {
+                throw new ArgumentNullException(nameof(match2));
+            }
+
+            if (match3 is null)
+            {
+                throw new ArgumentNullException(nameof(match3));
+            }
+
+            if (match4 is null)
+            {
+                throw new ArgumentNullException(nameof(match4));
+            }
+
+            if (match5 is null)
+            {
+                throw new ArgumentNullException(nameof(match5));
+            }
+
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
             {
@@ -1175,6 +1621,16 @@ namespace Corvus.ContentHandling.Json
         /// <param name="handlerClass">The class of handler (e.g. "view", "messageProcessor").</param>
         public void DispatchToHandler(IContentHandlerDispatcher<ContentEnvelope> contentHandlerFactory, string handlerClass)
         {
+            if (contentHandlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentHandlerFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             contentHandlerFactory.DispatchPayloadToHandler(this, this.PayloadContentType, handlerClass);
         }
 
@@ -1186,6 +1642,16 @@ namespace Corvus.ContentHandling.Json
         /// <returns>A <see cref="Task"/> which completes once the handler completes.</returns>
         public Task DispatchToHandlerAsync(IContentHandlerDispatcher<ContentEnvelope> contentHandlerFactory, string handlerClass)
         {
+            if (contentHandlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentHandlerFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             return contentHandlerFactory.DispatchPayloadToHandlerAsync(this, this.PayloadContentType, handlerClass);
         }
     }

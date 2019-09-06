@@ -23,8 +23,8 @@ namespace Corvus.ContentHandling
         /// <param name="structuredSyntaxSuffix">The (optional) encoding for the media type.</param>
         public MediaType(string typeAndSubtype, string structuredSyntaxSuffix = "")
         {
-            this.TypeAndSubtype = typeAndSubtype;
-            this.StructuredSyntaxSuffix = structuredSyntaxSuffix;
+            this.TypeAndSubtype = typeAndSubtype ?? throw new ArgumentNullException(nameof(typeAndSubtype));
+            this.StructuredSyntaxSuffix = structuredSyntaxSuffix ?? throw new ArgumentNullException(nameof(structuredSyntaxSuffix));
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace Corvus.ContentHandling.Json.Internal
         /// <param name="serviceProvider">The service provider for the context.</param>
         public ContentEnvelopeConverter(IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
+            this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
             this.jsonSerializerSettings = new Lazy<IJsonSerializerSettingsProvider>(() => this.serviceProvider.GetService<IJsonSerializerSettingsProvider>(), LazyThreadSafetyMode.ExecutionAndPublication);
         }
 
@@ -40,6 +40,11 @@ namespace Corvus.ContentHandling.Json.Internal
         /// <inheritdoc/>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader is null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             var value = JToken.ReadFrom(reader) as JObject;
             return ContentEnvelope.FromJson(value[SerializedPayloadTag], (string)value[PayloadContentTypeTag], this.jsonSerializerSettings.Value?.Instance);
         }
@@ -47,13 +52,25 @@ namespace Corvus.ContentHandling.Json.Internal
         /// <inheritdoc/>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var env = (ContentEnvelope)value;
-            writer.WriteStartObject();
-            writer.WritePropertyName(SerializedPayloadTag);
-            writer.WriteValue(env.SerializedPayload);
-            writer.WritePropertyName(PayloadContentTypeTag);
-            writer.WriteValue(env.PayloadContentType);
-            writer.WriteEndObject();
+            if (writer is null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            if (value is null)
+            {
+                writer.WriteNull();
+            }
+
+            if (value is ContentEnvelope env)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName(SerializedPayloadTag);
+                writer.WriteValue(env.SerializedPayload);
+                writer.WritePropertyName(PayloadContentTypeTag);
+                writer.WriteValue(env.PayloadContentType);
+                writer.WriteEndObject();
+            }
         }
     }
 }

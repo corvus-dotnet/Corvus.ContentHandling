@@ -25,7 +25,7 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handle">The function to use to handle the payload.</param>
         public ContentHandlerWithAction(Action<TPayload, T1, T2, T3> handle)
         {
-            this.handle = handle;
+            this.handle = handle ?? throw new ArgumentNullException(nameof(handle));
         }
 
         /// <inheritdoc/>

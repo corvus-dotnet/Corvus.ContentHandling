@@ -22,7 +22,7 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="serviceProvider">The current service provider for the dispatcher.</param>
         public ContentHandlerDispatcher(IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
+            this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
         /// <inheritdoc/>

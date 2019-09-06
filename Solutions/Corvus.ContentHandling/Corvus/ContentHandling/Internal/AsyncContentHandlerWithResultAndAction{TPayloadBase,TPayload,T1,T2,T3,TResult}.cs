@@ -27,7 +27,7 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handle">The function to use to handle the payload.</param>
         public AsyncContentHandlerWithResultAndAction(Func<TPayload, T1, T2, T3, Task<TResult>> handle)
         {
-            this.handle = handle;
+            this.handle = handle ?? throw new ArgumentNullException(nameof(handle));
         }
 
         /// <inheritdoc/>

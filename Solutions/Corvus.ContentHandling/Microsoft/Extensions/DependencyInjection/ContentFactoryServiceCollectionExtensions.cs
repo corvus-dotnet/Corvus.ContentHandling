@@ -5,6 +5,7 @@
 namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
+    using System.Linq;
     using Corvus.ContentHandling;
     using Corvus.ContentHandling.Internal;
 
@@ -26,6 +27,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>An instance of the content factory for initialization.</returns>
         public static IServiceCollection AddContentFactory(this IServiceCollection serviceCollection, Action<ContentFactory> configure)
         {
+            if (serviceCollection.Any(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType)))
+            {
+                return serviceCollection;
+            }
+
             var contentFactory = new ContentFactory(serviceCollection);
             serviceCollection.AddSingleton(contentFactory);
 

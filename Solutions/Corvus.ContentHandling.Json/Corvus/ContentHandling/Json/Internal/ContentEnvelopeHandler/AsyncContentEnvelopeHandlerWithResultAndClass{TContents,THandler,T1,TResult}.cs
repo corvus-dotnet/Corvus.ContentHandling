@@ -30,6 +30,11 @@ namespace Corvus.ContentHandling.Json.Internal.ContentEnvelopeHandler
         /// <inheritdoc/>
         public Task<TResult> HandleAsync(ContentEnvelope payload, T1 param1)
         {
+            if (payload is null)
+            {
+                throw new System.ArgumentNullException(nameof(payload));
+            }
+
             return this.handler.HandleAsync(payload.GetContents<TContents>(), param1);
         }
     }

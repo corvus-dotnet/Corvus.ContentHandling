@@ -1,4 +1,4 @@
-﻿// <copyright file="ContentEnvelopeServiceCollectionExtensions.cs" company="Endjin Limited">
+﻿// <copyright file="ContentEnvelopeContentFactoryExtensions.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -13,7 +13,7 @@ namespace Corvus.ContentHandling
     /// <summary>
     /// Extensions to register handlers for a <see cref="ContentEnvelope"/>.
     /// </summary>
-    public static class ContentEnvelopeServiceCollectionExtensions
+    public static class ContentEnvelopeContentFactoryExtensions
     {
         /// <summary>
         /// Registers a content handler for a particular type of payload.
@@ -25,6 +25,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload>(this ContentFactory contentFactory, Action<TPayload> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterContentHandler<ContentEnvelope>(
                 contentType,
@@ -44,6 +59,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, T1>(this ContentFactory contentFactory, Action<TPayload, T1> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterContentHandler<ContentEnvelope, T1>(
                 contentType,
@@ -65,6 +95,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, T1, T2>(this ContentFactory contentFactory, Action<TPayload, T1, T2> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterContentHandler<ContentEnvelope, T1, T2>(
                 contentType,
@@ -87,6 +132,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, T1, T2, T3>(this ContentFactory contentFactory, Action<TPayload, T1, T2, T3> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterContentHandler<ContentEnvelope, T1, T2, T3>(
                 contentType,
@@ -107,6 +167,16 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler>(this ContentFactory contentFactory, string handlerClass)
             where THandler : class, IContentHandler<TPayload>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton<THandler>();
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler>>(contentType, handlerClass);
@@ -125,6 +195,16 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass)
             where THandler : class, IContentHandler<TPayload, T1>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton<THandler>();
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler, T1>, T1>(contentType, handlerClass);
@@ -145,6 +225,16 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass)
             where THandler : class, IContentHandler<TPayload, T1, T2>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton<THandler>();
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler, T1, T2>, T1, T2>(contentType, handlerClass);
@@ -166,6 +256,16 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler, T1, T2, T3>(this ContentFactory contentFactory, string handlerClass)
             where THandler : class, IContentHandler<TPayload, T1, T2, T3>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton<THandler>();
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler, T1, T2, T3>, T1, T2, T3>(contentType, handlerClass);
@@ -185,6 +285,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IContentHandler<TPayload>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler>>(contentType, handlerClass);
@@ -205,6 +320,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IContentHandler<TPayload, T1>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler, T1>, T1>(contentType, handlerClass);
@@ -225,6 +355,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IContentHandler<TPayload, T1, T2>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler, T1, T2>, T1, T2>(contentType, handlerClass);
@@ -246,6 +391,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterContentEnvelopeHandler<TPayload, THandler, T1, T2, T3>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IContentHandler<TPayload, T1, T2, T3>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterContentHandler<ContentEnvelope, ContentEnvelopeHandlerWithClass<TPayload, THandler, T1, T2, T3>, T1, T2, T3>(contentType, handlerClass);
@@ -263,6 +423,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload>(this ContentFactory contentFactory, Func<TPayload, Task> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope>(
                 contentType,
@@ -283,6 +458,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, T1>(this ContentFactory contentFactory, Func<TPayload, T1, Task> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, T1>(
                 contentType,
@@ -303,6 +493,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, T1, T2>(this ContentFactory contentFactory, Func<TPayload, T1, T2, Task> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, T1, T2>(
                 contentType,
@@ -325,6 +530,21 @@ namespace Corvus.ContentHandling
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, T1, T2, T3>(this ContentFactory contentFactory, Func<TPayload, T1, T2, T3, Task> handle, string handlerClass)
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handle is null)
+            {
+                throw new ArgumentNullException(nameof(handle));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, T1, T2, T3>(
                 contentType,
@@ -345,6 +565,16 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, THandler>(this ContentFactory contentFactory, string handlerClass)
             where THandler : class, IAsyncContentHandler<TPayload>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton<THandler>();
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, AsyncContentEnvelopeHandlerWithClass<TPayload, THandler>>(contentType, handlerClass);
@@ -364,6 +594,16 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass)
             where THandler : class, IAsyncContentHandler<TPayload, T1>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton<THandler>();
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, AsyncContentEnvelopeHandlerWithClass<TPayload, THandler, T1>, T1>(contentType, handlerClass);
@@ -383,6 +623,16 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass)
             where THandler : class, IAsyncContentHandler<TPayload, T1, T2>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton<THandler>();
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, AsyncContentEnvelopeHandlerWithClass<TPayload, THandler, T1, T2>, T1, T2>(contentType, handlerClass);
@@ -421,6 +671,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, THandler>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IAsyncContentHandler<TPayload>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, AsyncContentEnvelopeHandlerWithClass<TPayload, THandler>>(contentType, handlerClass);
@@ -440,6 +705,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IAsyncContentHandler<TPayload, T1>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, AsyncContentEnvelopeHandlerWithClass<TPayload, THandler, T1>, T1>(contentType, handlerClass);
@@ -461,6 +741,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IAsyncContentHandler<TPayload, T1, T2>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, AsyncContentEnvelopeHandlerWithClass<TPayload, THandler, T1, T2>, T1, T2>(contentType, handlerClass);
@@ -483,6 +778,21 @@ namespace Corvus.ContentHandling
         public static ContentFactory RegisterAsyncContentEnvelopeHandler<TPayload, THandler, T1, T2, T3>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
             where THandler : class, IAsyncContentHandler<TPayload, T1, T2, T3>
         {
+            if (contentFactory is null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (handlerClass is null)
+            {
+                throw new ArgumentNullException(nameof(handlerClass));
+            }
+
+            if (handlerFactory is null)
+            {
+                throw new ArgumentNullException(nameof(handlerFactory));
+            }
+
             string contentType = ContentFactory.GetContentType<TPayload>();
             contentFactory.Services.AddSingleton(handlerFactory);
             contentFactory.RegisterAsyncContentHandler<ContentEnvelope, AsyncContentEnvelopeHandlerWithClass<TPayload, THandler, T1, T2, T3>, T1, T2, T3>(contentType, handlerClass);

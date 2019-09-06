@@ -23,6 +23,16 @@ namespace Corvus.ContentHandling.Json
         /// <returns>The predicted member name.</returns>
         public static string GetPredictedMemberName(this MemberInfo memberInfo, JsonSerializerSettings serializerSettings)
         {
+            if (memberInfo is null)
+            {
+                throw new ArgumentNullException(nameof(memberInfo));
+            }
+
+            if (serializerSettings is null)
+            {
+                throw new ArgumentNullException(nameof(serializerSettings));
+            }
+
             return memberInfo.GetCustomAttributes(typeof(JsonPropertyAttribute), true).FirstOrDefault() is JsonPropertyAttribute jsonPropertyAttribute
                 ? jsonPropertyAttribute.PropertyName
                 : serializerSettings.ContractResolver is CamelCasePropertyNamesContractResolver cccr ? cccr.GetResolvedPropertyName(memberInfo.Name) : memberInfo.Name;

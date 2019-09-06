@@ -4,6 +4,7 @@
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    using System.Linq;
     using Corvus.ContentHandling.Json.Internal;
     using Newtonsoft.Json;
 
@@ -19,6 +20,11 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The service collection.</returns>
         public static IServiceCollection AddContentHandlingJsonConverters(this IServiceCollection services)
         {
+            if (services.Any(s => s.ImplementationType == typeof(ContentTypeConverter)))
+            {
+                return services;
+            }
+
             services.AddSingleton<JsonConverter, ContentTypeConverter>();
             services.AddSingleton<JsonConverter, ContentEnvelopeConverter>();
             return services;
