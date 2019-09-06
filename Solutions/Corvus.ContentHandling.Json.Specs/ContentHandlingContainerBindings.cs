@@ -26,7 +26,6 @@ namespace Corvus.ContentHandling
                 featureContext,
                 serviceCollection =>
                 {
-                    serviceCollection.AddDefaultJsonSerializerSettings();
                     serviceCollection.AddContentHandlingJsonConverters();
                     serviceCollection.AddContentFactory(contentFactory =>
                     {

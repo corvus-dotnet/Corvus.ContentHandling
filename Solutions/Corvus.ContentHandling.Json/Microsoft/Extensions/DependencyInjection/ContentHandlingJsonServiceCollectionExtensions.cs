@@ -25,6 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 return services;
             }
 
+            services.AddJsonSerializerSettings();
             services.AddSingleton<JsonConverter, ContentTypeConverter>();
             services.AddSingleton<JsonConverter, ContentEnvelopeConverter>();
             return services;
