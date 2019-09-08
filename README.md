@@ -1,5 +1,6 @@
 # Corvus.ContentHandling
 [![Build Status](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_apis/build/status/corvus-dotnet.Corvus.ContentHandling?branchName=master)](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_build/latest?definitionId=5&branchName=master)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.ContentHandling/master/LICENSE)
 [![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)
 
 Dispatches content to content handlers based on a content-type pattern.
@@ -20,7 +21,7 @@ We produce two free weekly newsletters; [Azure Weekly](https://azureweekly.info)
 
 Keep up with everything that's going on at endjin via our [blog](https://blogs.endjin.com/), follow us on [Twitter](https://twitter.com/endjin), or [LinkedIn](https://www.linkedin.com/company/1671851/).
 
-Our other Open Source projects can be found on [GitHub](https://github.com/endjin)
+Our other Open Source projects can be found on [GitHub](https://endjin.com/open-source)
 
 ## Code of conduct
 
