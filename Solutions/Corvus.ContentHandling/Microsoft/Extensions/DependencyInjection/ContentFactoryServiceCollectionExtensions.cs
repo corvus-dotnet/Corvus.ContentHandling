@@ -20,23 +20,27 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ContentFactoryServiceCollectionExtensions
     {
         /// <summary>
-        /// Use the content factory pattern.
+        /// Add content to the content factory.
         /// </summary>
         /// <param name="serviceCollection">The service collection with which to register content handlers.</param>
         /// <param name="configure">Configure the content factory.</param>
         /// <returns>An instance of the content factory for initialization.</returns>
-        public static IServiceCollection AddContentFactory(this IServiceCollection serviceCollection, Action<ContentFactory> configure)
+        public static IServiceCollection AddContent(this IServiceCollection serviceCollection, Action<ContentFactory> configure)
         {
-            if (serviceCollection.Any(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType)))
+            ContentFactory contentFactory;
+            ServiceDescriptor contentFactoryDescriptor = serviceCollection.Where(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType)).FirstOrDefault();
+            if (!(contentFactoryDescriptor is null))
             {
-                return serviceCollection;
+                contentFactory = (ContentFactory)contentFactoryDescriptor.ImplementationInstance;
             }
+            else
+            {
+                contentFactory = new ContentFactory(serviceCollection);
+                serviceCollection.AddSingleton(contentFactory);
 
-            var contentFactory = new ContentFactory(serviceCollection);
-            serviceCollection.AddSingleton(contentFactory);
-
-            // Register the generic factory for content handler dispatchers
-            serviceCollection.Add(ServiceDescriptor.Singleton(typeof(IContentHandlerDispatcher<>), typeof(ContentHandlerDispatcher<>)));
+                // Register the generic factory for content handler dispatchers
+                serviceCollection.Add(ServiceDescriptor.Singleton(typeof(IContentHandlerDispatcher<>), typeof(ContentHandlerDispatcher<>)));
+            }
 
             configure(contentFactory);
             return serviceCollection;

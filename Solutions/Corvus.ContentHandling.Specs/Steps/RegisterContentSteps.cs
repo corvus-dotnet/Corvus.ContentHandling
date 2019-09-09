@@ -23,7 +23,7 @@
         public void GivenIHaveRegisteredTheFollowingTypes(Table table)
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddContentFactory(contentFactory =>
+            serviceCollection.AddContent(contentFactory =>
             {
                 IEnumerable<Registration> registrations = table.CreateSet(row =>
                 {

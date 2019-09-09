@@ -22,7 +22,7 @@ namespace Corvus.ContentHandling
     /// </para>
     /// <para>
     /// You obtain an instance of the content factory by adding it to the <see cref="IServiceCollection"/> using
-    /// the <see cref="ContentFactoryServiceCollectionExtensions.AddContentFactory"/> extension method.
+    /// the <see cref="ContentFactoryServiceCollectionExtensions.AddContent"/> extension method.
     /// </para>
     /// <para>You can then register dotnet types for media types, using the various RegisterContent extensions. They follow the similar singleton/transient pattern to any other container.</para>
     /// <para>While you can explicitly specify a content type string for the content, it can also be derived from a static constant string <c>RegisteredContentType</c> field.</para>
