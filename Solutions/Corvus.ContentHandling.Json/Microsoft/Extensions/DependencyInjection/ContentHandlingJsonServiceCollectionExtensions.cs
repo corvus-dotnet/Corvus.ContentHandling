@@ -4,7 +4,9 @@
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    using System;
     using System.Linq;
+    using Corvus.ContentHandling;
     using Corvus.ContentHandling.Json.Internal;
     using Newtonsoft.Json;
 
@@ -17,8 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Add the default JSON serialization settings.
         /// </summary>
         /// <param name="services">The target service collection.</param>
+        /// <param name="configure">Configure the content serialization.</param>
         /// <returns>The service collection.</returns>
-        public static IServiceCollection AddContentHandlingJsonConverters(this IServiceCollection services)
+        public static IServiceCollection AddContentSerialization(this IServiceCollection services, Action<ContentFactory> configure = null)
         {
             if (services.Any(s => s.ImplementationType == typeof(ContentTypeConverter)))
             {
@@ -28,6 +31,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddJsonSerializerSettings();
             services.AddSingleton<JsonConverter, ContentTypeConverter>();
             services.AddSingleton<JsonConverter, ContentEnvelopeConverter>();
+            services.AddContent(configure);
             return services;
         }
     }
