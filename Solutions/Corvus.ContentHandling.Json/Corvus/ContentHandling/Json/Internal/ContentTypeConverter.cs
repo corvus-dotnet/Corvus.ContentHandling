@@ -8,6 +8,7 @@ namespace Corvus.ContentHandling.Json.Internal
     using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Linq;
 
     /// <summary>
@@ -34,7 +35,7 @@ namespace Corvus.ContentHandling.Json.Internal
     /// ]]>
     /// </code>
     /// </example>
-    public class ContentTypeConverter : JsonConverter
+    public class ContentTypeConverter : CustomCreationConverter<object>
     {
         private readonly IServiceProvider serviceProvider;
 
@@ -62,6 +63,13 @@ namespace Corvus.ContentHandling.Json.Internal
         }
 
         /// <inheritdoc/>
+        public override object Create(Type objectType)
+        {
+            // Do not create the object.
+            return null;
+        }
+
+        /// <inheritdoc/>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             if (reader is null)
@@ -84,10 +92,22 @@ namespace Corvus.ContentHandling.Json.Internal
 
             string contentType = (string)jo["contentType"];
 
-            object result = (string.IsNullOrWhiteSpace(contentType) ? null : this.serviceProvider.GetContent(contentType)) ?? Activator.CreateInstance(objectType);
+            object result = this.serviceProvider.GetContent(contentType);
+
+            if (result is null)
+            {
+                throw new InvalidOperationException($"The content for type {contentType} has not been registered with the ContentFactory.");
+            }
 
             JsonReader contentReader = jo.CreateReader();
-            contentReader.MaxDepth = 4096;
+            contentReader.Culture = reader.Culture;
+            contentReader.CloseInput = reader.CloseInput;
+            contentReader.DateFormatString = reader.DateFormatString;
+            contentReader.DateParseHandling = reader.DateParseHandling;
+            contentReader.DateTimeZoneHandling = reader.DateTimeZoneHandling;
+            contentReader.FloatParseHandling = reader.FloatParseHandling;
+            contentReader.MaxDepth = reader.MaxDepth;
+            contentReader.SupportMultipleContent = reader.SupportMultipleContent;
 
             serializer.Populate(contentReader, result);
 
