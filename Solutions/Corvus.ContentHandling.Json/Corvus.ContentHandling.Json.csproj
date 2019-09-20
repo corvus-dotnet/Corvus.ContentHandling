@@ -14,7 +14,7 @@
   <Import Project="..\Common.NetStandard_2_0.proj" />
   
   <ItemGroup>
-    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.5.0" />
+    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="0.6.0" />
     <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
