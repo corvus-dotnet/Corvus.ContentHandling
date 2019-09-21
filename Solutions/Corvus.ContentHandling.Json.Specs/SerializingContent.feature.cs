@@ -123,8 +123,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
  testRunner.Then("the value called \'result\' should be a json object \'{ \"contentType\": \"application/" +
-                    "vnd.corvus.somecontentwithinterfaceandchild\", \"someValue\": \"Hello\", \"child\": nul" +
-                    "l }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "vnd.corvus.somecontentwithinterfaceandchild\", \"someValue\": \"Hello\" }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -260,8 +259,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 59
  testRunner.Then("the value called \'result\' should be a json object \'{ \"contentType\": \"application/" +
-                    "vnd.corvus.somecontentwithabstractbaseandchild\", \"someValue\": \"Hello\", \"child\": " +
-                    "null }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "vnd.corvus.somecontentwithabstractbaseandchild\", \"someValue\": \"Hello\" }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -394,7 +392,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I serialize the content object called \'item\' as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 98
  testRunner.Then("the value called \'result\' should be a json object \'{ \"contentType\": \"application/" +
-                    "vnd.corvus.somecontentwithbaseandchild\", \"someValue\": \"Hello\", \"child\": null }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "vnd.corvus.somecontentwithbaseandchild\", \"someValue\": \"Hello\" }\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -17,7 +17,7 @@ Scenario: Serialize a polymorphic content object implementing a common interface
 	| SomeValue | Child |
 	| Hello     | null  |
 	When I serialize the content object called 'item' as 'result'
-	Then the value called 'result' should be a json object '{ "contentType": "application/vnd.corvus.somecontentwithinterfaceandchild", "someValue": "Hello", "child": null }'
+	Then the value called 'result' should be a json object '{ "contentType": "application/vnd.corvus.somecontentwithinterfaceandchild", "someValue": "Hello" }'
 
 @useChildObjects
 Scenario: Serialize a polymorphic content object implementing a common interface with a polymorphic child object
@@ -56,7 +56,7 @@ Scenario: Serialize a polymorphic content object implementing a common abstract 
 	| SomeValue | Child |
 	| Hello     | null  |
 	When I serialize the content object called 'item' as 'result'
-	Then the value called 'result' should be a json object '{ "contentType": "application/vnd.corvus.somecontentwithabstractbaseandchild", "someValue": "Hello", "child": null }'
+	Then the value called 'result' should be a json object '{ "contentType": "application/vnd.corvus.somecontentwithabstractbaseandchild", "someValue": "Hello" }'
 
 @useChildObjects
 Scenario: Serialize a polymorphic content object implementing a common abstract base with a polymorphic child object
@@ -95,7 +95,7 @@ Scenario: Serialize a polymorphic content object implementing a common base with
 	| SomeValue | Child |
 	| Hello     | null  |
 	When I serialize the content object called 'item' as 'result'
-	Then the value called 'result' should be a json object '{ "contentType": "application/vnd.corvus.somecontentwithbaseandchild", "someValue": "Hello", "child": null }'
+	Then the value called 'result' should be a json object '{ "contentType": "application/vnd.corvus.somecontentwithbaseandchild", "someValue": "Hello" }'
 
 @useChildObjects
 Scenario: Serialize a polymorphic content object implementing a common base with a polymorphic child object
