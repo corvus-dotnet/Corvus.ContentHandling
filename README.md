@@ -3,7 +3,7 @@
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.ContentHandling/master/LICENSE)
 [![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)
 
-Dispatches content to content handlers based on a content-type pattern.
+Dispatches content to content handlers based on a content-type pattern. This is an example of the mediator pattern.
 
 ## Licenses
 
