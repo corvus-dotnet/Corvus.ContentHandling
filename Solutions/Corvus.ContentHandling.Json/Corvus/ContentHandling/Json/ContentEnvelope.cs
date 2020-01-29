@@ -195,11 +195,9 @@ namespace Corvus.ContentHandling.Json
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            using (var reader = new JsonTextReader(new StreamReader(stream)))
-            {
-                var json = JToken.Load(reader);
-                return FromJson(json, contentType);
-            }
+            using var reader = new JsonTextReader(new StreamReader(stream));
+            var json = JToken.Load(reader);
+            return FromJson(json, contentType);
         }
 
         /// <summary>
@@ -220,11 +218,9 @@ namespace Corvus.ContentHandling.Json
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            using (var reader = new JsonTextReader(new StreamReader(stream)))
-            {
-                JToken json = await JToken.LoadAsync(reader).ConfigureAwait(false);
-                return FromJson(json, contentType);
-            }
+            using var reader = new JsonTextReader(new StreamReader(stream));
+            JToken json = await JToken.LoadAsync(reader).ConfigureAwait(false);
+            return FromJson(json, contentType);
         }
 
         /// <summary>
@@ -277,18 +273,16 @@ namespace Corvus.ContentHandling.Json
                 return true;
             }
 
-            using (JsonReader reader = this.SerializedPayload.CreateReader())
+            using JsonReader reader = this.SerializedPayload.CreateReader();
+            try
             {
-                try
-                {
-                    result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader);
-                    return true;
-                }
-                catch (JsonSerializationException)
-                {
-                    result = default;
-                    return false;
-                }
+                result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader);
+                return true;
+            }
+            catch (JsonSerializationException)
+            {
+                result = default;
+                return false;
             }
         }
 
