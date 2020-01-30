@@ -6,47 +6,28 @@
     {
         public static Type GetTypeFor(string typeName)
         {
-            switch (typeName)
+            return typeName switch
             {
-                case "ExplicitType1":
-                    return typeof(ExplicitType1);
-                case "ExplicitType1Subtype1":
-                    return typeof(ExplicitType1Subtype1);
-                case "ExplicitType2":
-                    return typeof(ExplicitType2);
-                case "ExplicitType3":
-                    return typeof(ExplicitType3);
-                case "ExplicitType3Subtype1":
-                    return typeof(ExplicitType3Subtype1);
-                case "ExplicitType4":
-                    return typeof(ExplicitType4);
-                case "ExplicitType5":
-                    return typeof(ExplicitType5);
-                case "ExplicitType5Subtype1":
-                    return typeof(ExplicitType5Subtype1);
-                case "ExplicitType6":
-                    return typeof(ExplicitType6);
-                case "ContentType1":
-                    return typeof(ContentType1);
-                case "ContentType1Subtype1":
-                    return typeof(ContentType1Subtype1);
-                case "ContentType2":
-                    return typeof(ContentType2);
-                case "ContentType3":
-                    return typeof(ContentType3);
-                case "ContentType3Subtype1":
-                    return typeof(ContentType3Subtype1);
-                case "ContentType4":
-                    return typeof(ContentType4);
-                case "ContentType5":
-                    return typeof(ContentType5);
-                case "ContentType5Subtype1":
-                    return typeof(ContentType5Subtype1);
-                case "ContentType6":
-                    return typeof(ContentType6);
-                default:
-                    throw new ArgumentException(nameof(typeName));
-            }
+                "ExplicitType1"         => typeof(ExplicitType1),
+                "ExplicitType1Subtype1" => typeof(ExplicitType1Subtype1),
+                "ExplicitType2"         => typeof(ExplicitType2),
+                "ExplicitType3"         => typeof(ExplicitType3),
+                "ExplicitType3Subtype1" => typeof(ExplicitType3Subtype1),
+                "ExplicitType4"         => typeof(ExplicitType4),
+                "ExplicitType5"         => typeof(ExplicitType5),
+                "ExplicitType5Subtype1" => typeof(ExplicitType5Subtype1),
+                "ExplicitType6"         => typeof(ExplicitType6),
+                "ContentType1"          => typeof(ContentType1),
+                "ContentType1Subtype1"  => typeof(ContentType1Subtype1),
+                "ContentType2"          => typeof(ContentType2),
+                "ContentType3"          => typeof(ContentType3),
+                "ContentType3Subtype1"  => typeof(ContentType3Subtype1),
+                "ContentType4"          => typeof(ContentType4),
+                "ContentType5"          => typeof(ContentType5),
+                "ContentType5Subtype1"  => typeof(ContentType5Subtype1),
+                "ContentType6"          => typeof(ContentType6),
+                _                       => throw new ArgumentException(nameof(typeName)),
+            };
         }
     }
 }

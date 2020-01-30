@@ -25,7 +25,6 @@
         {
             try
             {
-
                 switch (this.Kind)
                 {
                     case RegistrationKind.Scoped:

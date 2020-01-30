@@ -924,21 +924,19 @@ namespace Corvus.ContentHandling.Internal
                     new[] { MetadataReference.CreateFromFile(TrustedPlatformAssemblyMap["netstandard"]), MetadataReference.CreateFromFile(TrustedPlatformAssemblyMap["System.Runtime"]), MetadataReference.CreateFromFile(typeof(Task).GetTypeInfo().Assembly.Location), MetadataReference.CreateFromFile(typeof(ValueTuple).GetTypeInfo().Assembly.Location), MetadataReference.CreateFromFile(typeof(ContentHandlerGenerator).GetTypeInfo().Assembly.Location) },
                     new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release));
 
-                using (var dllStream = new MemoryStream())
+                using var dllStream = new MemoryStream();
+                Microsoft.CodeAnalysis.Emit.EmitResult emitResult = compilation.Emit(dllStream);
+                if (!emitResult.Success)
                 {
-                    Microsoft.CodeAnalysis.Emit.EmitResult emitResult = compilation.Emit(dllStream);
-                    if (!emitResult.Success)
-                    {
-                        throw new Exception($"Compilation error building the content handler for the {handlerClass}");
-                    }
-
-                    dllStream.Flush();
-                    dllStream.Position = 0;
-
-                    // Make sure we load it into the same load context as our assembly
-                    Assembly assembly = AssemblyLoadContext.GetLoadContext(typeof(ContentHandlerGenerator).Assembly).LoadFromStream(dllStream);
-                    return assembly.GetType(GetTypeName(typeName, numberOfParameters));
+                    throw new Exception($"Compilation error building the content handler for the {handlerClass}");
                 }
+
+                dllStream.Flush();
+                dllStream.Position = 0;
+
+                // Make sure we load it into the same load context as our assembly
+                Assembly assembly = AssemblyLoadContext.GetLoadContext(typeof(ContentHandlerGenerator).Assembly).LoadFromStream(dllStream);
+                return assembly.GetType(GetTypeName(typeName, numberOfParameters));
             });
         }
 

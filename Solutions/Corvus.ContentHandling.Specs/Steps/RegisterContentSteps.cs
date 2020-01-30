@@ -19,16 +19,14 @@
             this.ScenarioContext = scenarioContext;
         }
 
-        [Given(@"I have registered the following types")]
+        [Given("I have registered the following types")]
         public void GivenIHaveRegisteredTheFollowingTypes(Table table)
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddContent(contentFactory =>
             {
                 IEnumerable<Registration> registrations = table.CreateSet(row =>
-                {
-                    return new Registration(row.GetString("Type"), row.GetString("Explicit content type"), row.GetString("Registration kind"));
-                });
+                        new Registration(row.GetString("Type"), row.GetString("Explicit content type"), row.GetString("Registration kind")));
                 foreach (Registration registration in registrations)
                 {
                     registration.Register(this.ScenarioContext, contentFactory, false);
@@ -38,14 +36,11 @@
             this.ScenarioContext.Add("ServiceProvider", serviceCollection.BuildServiceProvider());
         }
 
-        [When(@"I get the following content")]
+        [When("I get the following content")]
         public void WhenIGetTheFollowingContent(Table table)
         {
             IServiceProvider serviceProvider = this.ScenarioContext.Get<IServiceProvider>("ServiceProvider");
-            IEnumerable<string> contentTypes = table.CreateSet(row =>
-            {
-                return row.GetString("Content type");
-            });
+            IEnumerable<string> contentTypes = table.CreateSet(row => row.GetString("Content type"));
             var results = new List<object>();
             foreach (string contentType in contentTypes)
             {
@@ -54,13 +49,10 @@
             this.ScenarioContext.Add("Result", results);
         }
 
-        [Then(@"the results should be of types")]
+        [Then("the results should be of types")]
         public void ThenTheResultsShouldBeOfTypes(Table table)
         {
-            IList<Type> types = table.CreateSet(row =>
-            {
-                return TypeMap.GetTypeFor(row.GetString("Type"));
-            }).ToList();
+            IList<Type> types = table.CreateSet(row => TypeMap.GetTypeFor(row.GetString("Type"))).ToList();
 
             List<object> results = this.ScenarioContext.Get<List<object>>("Result");
 

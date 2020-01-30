@@ -28,7 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddContent(this IServiceCollection serviceCollection, Action<ContentFactory> configure = null)
         {
             ContentFactory contentFactory;
-            ServiceDescriptor contentFactoryDescriptor = serviceCollection.Where(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType)).FirstOrDefault();
+            ServiceDescriptor contentFactoryDescriptor = serviceCollection.FirstOrDefault(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType));
             if (!(contentFactoryDescriptor is null))
             {
                 contentFactory = (ContentFactory)contentFactoryDescriptor.ImplementationInstance;
