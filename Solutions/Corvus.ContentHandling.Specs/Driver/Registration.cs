@@ -1,4 +1,8 @@
-﻿namespace Corvus.Extensions.Specs.Driver
+﻿// <copyright file="Registration.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Extensions.Specs.Driver
 {
     using System;
     using Corvus.ContentHandling;
@@ -38,7 +42,7 @@
                         break;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 context.Add("Exception", e);
                 if (allowExceptions)

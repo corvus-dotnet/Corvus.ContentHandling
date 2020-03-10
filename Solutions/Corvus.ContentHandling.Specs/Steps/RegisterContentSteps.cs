@@ -1,4 +1,8 @@
-﻿namespace Corvus.Extensions.Specs.Steps
+﻿// <copyright file="RegisterContentSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Extensions.Specs.Steps
 {
     using System;
     using System.Collections.Generic;
@@ -12,12 +16,12 @@
     [Binding]
     public class RegisterContentSteps
     {
-        public ScenarioContext ScenarioContext { get; }
-
         public RegisterContentSteps(ScenarioContext scenarioContext)
         {
             this.ScenarioContext = scenarioContext;
         }
+
+        public ScenarioContext ScenarioContext { get; }
 
         [Given("I have registered the following types")]
         public void GivenIHaveRegisteredTheFollowingTypes(Table table)
@@ -46,6 +50,7 @@
             {
                 results.Add(serviceProvider.GetContent(contentType));
             }
+
             this.ScenarioContext.Add("Result", results);
         }
 

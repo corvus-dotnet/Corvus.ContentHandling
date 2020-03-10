@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace />
   </PropertyGroup>
 
   <PropertyGroup>
@@ -11,9 +13,11 @@
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
   
-  <Import Project="..\Common.NetStandard_2_0.proj" />
-  
   <ItemGroup>
+    <PackageReference Include="Endjin.RecommendedPractices" Version="0.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.2.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
@@ -28,9 +32,13 @@
   </ItemGroup>
   
   <ItemGroup>
+    <EmbeddedResource Update="Corvus\ContentHandling\ExceptionMessages.resx">
+      <CustomToolNamespace>Corvus.ContentHandling</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Update="Corvus\ContentHandling\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Corvus.ContentHandling</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 
