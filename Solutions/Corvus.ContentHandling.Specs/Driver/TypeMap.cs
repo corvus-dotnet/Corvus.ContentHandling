@@ -1,4 +1,8 @@
-﻿namespace Corvus.Extensions.Specs.Driver
+﻿// <copyright file="TypeMap.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Corvus.Extensions.Specs.Driver
 {
     using System;
 
