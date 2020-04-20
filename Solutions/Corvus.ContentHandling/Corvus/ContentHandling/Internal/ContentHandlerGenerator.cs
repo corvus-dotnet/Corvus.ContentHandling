@@ -13,7 +13,6 @@ namespace Corvus.ContentHandling.Internal
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
-    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// Registers custom subclasses of the <see cref="IContentHandler{TPayloadType}"/>

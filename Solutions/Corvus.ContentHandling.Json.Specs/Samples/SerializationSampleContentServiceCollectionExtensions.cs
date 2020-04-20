@@ -21,6 +21,7 @@ namespace Corvus.ContentHandling
             contentFactory.RegisterTransientContent<SomeContentWithInterface>();
             contentFactory.RegisterTransientContent<SomeContentWithInterfaceAndChild>();
             contentFactory.RegisterTransientContent<SomeContentWithInterfaceAndPocChild>();
+            contentFactory.RegisterContent<SomeContentWithAbstractBaseAndPocChildCtorInitialized>();
 
             contentFactory.RegisterTransientContent<SomeContentWithAbstractBase>();
             contentFactory.RegisterTransientContent<SomeContentWithAbstractBaseAndChild>();

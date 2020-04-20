@@ -5,9 +5,9 @@
 namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using Corvus.ContentHandling;
 
     /// <summary>
@@ -40,8 +40,11 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IEnumerable<T> GetAllContent<T>(this IServiceProvider serviceProvider, string suffix)
             where T : class
         {
-            ConcurrentDictionary<string, Type> typesForNamedContent = serviceProvider.GetRequiredService<ContentFactory>().Handlers;
-            return typesForNamedContent.Keys.Where(k => k.EndsWith(suffix)).Select(k => GetRequiredContent<T>(serviceProvider, k));
+            IEnumerable<string> registeredContentTypes = serviceProvider
+                .GetRequiredService<ContentFactory>()
+                .GetRegisteredContentTypes()
+                .Select(kv => kv.Key);
+            return registeredContentTypes.Where(k => k.EndsWith(suffix)).Select(k => GetRequiredContent<T>(serviceProvider, k));
         }
 
         /// <summary>
@@ -52,9 +55,12 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>An enumerable of strings representing the content type with the specified suffix.</returns>
         public static IEnumerable<string> GetAllContentTypes(this IServiceProvider serviceProvider, string suffix)
         {
-            ConcurrentDictionary<string, Type> typesForNamedContent = serviceProvider.GetRequiredService<ContentFactory>().Handlers;
+            IEnumerable<string> registeredContentTypes = serviceProvider
+                .GetRequiredService<ContentFactory>()
+                .GetRegisteredContentTypes()
+                .Select(kv => kv.Key);
 
-            return typesForNamedContent.Keys.Where(k => k.EndsWith(suffix));
+            return registeredContentTypes.Where(k => k.EndsWith(suffix));
         }
 
         /// <summary>
@@ -96,12 +102,25 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
             {
                 return null;
             }
 
-            return serviceProvider.GetService(serviceType) as T;
+            if (usesServices)
+            {
+                return serviceProvider.GetService(serviceType) as T;
+            }
+            else
+            {
+                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                if (ctorInfo == null)
+                {
+                    throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
+                }
+
+                return ctorInfo.Invoke(new object[0]) as T;
+            }
         }
 
         /// <summary>
@@ -122,12 +141,25 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
             {
                 return null;
             }
 
-            return serviceProvider.GetService(serviceType);
+            if (usesServices)
+            {
+                return serviceProvider.GetService(serviceType);
+            }
+            else
+            {
+                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                if (ctorInfo == null)
+                {
+                    throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
+                }
+
+                return ctorInfo.Invoke(new object[0]);
+            }
         }
 
         /// <summary>
@@ -169,12 +201,28 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
             {
                 throw new InvalidOperationException(string.Format(Resources.NoNamedServiceRegistered, contentType));
             }
 
-            if (!(serviceProvider.GetRequiredService(serviceType) is T service))
+            object result;
+            if (usesServices)
+            {
+                result = serviceProvider.GetRequiredService(serviceType);
+            }
+            else
+            {
+                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                if (ctorInfo == null)
+                {
+                    throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
+                }
+
+                result = ctorInfo.Invoke(new object[0]) as T;
+            }
+
+            if (!(result is T service))
             {
                 throw new InvalidOperationException(string.Format(Resources.NamedServiceNotOfType, contentType, typeof(T)));
             }
@@ -200,12 +248,25 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
             {
                 throw new InvalidOperationException(string.Format(Resources.NoNamedServiceRegistered, contentType));
             }
 
-            return serviceProvider.GetRequiredService(serviceType);
+            if (usesServices)
+            {
+                return serviceProvider.GetRequiredService(serviceType);
+            }
+            else
+            {
+                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                if (ctorInfo == null)
+                {
+                    throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
+                }
+
+                return ctorInfo.Invoke(new object[0]);
+            }
         }
 
         /// <summary>
@@ -222,9 +283,34 @@ namespace Microsoft.Extensions.DependencyInjection
         /// A boolean indicating whether or not a type was found.
         /// </returns>
         public static bool TryGetTypeFor(this IServiceProvider serviceProvider, string contentType, out Type serviceType)
+            => TryGetTypeFor(serviceProvider, contentType, out serviceType, out _);
+
+        /// <summary>
+        /// Gets the registered type with the given name.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider containing the services.</param>
+        /// <param name="contentType">
+        /// The content type to look up.
+        /// </param>
+        /// <param name="serviceType">
+        /// The registered type for the given content type.
+        /// </param>
+        /// <param name="usesServices">
+        /// True if the implementation type depends on services, thus needing to be initialized
+        /// through dependency injection, false if it does not, or if the content type was not
+        /// registered.
+        /// </param>
+        /// <returns>
+        /// A boolean indicating whether or not a type was found.
+        /// </returns>
+        public static bool TryGetTypeFor(
+            this IServiceProvider serviceProvider,
+            string contentType,
+            out Type serviceType,
+            out bool usesServices)
         {
             ContentFactory typesForNamedContent = serviceProvider.GetRequiredService<ContentFactory>();
-            if (!typesForNamedContent.Handlers.TryGetValue(contentType, out serviceType))
+            if (!typesForNamedContent.TryGetContentType(contentType, out serviceType, out usesServices))
             {
                 int indexOfPlusSuffix = contentType.LastIndexOf('+');
                 string suffix = string.Empty;
@@ -237,7 +323,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 int indexOfLastDot = contentType.LastIndexOf('.');
                 if (indexOfLastDot > 0)
                 {
-                    return TryGetTypeFor(serviceProvider, contentType.Substring(0, indexOfLastDot) + suffix, out serviceType);
+                    return TryGetTypeFor(serviceProvider, contentType.Substring(0, indexOfLastDot) + suffix, out serviceType, out usesServices);
                 }
 
                 return false;

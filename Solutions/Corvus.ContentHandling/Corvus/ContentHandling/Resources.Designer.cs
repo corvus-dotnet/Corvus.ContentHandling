@@ -61,6 +61,15 @@ namespace Corvus.ContentHandling {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The implementing type ({0}) for content type {1} uses constructor-based deserialization, so you cannot instantiate it in this way.
+        /// </summary>
+        internal static string ImplementingTypeNoDefaultCtor {
+            get {
+                return ResourceManager.GetString("ImplementingTypeNoDefaultCtor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The service named &apos;{0}&apos; is not assignable to type &apos;{1}&apos;..
         /// </summary>
         internal static string NamedServiceNotOfType {

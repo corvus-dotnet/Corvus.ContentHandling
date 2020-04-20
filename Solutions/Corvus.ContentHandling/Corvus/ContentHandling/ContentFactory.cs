@@ -6,6 +6,8 @@ namespace Corvus.ContentHandling
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -40,14 +42,14 @@ namespace Corvus.ContentHandling
         }
 
         /// <summary>
-        /// Gets the dictionary of handlers to the type of the handler.
-        /// </summary>
-        internal ConcurrentDictionary<string, Type> Handlers { get; } = new ConcurrentDictionary<string, Type>();
-
-        /// <summary>
         /// Gets the service collection associated with this factory.
         /// </summary>
         internal IServiceCollection Services { get; }
+
+        /// <summary>
+        /// Gets the dictionary from content types to registered details for that type.
+        /// </summary>
+        private ConcurrentDictionary<string, RegisteredContentType> ContentTypes { get; } = new ConcurrentDictionary<string, RegisteredContentType>();
 
         /// <summary>
         /// Gets the registered content type for a specified type.
@@ -138,6 +140,123 @@ namespace Corvus.ContentHandling
         public static bool TryGetContentType<T>(out string contentType)
         {
             return TryGetContentType(typeof(T), out contentType);
+        }
+
+        /// <summary>
+        /// Gets the implementation type for a content type.
+        /// </summary>
+        /// <param name="contentType">
+        /// The content type for which to retrieve the implementation type.
+        /// </param>
+        /// <param name="implementingType">
+        /// The implementation type, or null if the content type is not recognized.
+        /// </param>
+        /// <returns>
+        /// True if the content type has been registered, false if not.
+        /// </returns>
+        public bool TryGetContentType(string contentType, out Type implementingType)
+        {
+            if (this.ContentTypes.TryGetValue(contentType, out RegisteredContentType registration))
+            {
+                implementingType = registration.ImplementingType;
+                return true;
+            }
+
+            implementingType = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the implementation type for a content type.
+        /// </summary>
+        /// <param name="contentType">
+        /// The content type for which to retrieve the implementation type.
+        /// </param>
+        /// <param name="implementingType">
+        /// The implementation type, or null if the content type is not recognized.
+        /// </param>
+        /// <param name="usesServices">
+        /// True if the implementation type depends on services, thus needing to be initialized
+        /// through dependency injection, false if it does not, or if the content type was not
+        /// registered.
+        /// </param>
+        /// <returns>
+        /// True if the content type has been registered, false if not.
+        /// </returns>
+        public bool TryGetContentType(string contentType, out Type implementingType, out bool usesServices)
+        {
+            if (this.ContentTypes.TryGetValue(contentType, out RegisteredContentType registration))
+            {
+                implementingType = registration.ImplementingType;
+                usesServices = registration.UseServices;
+                return true;
+            }
+
+            implementingType = null;
+            usesServices = false;
+            return false;
+        }
+
+        /// <summary>
+        /// Registers an implementation for a content type, where the implementation type requires
+        /// services, and needs to be initialized through dependency injection.
+        /// </summary>
+        /// <param name="contentType">The content type.</param>
+        /// <param name="implementationType">The implementation type for this content type.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if an implementation for this content type has already been registered.
+        /// </exception>
+        public void AddTypeRequiringServices(string contentType, Type implementationType)
+            => this.AddType(contentType, implementationType, true);
+
+        /// <summary>
+        /// Registers an implementation for a content type, where the implementation type does not
+        /// require services, and so can be initialized through normal deserialization, enabling
+        /// the use of constructor-based deserialization if required.
+        /// </summary>
+        /// <param name="contentType">The content type.</param>
+        /// <param name="implementationType">The implementation type for this content type.</param>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if an implementation for this content type has already been registered.
+        /// </exception>
+        public void AddSimpleDeserializableType(string contentType, Type implementationType)
+            => this.AddType(contentType, implementationType, false);
+
+        /// <summary>
+        /// Gets all of the registered content types, and their corresponding implementation types.
+        /// </summary>
+        /// <returns>
+        /// A collection of all of the registered content types, and their corresponding implementation types.
+        /// </returns>
+        internal IEnumerable<KeyValuePair<string, Type>> GetRegisteredContentTypes() =>
+            this.ContentTypes.Select(kv => new KeyValuePair<string, Type>(kv.Key, kv.Value.ImplementingType));
+
+        private void AddType(string contentType, Type implementationType, bool usesServices)
+        {
+            if (!this.ContentTypes.TryAdd(contentType, new RegisteredContentType(implementationType, usesServices)))
+            {
+                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
+            }
+        }
+
+        private struct RegisteredContentType
+        {
+            public RegisteredContentType(Type implementingType, bool useServices)
+            {
+                this.ImplementingType = implementingType;
+                this.UseServices = useServices;
+            }
+
+            /// <summary>
+            /// Gets the implementing type for this content type registration.
+            /// </summary>
+            public Type ImplementingType { get; }
+
+            /// <summary>
+            /// Gets a value indicating whether this implementation type needs access to services
+            /// meaning that it needs to be initialized via dependency injection.
+            /// </summary>
+            public bool UseServices { get; }
         }
     }
 }

@@ -6,7 +6,6 @@ namespace Corvus.ContentHandling
 {
     using System;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// An interface implemented by types which can dispatch a payload

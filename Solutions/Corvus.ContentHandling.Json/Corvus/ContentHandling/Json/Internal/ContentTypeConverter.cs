@@ -100,7 +100,7 @@ namespace Corvus.ContentHandling.Json.Internal
 
             string contentType = (string)jo["contentType"];
 
-            if (!this.serviceProvider.TryGetTypeFor(contentType, out Type type))
+            if (!this.serviceProvider.TryGetTypeFor(contentType, out Type type, out bool usesServices))
             {
                 throw new InvalidOperationException($"The content for type {contentType} has not been registered with the ContentFactory.");
             }
@@ -115,30 +115,43 @@ namespace Corvus.ContentHandling.Json.Internal
             contentReader.MaxDepth = reader.MaxDepth;
             contentReader.SupportMultipleContent = reader.SupportMultipleContent;
 
-            // Having established the correct target type based on the content type property, we
-            // want to get JSON.NET to do the work for us. We used to do this by constructing an
-            // instance and then calling serializer.Populate, but that prevented constructor-based
-            // initialization from working. So we want to defer even the object creation to
-            // JSON.NET. However, since we're just asking it again to do the thing it was
-            // already doing, it'll invoke our type converter a second time, leading to infinite
-            // recursion. And we can't just build a separate JSON settings object with this type
-            // converter removed, because we need it to remain in place to be able to handle any
-            // nested objects—we want recursion in those cases. To avoid recursion for the object
-            // we're on right now, we want our CanConvert method to return false on the call that
-            // we know is about to come in. So we set a thread-local value tracking the fact that
-            // we're expecting a second call for this type that we should ignore. Our CanConvert
-            // detects that call, resets this thread-local value and then returns false, ensuring
-            // that nested conversions can still occur.
-            try
+            if (usesServices)
             {
-                this.skipType.Value = type;
-                return serializer.Deserialize(contentReader, type);
+                // Some content type implementation types depend on services, and must therefore be
+                // constructed through DI. The downside of this is that constructor-based property
+                // initialization is not available, which makes clean support for nullable
+                // references a pain. It is up to consuming code to decide whether the convenience
+                // of being able to deserialize directly into a type that also receive services
+                // from DI outweights the pain.
+                object result = this.serviceProvider.GetContent(contentType);
+                serializer.Populate(contentReader, result);
+                return result;
             }
-            finally
+            else
             {
-                // Clear this just in case—cleanup semantics around long-lived ThreadLocal<T>
-                // instances are a little unclear.
-                this.skipType.Value = null;
+                // This content type's implementing type doesn't depend on anything from DI, so
+                // we want to get JSON.NET to do the work for us. However, since we're just asking
+                // it again to do the thing it was already doing, it'll invoke our type converter
+                // a second time, leading to infinite recursion. And we can't just build a separate
+                // JSON settings object with this type converter removed, because we need it to
+                // remain in place to be able to handle any nested objects—we want recursion in
+                // those cases. To avoid recursion for the object we're on right now, we want our
+                // CanConvert method to return false on the call that we know is about to come in.
+                // So we set a thread-local value tracking the fact that we're expecting a second
+                // call for this type that we should ignore. Our CanConvert detects that call,
+                // resets this thread-local value and then returns false, ensuring that nested
+                // conversions can still occur.
+                try
+                {
+                    this.skipType.Value = type;
+                    return serializer.Deserialize(contentReader, type);
+                }
+                finally
+                {
+                    // Clear this just in case—cleanup semantics around long-lived ThreadLocal<T>
+                    // instances are a little unclear.
+                    this.skipType.Value = null;
+                }
             }
         }
 
