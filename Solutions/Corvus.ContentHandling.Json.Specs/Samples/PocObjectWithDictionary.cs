@@ -76,7 +76,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            if (obj is PocObject sci)
+            if (obj is PocObjectWithDictionary sci)
             {
                 return this.Equals(sci);
             }

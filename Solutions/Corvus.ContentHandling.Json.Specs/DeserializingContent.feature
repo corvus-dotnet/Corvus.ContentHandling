@@ -109,6 +109,11 @@ Scenario: Deserialize a polymorphic content object implementing a common abstrac
 	| Hello     | {child} |
 
 @useChildObjects
+Scenario: Deserialize a polymorphic content object implementing a common abstract base with a POC child object via constructor initialization
+	When I deserialize the json object '{ "contentType": "application/vnd.corvus.somecontentwithabstractbaseandpocchildctorinit", "someValue": "Hello", "child": { "someValue": "Dolly" } }' to the common abstract base as 'result'
+	Then the value called 'result' should match the content object implementing a common abstract base with a POC child object via constructor with value 'Hello', and child some value 'Dolly'
+
+@useChildObjects
 Scenario: Deserialize an object with a dictionary
 	Given I have a dictionary called 'dictionary' with values
 	| Key  | Value   |

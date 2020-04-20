@@ -48,6 +48,49 @@ namespace Corvus.ContentHandling
         }
 
         /// <summary>
+        /// Register an implementation type for a content type that does not depend on services, and which
+        /// can be initialized directly through deserialization.
+        /// </summary>
+        /// <typeparam name="T">The type to register.</typeparam>
+        /// <param name="contentFactory">The content registry for this factory.</param>
+        /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
+        public static void RegisterContent<T>(this ContentFactory contentFactory)
+            where T : class
+        {
+            if (contentFactory == null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            string contentType = ContentFactory.GetContentType(typeof(T));
+
+            contentFactory.AddSimpleDeserializableType(contentType, typeof(T));
+        }
+
+        /// <summary>
+        /// Register an implementation type for a content type that does not depend on services, and which
+        /// can be initialized directly through deserialization.
+        /// </summary>
+        /// <typeparam name="T">The type to register.</typeparam>
+        /// <param name="contentFactory">The content registry for this factory.</param>
+        /// <param name="contentType">The content type by which to register it.</param>
+        public static void RegisterContent<T>(this ContentFactory contentFactory, string contentType)
+            where T : class
+        {
+            if (contentFactory == null)
+            {
+                throw new ArgumentNullException(nameof(contentFactory));
+            }
+
+            if (string.IsNullOrEmpty(contentType))
+            {
+                throw new ArgumentNullException(nameof(contentType));
+            }
+
+            contentFactory.AddSimpleDeserializableType(contentType, typeof(T));
+        }
+
+        /// <summary>
         /// Register a single instance for the specified type and content type.
         /// </summary>
         /// <typeparam name="T">The type to register.</typeparam>
@@ -66,10 +109,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, typeof(T)))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
             if (!contentFactory.Services.Any(s => s.ServiceType == typeof(T)))
             {
@@ -127,10 +167,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationFactory));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, typeof(T)))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
             if (!contentFactory.Services.Any(s => s.ServiceType == typeof(T)))
             {
@@ -188,10 +225,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationInstance));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, typeof(T)))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
             if (!contentFactory.Services.Any(s => s.ServiceType == typeof(T)))
             {
@@ -245,10 +279,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(serviceType));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, serviceType))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
             if (!contentFactory.Services.Any(s => s.ServiceType == serviceType))
             {
@@ -316,10 +347,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationFactory));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, serviceType))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
             if (!contentFactory.Services.Any(s => s.ServiceType == serviceType))
             {
@@ -384,10 +412,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationInstance));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, serviceType))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
             if (!contentFactory.Services.Any(s => s.ServiceType == serviceType))
             {
@@ -436,10 +461,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, typeof(T)))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
             if (!contentFactory.Services.Any(s => s.ServiceType == typeof(T)))
             {
@@ -497,10 +519,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationFactory));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, typeof(T)))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
             if (!contentFactory.Services.Any(s => s.ServiceType == typeof(T)))
             {
@@ -550,10 +569,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, serviceType))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
             if (serviceType == null)
             {
@@ -624,10 +640,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationFactory));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, serviceType))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
             if (!contentFactory.Services.Any(s => s.ServiceType == serviceType))
             {
@@ -673,10 +686,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, typeof(T)))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
             if (!contentFactory.Services.Any(s => s.ServiceType == typeof(T)))
             {
@@ -734,10 +744,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationFactory));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, typeof(T)))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
             if (!contentFactory.Services.Any(s => s.ServiceType == typeof(T)))
             {
@@ -786,10 +793,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, serviceType))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
             if (serviceType == null)
             {
@@ -860,10 +864,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(implementationFactory));
             }
 
-            if (!contentFactory.Handlers.TryAdd(contentType, serviceType))
-            {
-                throw new InvalidOperationException(string.Format(Resources.NamedTypeAlreadyAdded, contentType));
-            }
+            contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
             if (!contentFactory.Services.Any(s => s.ServiceType == serviceType))
             {
