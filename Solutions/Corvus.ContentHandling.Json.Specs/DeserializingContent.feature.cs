@@ -697,6 +697,51 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Deserialize a polymorphic content object implementing a common abstract base with" +
+            " a POC child object via constructor initialization")]
+        [NUnit.Framework.CategoryAttribute("useChildObjects")]
+        public virtual void DeserializeAPolymorphicContentObjectImplementingACommonAbstractBaseWithAPOCChildObjectViaConstructorInitialization()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "useChildObjects"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize a polymorphic content object implementing a common abstract base with" +
+                    " a POC child object via constructor initialization", null, new string[] {
+                        "useChildObjects"});
+#line 112
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 113
+ testRunner.When("I deserialize the json object \'{ \"contentType\": \"application/vnd.corvus.someconte" +
+                        "ntwithabstractbaseandpocchildctorinit\", \"someValue\": \"Hello\", \"child\": { \"someVa" +
+                        "lue\": \"Dolly\" } }\' to the common abstract base as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 114
+ testRunner.Then("the value called \'result\' should match the content object implementing a common a" +
+                        "bstract base with a POC child object via constructor with value \'Hello\', and chi" +
+                        "ld some value \'Dolly\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Deserialize an object with a dictionary")]
         [NUnit.Framework.CategoryAttribute("useChildObjects")]
         public virtual void DeserializeAnObjectWithADictionary()
@@ -705,7 +750,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "useChildObjects"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Deserialize an object with a dictionary", null, new string[] {
                         "useChildObjects"});
-#line 112
+#line 117
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -737,10 +782,10 @@ this.ScenarioInitialize(scenarioInfo);
                 table19.AddRow(new string[] {
                             "key3",
                             "Value 3"});
-#line 113
+#line 118
  testRunner.Given("I have a dictionary called \'dictionary\' with values", ((string)(null)), table19, "Given ");
 #line hidden
-#line 118
+#line 123
  testRunner.When("I deserialize the json object \'{ \"someValue\": \"Hello\", \"dictionary\": { \"Key1\": \"V" +
                         "alue 1\", \"KEY2\": \"Value 2\", \"key3\": \"Value 3\" } }\' as a poc object with dictiona" +
                         "ry as \'result\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -751,7 +796,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table20.AddRow(new string[] {
                             "Hello",
                             "{dictionary}"});
-#line 119
+#line 124
  testRunner.Then("the value called \'result\' should match the poc object with dictionary", ((string)(null)), table20, "Then ");
 #line hidden
             }

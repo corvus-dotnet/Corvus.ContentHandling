@@ -7,7 +7,6 @@ namespace Corvus.ContentHandling.Json
     using System;
     using System.IO;
     using System.Threading.Tasks;
-    using Corvus.Extensions.Json.Internal;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 

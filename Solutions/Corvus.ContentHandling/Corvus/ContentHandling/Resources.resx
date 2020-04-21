@@ -134,4 +134,8 @@
     <value>No service for type '{0}' has been registered.</value>
     <comment>{0} = service type</comment>
   </data>
+  <data name="ImplementingTypeNoDefaultCtor" xml:space="preserve">
+    <value>The implementing type ({0}) for content type {1} uses constructor-based deserialization, so you cannot instantiate it in this way</value>
+    <comment>{0} = implementation type, {1} = content type</comment>
+  </data>
 </root>

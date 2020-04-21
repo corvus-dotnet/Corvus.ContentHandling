@@ -72,6 +72,19 @@ namespace Corvus.ContentHandling.Json.Specs
 
             Assert.AreEqual(expected, actual);
         }
+
+        [Then("the value called '(.*)' should match the content object implementing a common abstract base with a POC child object via constructor with value '(.*)', and child some value '(.*)'")]
+        public void ThenTheValueCalledShouldMatchTheContentObjectImplementingACommonAbstractBaseWithAPOCChildObjectViaConstructorWithValueAndChildSomeValue(
+            string instanceName, string value, string childValue)
+        {
+            var expected = new SomeContentWithAbstractBaseAndPocChildCtorInitialized(
+                value,
+                new PocObjectWithCtorInitialization(childValue));
+
+            object actual = this.scenarioContext.Get<object>(instanceName);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
 
