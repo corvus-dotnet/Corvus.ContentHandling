@@ -4,16 +4,9 @@
     using Corvus.ContentHandling;
     using Microsoft.Extensions.DependencyInjection;
 
-    /// <summary>
-    /// Playground
-    /// </summary>
-    internal class Program
+    internal static class Program
     {
-        /// <summary>
-        /// Entry point
-        /// </summary>
-        /// <param name="args">Arguments</param>
-        private static void Main(string[] args)
+        private static void Main(string[] _)
         {
             IServiceProvider serviceProvider = BuildServiceProvider();
 

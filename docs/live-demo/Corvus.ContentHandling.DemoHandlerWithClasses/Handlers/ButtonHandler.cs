@@ -3,7 +3,6 @@ namespace Corvus.ContentHandling.DemoHandlerWithClasses
     using System;
     using Corvus.ContentHandling;
 
-    // These are the class-based handlers
     public class ButtonHandler : IContentHandler<Button>
     {
         public void Handle(Button payload)
