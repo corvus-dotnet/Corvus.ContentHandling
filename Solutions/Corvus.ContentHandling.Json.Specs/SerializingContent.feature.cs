@@ -21,14 +21,14 @@ namespace Corvus.ContentHandling.Json.Specs
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Serializing content")]
-    [NUnit.Framework.CategoryAttribute("setupContainer")]
+    [NUnit.Framework.CategoryAttribute("perFeatureContainer")]
     public partial class SerializingContentFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = new string[] {
-                "setupContainer"};
+                "perFeatureContainer"};
         
 #line 1 "SerializingContent.feature"
 #line hidden
@@ -39,7 +39,7 @@ namespace Corvus.ContentHandling.Json.Specs
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Serializing content", "\tIn order to support polymorphic content type serialization\r\n\tAs a developer\r\n\tI " +
                     "want to be able to serialize polymorphic types to a JSON format", ProgrammingLanguage.CSharp, new string[] {
-                        "setupContainer"});
+                        "perFeatureContainer"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

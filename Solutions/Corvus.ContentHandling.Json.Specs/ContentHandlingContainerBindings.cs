@@ -19,7 +19,7 @@ namespace Corvus.ContentHandling
         /// </summary>
         /// <remarks>We expect features run in parallel to be executing in separate app domains.</remarks>
         /// <param name="featureContext">The SpecFlow test context.</param>
-        [BeforeFeature("@setupContainer", Order = ContainerBeforeFeatureOrder.PopulateServiceCollection)]
+        [BeforeFeature("@perFeatureContainer", Order = ContainerBeforeFeatureOrder.PopulateServiceCollection)]
         public static void SetupFeature(FeatureContext featureContext)
         {
             ContainerBindings.ConfigureServices(
