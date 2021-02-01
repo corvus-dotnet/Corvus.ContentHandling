@@ -4,7 +4,7 @@
 
 namespace Corvus.ContentHandling
 {
-    using Corvus.SpecFlow.Extensions;
+    using Corvus.Testing.SpecFlow;
     using Microsoft.Extensions.DependencyInjection;
     using TechTalk.SpecFlow;
 
