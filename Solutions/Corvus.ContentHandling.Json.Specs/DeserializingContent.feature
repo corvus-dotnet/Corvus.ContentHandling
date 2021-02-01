@@ -1,4 +1,4 @@
-﻿@setupContainer
+﻿@perFeatureContainer
 
 Feature: Deserializing content
 	In order to support polymorphic content type serialization

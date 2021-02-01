@@ -11,7 +11,7 @@ namespace Corvus.ContentHandling.Json.Specs
 
     using Corvus.ContentHandling.Json.Specs.Samples;
     using Corvus.Extensions.Json;
-    using Corvus.SpecFlow.Extensions;
+    using Corvus.Testing.SpecFlow;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
