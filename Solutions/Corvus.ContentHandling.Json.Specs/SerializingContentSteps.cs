@@ -2,9 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-#pragma warning disable SA1600 // Elements should be documented
-#pragma warning disable CS1591 // Elements should be documented
-
 namespace Corvus.ContentHandling.Json.Specs
 {
     using System.Linq;
@@ -88,6 +85,3 @@ namespace Corvus.ContentHandling.Json.Specs
         }
     }
 }
-
-#pragma warning restore SA1600 // Elements should be documented
-#pragma warning restore CS1591 // Elements should be documented

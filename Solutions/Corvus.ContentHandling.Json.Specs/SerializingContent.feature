@@ -125,4 +125,4 @@ Scenario: Serialize a poc object with an enum
 	| SomeValue | SomeEnum            |
 	| Hello     | ThirdTimeIsTheCharm |
 	When I serialize the content object called 'subject' as 'result'
-	Then the value called 'result' should be a json object '{ "someValue": "Hello", "someEnum": "thirdTimeIsTheCharm" }'
+	Then the value called 'result' should be a json object '{ "someValue": "Hello", "someEnum": 2 }'
