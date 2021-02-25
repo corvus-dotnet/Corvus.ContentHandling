@@ -57,7 +57,6 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Add the default JSON serialization settings.
         /// </summary>
         /// <param name="services">The target service collection.</param>
-        /// <param name="configure">Callback to register specific types for content-type based deserialization.</param>
         /// <returns>The service collection.</returns>
         /// <remarks>
         /// <para>
@@ -78,18 +77,27 @@ namespace Microsoft.Extensions.DependencyInjection
         /// services.AddSingleton<JsonConverter>(new StringEnumConverter(true));
         /// ]]>
         /// </code>
+        /// <para>
+        /// Note also that this method no longer has a parameter allowing a callback to be provided to register content
+        /// types with the content factory. Instead, you should call <c>services.AddContent()</c> directly to register
+        /// your types.
+        /// </para>
         /// </remarks>
-        public static IServiceCollection AddContentTypeBasedSerializationSupport(this IServiceCollection services, Action<ContentFactory> configure = null)
+        public static IServiceCollection AddContentTypeBasedSerializationSupport(this IServiceCollection services)
         {
-            if (services.Any(s => s.ImplementationType == typeof(ContentTypeConverter)))
+            services.AddJsonNetSerializerSettingsProvider();
+
+            if (!services.Any(s => s.ImplementationType == typeof(ContentFactory)))
             {
-                return services;
+                services.AddSingleton(new ContentFactory(services));
             }
 
-            services.AddJsonNetSerializerSettingsProvider();
-            services.AddSingleton<JsonConverter, ContentTypeConverter>();
-            services.AddSingleton<JsonConverter, ContentEnvelopeConverter>();
-            services.AddContent(configure);
+            if (!services.Any(s => s.ImplementationType == typeof(ContentTypeConverter)))
+            {
+                services.AddSingleton<JsonConverter, ContentTypeConverter>();
+                services.AddSingleton<JsonConverter, ContentEnvelopeConverter>();
+            }
+
             return services;
         }
     }

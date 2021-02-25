@@ -24,8 +24,11 @@ namespace Corvus.ContentHandling
         {
             ContainerBindings.ConfigureServices(
                 featureContext,
-                serviceCollection => serviceCollection.AddContentTypeBasedSerializationSupport(
-                    contentFactory => contentFactory.AddSampleContent()));
+                serviceCollection =>
+                {
+                    serviceCollection.AddContentTypeBasedSerializationSupport();
+                    serviceCollection.AddContent(contentFactory => contentFactory.AddSampleContent());
+                });
         }
     }
 }
