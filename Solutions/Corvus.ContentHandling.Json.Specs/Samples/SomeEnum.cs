@@ -12,16 +12,16 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <summary>
         /// The first option.
         /// </summary>
-        First,
+        First = 0,
 
         /// <summary>
         /// The second option.
         /// </summary>
-        Second,
+        Second = 1,
 
         /// <summary>
         /// The more complex third option.
         /// </summary>
-        ThirdTimeIsTheCharm,
+        ThirdTimeIsTheCharm = 2,
     }
 }

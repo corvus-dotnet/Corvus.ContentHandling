@@ -61,9 +61,6 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return (this.SomeValue, this.SomeEnum).GetHashCode();
-        }
+        public override int GetHashCode() => HashCode.Combine(this.SomeValue, this.SomeEnum);
     }
 }
