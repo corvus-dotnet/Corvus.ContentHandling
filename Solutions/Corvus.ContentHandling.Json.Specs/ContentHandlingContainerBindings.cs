@@ -28,6 +28,10 @@ namespace Corvus.ContentHandling
                 {
                     serviceCollection.AddContentTypeBasedSerializationSupport();
                     serviceCollection.AddContent(contentFactory => contentFactory.AddSampleContent());
+
+                    // Second call to test our guard against multiple registration calls each creating new instances
+                    // of ContentFactory and losing previous content registrations.
+                    serviceCollection.AddContentTypeBasedSerializationSupport();
                 });
         }
     }

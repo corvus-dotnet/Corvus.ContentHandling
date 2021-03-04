@@ -87,12 +87,12 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddJsonNetSerializerSettingsProvider();
 
-            if (!services.Any(s => s.ImplementationType == typeof(ContentFactory)))
+            if (!services.Any(s => s.ServiceType == typeof(ContentFactory)))
             {
                 services.AddSingleton(new ContentFactory(services));
             }
 
-            if (!services.Any(s => s.ImplementationType == typeof(ContentTypeConverter)))
+            if (!services.Any(s => s.ServiceType == typeof(ContentTypeConverter)))
             {
                 services.AddSingleton<JsonConverter, ContentTypeConverter>();
                 services.AddSingleton<JsonConverter, ContentEnvelopeConverter>();
