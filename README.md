@@ -1,13 +1,13 @@
 # Corvus.ContentHandling
-[![Build Status](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_apis/build/status/corvus-dotnet.Corvus.ContentHandling?branchName=master)](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_build/latest?definitionId=5&branchName=master)
-[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.ContentHandling/master/LICENSE)
+[![Build Status](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_apis/build/status/corvus-dotnet.Corvus.ContentHandling?branchName=main)](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_build/latest?definitionId=5&branchName=main)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.ContentHandling/main/LICENSE)
 [![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)
 
 Dispatches content to content handlers based on a content-type pattern.
 
 ## Licenses
 
-[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.ContentHandling/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.ContentHandling/main/LICENSE)
 
 Corvus.ContentHandling is available under the Apache 2.0 open source license.
 
