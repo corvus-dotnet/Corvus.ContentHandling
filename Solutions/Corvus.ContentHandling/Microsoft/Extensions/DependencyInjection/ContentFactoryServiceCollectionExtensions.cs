@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             ContentFactory contentFactory;
             ServiceDescriptor contentFactoryDescriptor = serviceCollection.FirstOrDefault(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType));
-            if (!(contentFactoryDescriptor is null))
+            if (contentFactoryDescriptor is not null)
             {
                 contentFactory = (ContentFactory)contentFactoryDescriptor.ImplementationInstance;
             }

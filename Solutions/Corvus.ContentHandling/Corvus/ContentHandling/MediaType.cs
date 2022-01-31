@@ -14,7 +14,7 @@ namespace Corvus.ContentHandling
         /// <summary>
         /// Explicitly named value for an empty MediaType.
         /// </summary>
-        public static MediaType None = new MediaType(string.Empty, string.Empty);
+        public static MediaType None = new(string.Empty, string.Empty);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaType"/> struct.

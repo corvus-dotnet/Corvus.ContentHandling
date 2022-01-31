@@ -87,7 +87,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (this.SomeValue, this.Dictionary).GetHashCode();
+            return HashCode.Combine(this.SomeValue, this.Dictionary);
         }
     }
 }

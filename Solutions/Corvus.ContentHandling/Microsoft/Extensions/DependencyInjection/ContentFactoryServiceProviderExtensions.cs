@@ -222,7 +222,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 result = ctorInfo.Invoke(new object[0]) as T;
             }
 
-            if (!(result is T service))
+            if (result is not T service)
             {
                 throw new InvalidOperationException(string.Format(Resources.NamedServiceNotOfType, contentType, typeof(T)));
             }
