@@ -39,7 +39,7 @@ namespace Corvus.ContentHandling.Json.Internal
     public class ContentTypeConverter : CustomCreationConverter<object>
     {
         private readonly IServiceProvider serviceProvider;
-        private readonly ThreadLocal<Type> skipType = new ThreadLocal<Type>();
+        private readonly ThreadLocal<Type> skipType = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContentTypeConverter"/> class.

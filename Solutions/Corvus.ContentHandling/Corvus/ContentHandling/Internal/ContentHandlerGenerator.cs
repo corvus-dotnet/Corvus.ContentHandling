@@ -270,7 +270,7 @@ namespace Corvus.ContentHandling.Internal
     }}
 }}";
 
-        private static readonly ConcurrentDictionary<(string handlerClass, string contentType), Type> CompilationCache = new ConcurrentDictionary<(string handlerClass, string contentType), Type>();
+        private static readonly ConcurrentDictionary<(string HandlerClass, string ContentType), Type> CompilationCache = new();
         private static readonly Dictionary<string, string> TrustedPlatformAssemblyMap = GetTrustedPlatformAssemblyMap();
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithAction, key, 0);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -338,7 +338,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handle));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithActionT1, key, 1);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -378,7 +378,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithActionT1T2, key, 2);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -419,7 +419,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithActionT1T2T3, key, 3);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2), typeof(T3));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -457,7 +457,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithAction, key, 0);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -496,7 +496,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithActionT1, key, 1);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -536,7 +536,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithActionT1T2, key, 2);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -577,7 +577,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithActionT1T2T3, key, 3);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2), typeof(T3));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -618,7 +618,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndAction, key, 1);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -658,7 +658,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndActionT1, key, 2);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -699,7 +699,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndActionT1T2, key, 3);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -741,7 +741,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndActionT1T2T3, key, 4);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2), typeof(T3), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -780,7 +780,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndAction, key, 1);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -820,7 +820,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndActionT1, key, 2);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -861,7 +861,7 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndActionT1T2, key, 3);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
@@ -903,14 +903,14 @@ namespace Corvus.ContentHandling.Internal
                 throw new ArgumentNullException(nameof(handlerClass));
             }
 
-            (string handlerClass, string contentType) key = (handlerClass, contentType);
+            (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndActionT1T2T3, key, 4);
             Type constructedType = genericType.MakeGenericType(typeof(TPayloadBase), typeof(TPayload), typeof(T1), typeof(T2), typeof(T3), typeof(TResult));
             object instance = Activator.CreateInstance(constructedType, handle);
             contentFactory.RegisterSingletonContent(ContentHandlerUtilities.GetHandlerContentType(contentType, handlerClass), constructedType, instance);
         }
 
-        private static Type GetGenericHandlerType(string handlerClass, string baseName, string syntax, (string handlerClass, string contentType) key, int numberOfParameters)
+        private static Type GetGenericHandlerType(string handlerClass, string baseName, string syntax, (string HandlerClass, string ContentType) key, int numberOfParameters)
         {
             return CompilationCache.GetOrAdd(key, _ =>
             {

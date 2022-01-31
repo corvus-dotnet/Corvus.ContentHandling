@@ -91,7 +91,10 @@ namespace Corvus.ContentHandling
             contentType = (string)contentTypeProp?.GetValue(target);
 
             // If we have a content type return true, otherwise try to fall back to the RegisteredContentType for the class.
+#pragma warning disable RCS1104 // Simplify conditional expression. - not an obvious improvement
+#pragma warning disable IDE0075 // Simplify conditional expression - not an obvious improvement
             return string.IsNullOrEmpty(contentType) ? TryGetContentType(targetType, out contentType) : true;
+#pragma warning restore IDE0075, RCS1104
         }
 
         /// <summary>

@@ -67,7 +67,7 @@ namespace Corvus.ContentHandling.Json
         /// <summary>
         /// The default fallback json serializer settings.
         /// </summary>
-        public static readonly JsonSerializerSettings DefaultJsonSerializerSettings = new JsonSerializerSettings();
+        public static readonly JsonSerializerSettings DefaultJsonSerializerSettings = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContentEnvelope"/> class.
@@ -293,44 +293,44 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match1">The first match.</param>
         /// <param name="match2">The second match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public async Task<bool> MatchAsync<T1, T2>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2)
+        public async Task<bool> MatchAsync<T1, T2>((string ContentType, Func<T1, Task> Match) match1, (string ContentType, Func<T2, Task> Match) match2)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    await match1.match(payload).ConfigureAwait(false);
+                    await match1.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    await match2.match(payload).ConfigureAwait(false);
+                    await match2.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
@@ -350,65 +350,65 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match2">The second match.</param>
         /// <param name="match3">The third match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public async Task<bool> MatchAsync<T1, T2, T3>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2, (string contentType, Func<T3, Task> match) match3)
+        public async Task<bool> MatchAsync<T1, T2, T3>((string ContentType, Func<T1, Task> Match) match1, (string ContentType, Func<T2, Task> Match) match2, (string ContentType, Func<T3, Task> Match) match3)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (match3.match is null)
+            if (match3.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match3));
             }
 
-            if (match3.contentType is null)
+            if (match3.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match3));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    await match1.match(payload).ConfigureAwait(false);
+                    await match1.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    await match2.match(payload).ConfigureAwait(false);
+                    await match2.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match3.contentType)
+            if (this.PayloadContentType == match3.ContentType)
             {
                 if (this.TryGetPayload(out T3 payload))
                 {
-                    await match3.match(payload).ConfigureAwait(false);
+                    await match3.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
@@ -430,86 +430,86 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match3">The third match.</param>
         /// <param name="match4">The fourth match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public async Task<bool> MatchAsync<T1, T2, T3, T4>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2, (string contentType, Func<T3, Task> match) match3, (string contentType, Func<T4, Task> match) match4)
+        public async Task<bool> MatchAsync<T1, T2, T3, T4>((string ContentType, Func<T1, Task> Match) match1, (string ContentType, Func<T2, Task> Match) match2, (string ContentType, Func<T3, Task> Match) match3, (string ContentType, Func<T4, Task> Match) match4)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (match3.match is null)
+            if (match3.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match3));
             }
 
-            if (match3.contentType is null)
+            if (match3.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match3));
             }
 
-            if (match4.match is null)
+            if (match4.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match4));
             }
 
-            if (match4.contentType is null)
+            if (match4.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match4));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    await match1.match(payload).ConfigureAwait(false);
+                    await match1.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    await match2.match(payload).ConfigureAwait(false);
+                    await match2.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match3.contentType)
+            if (this.PayloadContentType == match3.ContentType)
             {
                 if (this.TryGetPayload(out T3 payload))
                 {
-                    await match3.match(payload).ConfigureAwait(false);
+                    await match3.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match4.contentType)
+            if (this.PayloadContentType == match4.ContentType)
             {
                 if (this.TryGetPayload(out T4 payload))
                 {
-                    await match4.match(payload).ConfigureAwait(false);
+                    await match4.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
@@ -533,107 +533,107 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match4">The fourth match.</param>
         /// <param name="match5">The fifth match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public async Task<bool> MatchAsync<T1, T2, T3, T4, T5>((string contentType, Func<T1, Task> match) match1, (string contentType, Func<T2, Task> match) match2, (string contentType, Func<T3, Task> match) match3, (string contentType, Func<T4, Task> match) match4, (string contentType, Func<T5, Task> match) match5)
+        public async Task<bool> MatchAsync<T1, T2, T3, T4, T5>((string ContentType, Func<T1, Task> Match) match1, (string ContentType, Func<T2, Task> Match) match2, (string ContentType, Func<T3, Task> Match) match3, (string ContentType, Func<T4, Task> Match) match4, (string ContentType, Func<T5, Task> Match) match5)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (match3.match is null)
+            if (match3.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match3));
             }
 
-            if (match3.contentType is null)
+            if (match3.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match3));
             }
 
-            if (match4.match is null)
+            if (match4.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match4));
             }
 
-            if (match4.contentType is null)
+            if (match4.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match4));
             }
 
-            if (match5.match is null)
+            if (match5.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match5));
             }
 
-            if (match5.contentType is null)
+            if (match5.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match5));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    await match1.match(payload).ConfigureAwait(false);
+                    await match1.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    await match2.match(payload).ConfigureAwait(false);
+                    await match2.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match3.contentType)
+            if (this.PayloadContentType == match3.ContentType)
             {
                 if (this.TryGetPayload(out T3 payload))
                 {
-                    await match3.match(payload).ConfigureAwait(false);
+                    await match3.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match4.contentType)
+            if (this.PayloadContentType == match4.ContentType)
             {
                 if (this.TryGetPayload(out T4 payload))
                 {
-                    await match4.match(payload).ConfigureAwait(false);
+                    await match4.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match5.contentType)
+            if (this.PayloadContentType == match5.ContentType)
             {
                 if (this.TryGetPayload(out T5 payload))
                 {
-                    await match5.match(payload).ConfigureAwait(false);
+                    await match5.Match(payload).ConfigureAwait(false);
                     return true;
                 }
 
@@ -955,44 +955,44 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match1">The first match.</param>
         /// <param name="match2">The second match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public bool Match<T1, T2>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2)
+        public bool Match<T1, T2>((string ContentType, Action<T1> Match) match1, (string ContentType, Action<T2> Match) match2)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    match1.match(payload);
+                    match1.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    match2.match(payload);
+                    match2.Match(payload);
                     return true;
                 }
 
@@ -1012,65 +1012,65 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match2">The second match.</param>
         /// <param name="match3">The third match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public bool Match<T1, T2, T3>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2, (string contentType, Action<T3> match) match3)
+        public bool Match<T1, T2, T3>((string ContentType, Action<T1> Match) match1, (string ContentType, Action<T2> Match) match2, (string ContentType, Action<T3> Match) match3)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (match3.match is null)
+            if (match3.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match3));
             }
 
-            if (match3.contentType is null)
+            if (match3.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match3));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    match1.match(payload);
+                    match1.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    match2.match(payload);
+                    match2.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match3.contentType)
+            if (this.PayloadContentType == match3.ContentType)
             {
                 if (this.TryGetPayload(out T3 payload))
                 {
-                    match3.match(payload);
+                    match3.Match(payload);
                     return true;
                 }
 
@@ -1092,86 +1092,86 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match3">The third match.</param>
         /// <param name="match4">The fourth match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public bool Match<T1, T2, T3, T4>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2, (string contentType, Action<T3> match) match3, (string contentType, Action<T4> match) match4)
+        public bool Match<T1, T2, T3, T4>((string ContentType, Action<T1> Match) match1, (string ContentType, Action<T2> Match) match2, (string ContentType, Action<T3> Match) match3, (string ContentType, Action<T4> Match) match4)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (match3.match is null)
+            if (match3.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match3));
             }
 
-            if (match3.contentType is null)
+            if (match3.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match3));
             }
 
-            if (match4.match is null)
+            if (match4.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match4));
             }
 
-            if (match4.contentType is null)
+            if (match4.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match4));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    match1.match(payload);
+                    match1.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    match2.match(payload);
+                    match2.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match3.contentType)
+            if (this.PayloadContentType == match3.ContentType)
             {
                 if (this.TryGetPayload(out T3 payload))
                 {
-                    match3.match(payload);
+                    match3.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match4.contentType)
+            if (this.PayloadContentType == match4.ContentType)
             {
                 if (this.TryGetPayload(out T4 payload))
                 {
-                    match4.match(payload);
+                    match4.Match(payload);
                     return true;
                 }
 
@@ -1195,107 +1195,107 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match4">The fourth match.</param>
         /// <param name="match5">The fifth match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-        public bool Match<T1, T2, T3, T4, T5>((string contentType, Action<T1> match) match1, (string contentType, Action<T2> match) match2, (string contentType, Action<T3> match) match3, (string contentType, Action<T4> match) match4, (string contentType, Action<T5> match) match5)
+        public bool Match<T1, T2, T3, T4, T5>((string ContentType, Action<T1> Match) match1, (string ContentType, Action<T2> Match) match2, (string ContentType, Action<T3> Match) match3, (string ContentType, Action<T4> Match) match4, (string ContentType, Action<T5> Match) match5)
         {
-            if (match1.match is null)
+            if (match1.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match1));
             }
 
-            if (match1.contentType is null)
+            if (match1.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match1));
             }
 
-            if (match2.match is null)
+            if (match2.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match2));
             }
 
-            if (match2.contentType is null)
+            if (match2.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match2));
             }
 
-            if (match3.match is null)
+            if (match3.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match3));
             }
 
-            if (match3.contentType is null)
+            if (match3.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match3));
             }
 
-            if (match4.match is null)
+            if (match4.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match4));
             }
 
-            if (match4.contentType is null)
+            if (match4.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match4));
             }
 
-            if (match5.match is null)
+            if (match5.Match is null)
             {
                 throw new ArgumentException("You must provide a match function", nameof(match5));
             }
 
-            if (match5.contentType is null)
+            if (match5.ContentType is null)
             {
                 throw new ArgumentException("You must provide a match content type", nameof(match5));
             }
 
-            if (this.PayloadContentType == match1.contentType)
+            if (this.PayloadContentType == match1.ContentType)
             {
                 if (this.TryGetPayload(out T1 payload))
                 {
-                    match1.match(payload);
+                    match1.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match2.contentType)
+            if (this.PayloadContentType == match2.ContentType)
             {
                 if (this.TryGetPayload(out T2 payload))
                 {
-                    match2.match(payload);
+                    match2.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match3.contentType)
+            if (this.PayloadContentType == match3.ContentType)
             {
                 if (this.TryGetPayload(out T3 payload))
                 {
-                    match3.match(payload);
+                    match3.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match4.contentType)
+            if (this.PayloadContentType == match4.ContentType)
             {
                 if (this.TryGetPayload(out T4 payload))
                 {
-                    match4.match(payload);
+                    match4.Match(payload);
                     return true;
                 }
 
                 return false;
             }
 
-            if (this.PayloadContentType == match5.contentType)
+            if (this.PayloadContentType == match5.ContentType)
             {
                 if (this.TryGetPayload(out T5 payload))
                 {
-                    match5.match(payload);
+                    match5.Match(payload);
                     return true;
                 }
 
