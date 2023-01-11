@@ -26,7 +26,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         public string ContentType { get; }
 
         /// <inheritdoc />
-        public virtual bool Equals(SomeContentBase other)
+        public virtual bool Equals(SomeContentBase? other)
         {
             return this.Equals(other);
         }

@@ -22,12 +22,12 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <summary>
         /// Gets or sets a value.
         /// </summary>
-        public string SomeValue { get; set; }
+        public string? SomeValue { get; set; }
 
         /// <summary>
         /// Gets or sets a child.
         /// </summary>
-        public SomeContentAbstractBase Child { get; set; }
+        public SomeContentAbstractBase? Child { get; set; }
 
         /// <summary>
         /// Compares two instances of SomeContentWithAbstractBaseAndChild for equality.
@@ -52,19 +52,20 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         }
 
         /// <inheritdoc />
-        public bool Equals(SomeContentWithAbstractBaseAndChild other)
+        public bool Equals(SomeContentWithAbstractBaseAndChild? other)
         {
-            return this.SomeValue == other.SomeValue && ((this.Child == null && other.Child == null) || (this.Child?.Equals(other.Child) == true));
+            return other is not null &&
+                this.SomeValue == other.SomeValue && ((this.Child == null && other.Child == null) || (this.Child?.Equals(other.Child) == true));
         }
 
         /// <inheritdoc />
-        public override bool Equals(SomeContentAbstractBase other)
+        public override bool Equals(SomeContentAbstractBase? other)
         {
             return this.Equals(other as SomeContentWithAbstractBaseAndChild);
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is SomeContentWithAbstractBaseAndChild sci)
             {
