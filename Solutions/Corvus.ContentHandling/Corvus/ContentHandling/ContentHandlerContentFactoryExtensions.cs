@@ -312,6 +312,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload>
         {
@@ -343,6 +344,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload, T1>
         {
@@ -376,6 +378,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload, T1, T2>
         {
@@ -410,6 +413,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler, T1, T2, T3>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload, T1, T2, T3>
         {
@@ -441,6 +445,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase>
         {
             if (contentFactory is null)
@@ -476,6 +481,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler, T1>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase, T1>
         {
             if (contentFactory is null)
@@ -512,6 +518,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler, T1, T2>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase, T1, T2>
         {
             if (contentFactory is null)
@@ -549,6 +556,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler, T1, T2, T3>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase, T1, T2, T3>
         {
             if (contentFactory is null)
@@ -584,6 +592,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload>
         {
@@ -622,6 +631,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload, T1>
         {
@@ -661,6 +671,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload, T1, T2>
         {
@@ -701,6 +712,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, TPayload, THandler, T1, T2, T3>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IContentHandler<TPayload, T1, T2, T3>
         {
@@ -738,6 +750,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase>
         {
             if (contentFactory is null)
@@ -779,6 +792,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler, T1>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase, T1>
         {
             if (contentFactory is null)
@@ -820,6 +834,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler, T1, T2>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase, T1, T2>
         {
             if (contentFactory is null)
@@ -863,6 +878,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterContentHandler<TPayloadBase, THandler, T1, T2, T3>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IContentHandler<TPayloadBase, T1, T2, T3>
         {
             if (contentFactory is null)
@@ -1213,6 +1229,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload>
         {
@@ -1245,6 +1262,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload, T1>
         {
@@ -1277,6 +1295,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload, T1, T2>
         {
@@ -1310,6 +1329,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler, T1, T2, T3>(this ContentFactory contentFactory, string handlerClass)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload, T1, T2, T3>
         {
@@ -1340,6 +1360,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase>
         {
             if (contentFactory is null)
@@ -1374,6 +1395,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler, T1>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase, T1>
         {
             if (contentFactory is null)
@@ -1409,6 +1431,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler, T1, T2>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase, T1, T2>
         {
             if (contentFactory is null)
@@ -1445,6 +1468,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "viewFactory", "messageDispatcher").</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler, T1, T2, T3>(this ContentFactory contentFactory, string contentType, string handlerClass)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase, T1, T2, T3>
         {
             if (contentFactory is null)
@@ -1479,6 +1503,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload>
         {
@@ -1516,6 +1541,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler, T1>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload, T1>
         {
@@ -1555,6 +1581,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler, T1, T2>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload, T1, T2>
         {
@@ -1595,6 +1622,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, TPayload, THandler, T1, T2, T3>(this ContentFactory contentFactory, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where TPayload : TPayloadBase
             where THandler : class, IAsyncContentHandler<TPayload, T1, T2, T3>
         {
@@ -1632,6 +1660,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase>
         {
             if (contentFactory is null)
@@ -1673,6 +1702,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler, T1>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase, T1>
         {
             if (contentFactory is null)
@@ -1715,6 +1745,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler, T1, T2>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase, T1, T2>
         {
             if (contentFactory is null)
@@ -1758,6 +1789,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerFactory">A factory function to create the singleton handler.</param>
         /// <returns>The content factory.</returns>
         public static ContentFactory RegisterAsyncContentHandler<TPayloadBase, THandler, T1, T2, T3>(this ContentFactory contentFactory, string contentType, string handlerClass, Func<IServiceProvider, THandler> handlerFactory)
+            where TPayloadBase : notnull
             where THandler : class, IAsyncContentHandler<TPayloadBase, T1, T2, T3>
         {
             if (contentFactory is null)

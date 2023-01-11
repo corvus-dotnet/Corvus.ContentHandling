@@ -6,6 +6,7 @@ namespace Corvus.ContentHandling
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Extensions for an <see cref="IDictionary{MediaType, T}"/> which add logic about hierarchical
@@ -34,7 +35,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(buildKey));
             }
 
-            if (dictionary.TryGetRecursive(mediaType, buildKey, out TValue result))
+            if (dictionary.TryGetRecursive(mediaType, buildKey, out TValue? result))
             {
                 return result;
             }
@@ -52,7 +53,7 @@ namespace Corvus.ContentHandling
         /// <param name="buildKey">The function with which to build the key from the media type.</param>
         /// <param name="result">The value, if located.</param>
         /// <returns>True if a value was found, false otherwise.</returns>
-        public static bool TryGetRecursive<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, MediaType mediaType, Func<MediaType, TKey> buildKey, out TValue result)
+        public static bool TryGetRecursive<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, MediaType mediaType, Func<MediaType, TKey> buildKey, [MaybeNullWhen(false)] out TValue result)
         {
             if (dictionary is null)
             {

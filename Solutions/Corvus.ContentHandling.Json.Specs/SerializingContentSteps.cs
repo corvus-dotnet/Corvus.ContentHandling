@@ -46,7 +46,7 @@ namespace Corvus.ContentHandling.Json.Specs
         {
             Assert.AreEqual(1, table.RowCount);
 
-            object instance = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetContent(contentType));
+            object instance = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredContent(contentType));
 
             this.inputs.Add(instanceName, instance);
         }
@@ -56,7 +56,7 @@ namespace Corvus.ContentHandling.Json.Specs
         {
             Assert.AreEqual(1, table.RowCount);
 
-            object instance = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetContent(contentType));
+            object instance = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredContent(contentType));
 
             this.scenarioContext.Set(instance, instanceName);
         }

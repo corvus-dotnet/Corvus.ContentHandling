@@ -82,7 +82,7 @@ namespace Corvus.ContentHandling.Json.Specs
         {
             Assert.AreEqual(1, table.RowCount);
 
-            object expected = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetContent(contentType));
+            object expected = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredContent(contentType));
 
             object? actual = this.deserializedItems[instanceName];
 

@@ -13,6 +13,7 @@ namespace Corvus.ContentHandling.Internal
     /// </summary>
     /// <typeparam name="TPayloadBase">The base type of the payload for which to dispatch the handlers.</typeparam>
     public class ContentHandlerDispatcher<TPayloadBase> : IContentHandlerDispatcher<TPayloadBase>
+        where TPayloadBase : notnull
     {
         private readonly IServiceProvider serviceProvider;
 

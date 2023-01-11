@@ -1,4 +1,4 @@
-﻿// <copyright file="ContentTypeConverter.cs" company="Endjin Limited">
+﻿// <copyright file="PolymorphicTargetConverter.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -108,7 +108,7 @@ namespace Corvus.ContentHandling.Json.Internal
             }
 
             string contentTypeName = contentTypeNode.GetValue<string>();
-            if (!this.serviceProvider.TryGetTypeFor(contentTypeName, out Type typeToCreate, out bool usesServices))
+            if (!this.serviceProvider.TryGetTypeFor(contentTypeName, out Type? typeToCreate, out bool usesServices))
             {
                 throw new InvalidOperationException($"The content for type {contentTypeName} has not been registered with the ContentFactory.");
             }
@@ -163,7 +163,7 @@ namespace Corvus.ContentHandling.Json.Internal
                 // provider so it gets initialized by DI as required, then jumping through some
                 // hoops to get System.Text.Json to deserialize into that (hoops that aren't
                 // even available prior to .NET 7.0).
-                var result = (TTarget)this.serviceProvider.GetContent(contentTypeName);
+                var result = (TTarget)this.serviceProvider.GetRequiredContent(contentTypeName);
                 return DeserializeIntoInstance(typeToCreate, result, jo, options);
 #else
                 throw new NotSupportedException("Using DI when deserializing objects with System.Text.Json requires .NET 7.0 or later");

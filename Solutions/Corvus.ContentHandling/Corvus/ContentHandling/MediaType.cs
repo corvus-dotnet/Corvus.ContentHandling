@@ -73,7 +73,7 @@ namespace Corvus.ContentHandling
             }
 
             string contentType = parts[0];
-            string encoding = parts.Length > 1 ? parts[1] : null;
+            string encoding = parts.Length > 1 ? parts[1] : string.Empty;
 
             return new MediaType(contentType, encoding);
         }
@@ -140,7 +140,7 @@ namespace Corvus.ContentHandling
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is MediaType link)
             {
@@ -153,7 +153,7 @@ namespace Corvus.ContentHandling
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return (this.TypeAndSubtype, this.StructuredSyntaxSuffix).GetHashCode();
+            return HashCode.Combine(this.TypeAndSubtype, this.StructuredSyntaxSuffix);
         }
     }
 }

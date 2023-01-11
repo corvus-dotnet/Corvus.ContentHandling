@@ -2,12 +2,14 @@
 
 ## V4.0
 
-Uses `System.Text.Json`. (Earlier versions used `Newtonsoft.Json`.)
+Uses `System.Text.Json`. (Earlier versions used `Newtonsoft.Json`.) Targets .NET 6.0.
 
 There are no changes to the core `Corvus.ContentHandling` library because that does not depend on any particular JSON serialization technology. (In fact it is not specific to JSON at all.) The changes are all in `Corvus.ContentHandling.Json`.
 
 Breaking change:
 * Serialization and deserialization for content type pattern no longer supported for `Newtonsoft.Json` (that's the main point of this version, so use v3.0 if you still need that)
+* .NET 6.0 minimum (.NET 7.0 for some features)
+* Nullable reference types now supported throughout
 * The `ContentEnvelope` no longer supplies default JSON serialization settings
 * Polymorphic deserialization driven by content type requires different registration
 * Dependency injection during deserialization not available prior to .NET 7.0

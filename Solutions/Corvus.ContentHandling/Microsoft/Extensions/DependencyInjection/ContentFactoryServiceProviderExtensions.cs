@@ -6,6 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
     using Corvus.ContentHandling;
@@ -70,7 +71,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="serviceProvider">The service provider.</param>
         /// <returns>An instance of the required content, or null if no content is registered.</returns>
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
-        public static T GetContent<T>(this IServiceProvider serviceProvider)
+        public static T? GetContent<T>(this IServiceProvider serviceProvider)
             where T : class
         {
             if (serviceProvider == null)
@@ -89,7 +90,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="serviceProvider">The service provider.</param>
         /// <param name="contentType">The content type.</param>
         /// <returns>An instance of the required content, or null if no content is registered.</returns>
-        public static T GetContent<T>(this IServiceProvider serviceProvider, string contentType)
+        public static T? GetContent<T>(this IServiceProvider serviceProvider, string contentType)
             where T : class
         {
             if (serviceProvider == null)
@@ -102,7 +103,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type? serviceType, out bool usesServices))
             {
                 return null;
             }
@@ -113,7 +114,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
@@ -129,7 +130,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="serviceProvider">The service provider.</param>
         /// <param name="contentType">The content type.</param>
         /// <returns>An instance of the required content, or null if no content is registered.</returns>
-        public static object GetContent(this IServiceProvider serviceProvider, string contentType)
+        public static object? GetContent(this IServiceProvider serviceProvider, string contentType)
         {
             if (serviceProvider == null)
             {
@@ -141,7 +142,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type? serviceType, out bool usesServices))
             {
                 return null;
             }
@@ -152,7 +153,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
@@ -201,19 +202,19 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type? serviceType, out bool usesServices))
             {
                 throw new InvalidOperationException(string.Format(Resources.NoNamedServiceRegistered, contentType));
             }
 
-            object result;
+            object? result;
             if (usesServices)
             {
                 result = serviceProvider.GetRequiredService(serviceType);
             }
             else
             {
-                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
@@ -248,7 +249,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (!TryGetTypeFor(serviceProvider, contentType, out Type serviceType, out bool usesServices))
+            if (!TryGetTypeFor(serviceProvider, contentType, out Type? serviceType, out bool usesServices))
             {
                 throw new InvalidOperationException(string.Format(Resources.NoNamedServiceRegistered, contentType));
             }
@@ -259,7 +260,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
@@ -282,7 +283,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>
         /// A boolean indicating whether or not a type was found.
         /// </returns>
-        public static bool TryGetTypeFor(this IServiceProvider serviceProvider, string contentType, out Type serviceType)
+        public static bool TryGetTypeFor(this IServiceProvider serviceProvider, string contentType, [NotNullWhen(true)] out Type? serviceType)
             => TryGetTypeFor(serviceProvider, contentType, out serviceType, out _);
 
         /// <summary>
@@ -306,7 +307,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static bool TryGetTypeFor(
             this IServiceProvider serviceProvider,
             string contentType,
-            out Type serviceType,
+            [NotNullWhen(true)] out Type? serviceType,
             out bool usesServices)
         {
             ContentFactory typesForNamedContent = serviceProvider.GetRequiredService<ContentFactory>();
