@@ -14,6 +14,7 @@ namespace Corvus.ContentHandling.Internal
     /// <typeparam name="TPayload">The concrete type of the payload.</typeparam>
     /// <typeparam name="T1">The type of the first parameter.</typeparam>
     public class AsyncContentHandlerWithAction<TPayloadBase, TPayload, T1> : IAsyncContentHandler<TPayloadBase, T1>
+        where TPayloadBase : notnull
         where TPayload : TPayloadBase
     {
         private readonly Func<TPayload, T1, Task> handle;

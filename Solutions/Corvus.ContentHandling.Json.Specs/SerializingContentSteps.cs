@@ -4,15 +4,21 @@
 
 namespace Corvus.ContentHandling.Json.Specs
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Text.Json;
+    using System.Text.Json.JsonDiffPatch;
+    using System.Text.Json.Nodes;
 
     using Corvus.ContentHandling.Json.Specs.Samples;
-    using Corvus.Extensions.Json;
+    using Corvus.Json.Serialization;
     using Corvus.Testing.SpecFlow;
+
     using Microsoft.Extensions.DependencyInjection;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
+
     using NUnit.Framework;
+
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
 
@@ -21,11 +27,18 @@ namespace Corvus.ContentHandling.Json.Specs
     {
         private readonly FeatureContext featureContext;
         private readonly ScenarioContext scenarioContext;
+        private readonly IJsonSerializerOptionsProvider optionsProvider;
+        private readonly Dictionary<string, object> inputs = new();
+
+        private string? serialized;
 
         public SerializingContentSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
             this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
+
+            IServiceProvider serviceProvider = ContainerBindings.GetServiceProvider(this.featureContext);
+            this.optionsProvider = serviceProvider.GetRequiredService<IJsonSerializerOptionsProvider>();
         }
 
         [Given("I have an instance of a content object called '(.*)' with content type '(.*)'")]
@@ -33,12 +46,22 @@ namespace Corvus.ContentHandling.Json.Specs
         {
             Assert.AreEqual(1, table.RowCount);
 
-            object instance = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetContent(contentType));
+            object instance = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredContent(contentType));
+
+            this.inputs.Add(instanceName, instance);
+        }
+
+        [Given("I have an instance of a content object called '(.*)' with content type '(.*)' available as a child object")]
+        public void GivenIHaveAnInstanceOfAContentObjectCalledAsChild(string instanceName, string contentType, Table table)
+        {
+            Assert.AreEqual(1, table.RowCount);
+
+            object instance = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredContent(contentType));
 
             this.scenarioContext.Set(instance, instanceName);
         }
 
-        [Given("I have a dictionary called '(.*)' with values")]
+        [Given("I have a dictionary called '(.*)' with values available as a child object")]
         public void GivenIHaveADictionaryCalledWithValues(string dictionaryName, Table table)
         {
             var dictionary = table.Rows.ToDictionary(x => x["Key"], x => x["Value"]);
@@ -46,7 +69,7 @@ namespace Corvus.ContentHandling.Json.Specs
             this.scenarioContext.Set(dictionary, dictionaryName);
         }
 
-        [Given("I have an instance of a poc object called '(.*)'")]
+        [Given("I have an instance of a poc object called '([^']*)' available as a child object")]
         public void GivenIHaveAnInstanceOfAPocObjectCalled(string name, Table table)
         {
             this.scenarioContext.Set(table.CreateInstance<PocObject>(), name);
@@ -55,33 +78,23 @@ namespace Corvus.ContentHandling.Json.Specs
         [Given("I have an instance of a poc object with enum called '(.*)'")]
         public void GivenIHaveAnInstanceOfAPocObjectWithEnumCalled(string name, Table table)
         {
-            this.scenarioContext.Set(table.CreateInstance<PocObjectWithEnum>(), name);
+            this.inputs.Add(name, table.CreateInstance<PocObjectWithEnum>());
         }
 
-        [Given("I have an instance of a poc object with dictionary called '(.*)'")]
-        public void GivenIHaveAnInstanceOfAPocObjectCalledWithDictionaryCalled(string name, Table table)
+        [When("I serialize the content object called '([^']*)'")]
+        public void WhenISerializeTheContentObjectCalled(string instanceName)
         {
-            PocObjectWithDictionary obj = table.CreateInstance<PocObjectWithDictionary>();
-            this.scenarioContext.Set(obj, name);
+            this.serialized = JsonSerializer.Serialize(this.inputs[instanceName], this.optionsProvider.Instance);
         }
 
-        [When("I serialize the content object called '(.*)' as '(.*)'")]
-        public void WhenISerializeTheContentObjectCalled(string instanceName, string resultName)
+        [Then("the serialized result should be a json object '(.*)'")]
+        public void ThenTheResultShouldBeAJsonObject(string jsonString)
         {
-            object instance = this.scenarioContext.Get<object>(instanceName);
-            string serializedValue = JsonConvert.SerializeObject(instance, ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IJsonSerializerSettingsProvider>().Instance);
-            this.scenarioContext.Set(serializedValue, resultName);
-        }
+            var actual = JsonNode.Parse(this.serialized!);
 
-        [Then("the value called '(.*)' should be a json object '(.*)'")]
-        public void ThenTheResultShouldBeAJsonObject(string resultName, string jsonString)
-        {
-            string result = this.scenarioContext.Get<string>(resultName);
-            var actual = JObject.Parse(result);
+            var expected = JsonNode.Parse(jsonString);
 
-            var expected = JObject.Parse(jsonString);
-
-            Assert.True(JToken.DeepEquals(expected, actual));
+            Assert.IsTrue(actual.DeepEquals(expected));
         }
     }
 }

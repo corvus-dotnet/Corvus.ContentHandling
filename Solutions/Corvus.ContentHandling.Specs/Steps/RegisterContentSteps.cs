@@ -45,7 +45,7 @@ namespace Corvus.Extensions.Specs.Steps
         {
             IServiceProvider serviceProvider = this.ScenarioContext.Get<IServiceProvider>("ServiceProvider");
             IEnumerable<string> contentTypes = table.CreateSet(row => row.GetString("Content type"));
-            var results = new List<object>();
+            var results = new List<object?>();
             foreach (string contentType in contentTypes)
             {
                 results.Add(serviceProvider.GetContent(contentType));
@@ -59,7 +59,7 @@ namespace Corvus.Extensions.Specs.Steps
         {
             IList<Type> types = table.CreateSet(row => TypeMap.GetTypeFor(row.GetString("Type"))).ToList();
 
-            List<object> results = this.ScenarioContext.Get<List<object>>("Result");
+            List<object?> results = this.ScenarioContext.Get<List<object?>>("Result");
 
             Assert.AreEqual(types.Count, results.Count);
             for (int i = 0; i < results.Count; ++i)

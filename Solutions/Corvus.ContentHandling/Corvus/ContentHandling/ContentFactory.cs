@@ -7,6 +7,7 @@ namespace Corvus.ContentHandling
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;
@@ -64,7 +65,7 @@ namespace Corvus.ContentHandling
                 throw new ArgumentNullException(nameof(type));
             }
 
-            if (!TryGetContentType(type, out string contentType))
+            if (!TryGetContentType(type, out string? contentType))
             {
                 throw new InvalidOperationException(string.Format(Resources.TypeNeedsStaticStringContentTypeField, type));
             }
@@ -79,7 +80,7 @@ namespace Corvus.ContentHandling
         /// <param name="contentType">The content type registered for the type.</param>
         /// <returns>A boolean indicating success.</returns>
         /// <remarks>The type must provide an instance property called. <c>ContentType</c> which contains its content type.</remarks>
-        public static bool TryGetContentType(object target, out string contentType)
+        public static bool TryGetContentType(object target, [NotNullWhen(true)] out string? contentType)
         {
             if (target is null)
             {
@@ -87,8 +88,8 @@ namespace Corvus.ContentHandling
             }
 
             Type targetType = target.GetType();
-            PropertyInfo contentTypeProp = targetType.GetProperty("ContentType", BindingFlags.Public | BindingFlags.Instance);
-            contentType = (string)contentTypeProp?.GetValue(target);
+            PropertyInfo? contentTypeProp = targetType.GetProperty("ContentType", BindingFlags.Public | BindingFlags.Instance);
+            contentType = (string?)contentTypeProp?.GetValue(target);
 
             // If we have a content type return true, otherwise try to fall back to the RegisteredContentType for the class.
 #pragma warning disable RCS1104 // Simplify conditional expression. - not an obvious improvement
@@ -104,19 +105,19 @@ namespace Corvus.ContentHandling
         /// <param name="contentType">The content type registered for the type.</param>
         /// <returns>A boolean indicating success.</returns>
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
-        public static bool TryGetContentType(Type type, out string contentType)
+        public static bool TryGetContentType(Type type, [NotNullWhen(true)] out string? contentType)
         {
             if (type is null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
 
-            FieldInfo contentTypeField = type.GetTypeInfo().GetField("RegisteredContentType");
+            FieldInfo? contentTypeField = type.GetTypeInfo().GetField("RegisteredContentType");
             contentType = null;
 
             if (contentTypeField?.IsStatic == true && contentTypeField.FieldType == typeof(string))
             {
-                contentType = (string)contentTypeField.GetValue(null);
+                contentType = (string?)contentTypeField.GetValue(null);
             }
 
             return !string.IsNullOrEmpty(contentType);
@@ -140,7 +141,7 @@ namespace Corvus.ContentHandling
         /// <param name="contentType">The content type of the type.</param>
         /// <returns>A boolean indicating success or failure.</returns>
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
-        public static bool TryGetContentType<T>(out string contentType)
+        public static bool TryGetContentType<T>([NotNullWhen(true)] out string? contentType)
         {
             return TryGetContentType(typeof(T), out contentType);
         }
@@ -157,7 +158,7 @@ namespace Corvus.ContentHandling
         /// <returns>
         /// True if the content type has been registered, false if not.
         /// </returns>
-        public bool TryGetContentType(string contentType, out Type implementingType)
+        public bool TryGetContentType(string contentType, [NotNullWhen(true)] out Type? implementingType)
         {
             if (this.ContentTypes.TryGetValue(contentType, out RegisteredContentType registration))
             {
@@ -186,7 +187,7 @@ namespace Corvus.ContentHandling
         /// <returns>
         /// True if the content type has been registered, false if not.
         /// </returns>
-        public bool TryGetContentType(string contentType, out Type implementingType, out bool usesServices)
+        public bool TryGetContentType(string contentType, [NotNullWhen(true)] out Type? implementingType, out bool usesServices)
         {
             if (this.ContentTypes.TryGetValue(contentType, out RegisteredContentType registration))
             {
@@ -242,7 +243,7 @@ namespace Corvus.ContentHandling
             }
         }
 
-        private struct RegisteredContentType
+        private readonly struct RegisteredContentType
         {
             public RegisteredContentType(Type implementingType, bool useServices)
             {
