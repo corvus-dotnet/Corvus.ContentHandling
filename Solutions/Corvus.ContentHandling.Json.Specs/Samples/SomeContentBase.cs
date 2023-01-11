@@ -9,8 +9,10 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
     /// <summary>
     /// An base for a polymorphic content type.
     /// </summary>
+#pragma warning disable CA1067 // Override Object.Equals(object) when implementing IEquatable<T>
     public class SomeContentBase : IEquatable<SomeContentBase>
     {
+#pragma warning restore CA1067 // Override Object.Equals(object) when implementing IEquatable<T>
         /// <summary>
         /// Initializes a new instance of the <see cref="SomeContentBase"/> class.
         /// </summary>

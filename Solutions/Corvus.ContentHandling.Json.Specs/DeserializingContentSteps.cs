@@ -20,17 +20,14 @@ namespace Corvus.ContentHandling.Json.Specs
     public class DeserializingContentSteps
     {
         private readonly FeatureContext featureContext;
-        private readonly ScenarioContext scenarioContext;
         private readonly IJsonSerializerOptionsProvider optionsProvider;
 
-        private Dictionary<string, object?> deserializedItems = new();
+        private readonly Dictionary<string, object?> deserializedItems = new();
 
         public DeserializingContentSteps(
-            FeatureContext featureContext,
-            ScenarioContext scenarioContext)
+            FeatureContext featureContext)
         {
             this.featureContext = featureContext;
-            this.scenarioContext = scenarioContext;
 
             IServiceProvider serviceProvider = ContainerBindings.GetServiceProvider(this.featureContext);
             this.optionsProvider = serviceProvider.GetRequiredService<IJsonSerializerOptionsProvider>();

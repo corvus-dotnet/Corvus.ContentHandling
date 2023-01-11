@@ -17,6 +17,7 @@
     <PackageDescription></PackageDescription>
     <PackageTags></PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
   
   <ItemGroup>
@@ -38,9 +39,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <EmbeddedResource Update="Corvus\ContentHandling\ExceptionMessages.resx">
-      <CustomToolNamespace>Corvus.ContentHandling</CustomToolNamespace>
-    </EmbeddedResource>
     <EmbeddedResource Update="Corvus\ContentHandling\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

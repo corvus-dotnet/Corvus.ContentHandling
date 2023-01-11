@@ -8,31 +8,14 @@ namespace Corvus.ContentHandling.Json.Internal
     using System.Text.Json;
     using System.Text.Json.Nodes;
     using System.Text.Json.Serialization;
-    using System.Threading;
-
-    using Corvus.Json.Serialization;
-
-    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// A standard json converter for <see cref="ContentEnvelope"/>.
     /// </summary>
-    public class ContentEnvelopeConverter : JsonConverter<object>
+    public class ContentEnvelopeConverter : JsonConverter<ContentEnvelope>
     {
         private const string SerializedPayloadTag = "payload";
         private const string PayloadContentTypeTag = "contentType";
-        private readonly IServiceProvider serviceProvider;
-        private readonly Lazy<IJsonSerializerOptionsProvider> jsonSerializerSettings;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentEnvelopeConverter"/> class.
-        /// </summary>
-        /// <param name="serviceProvider">The service provider for the context.</param>
-        public ContentEnvelopeConverter(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-            this.jsonSerializerSettings = new Lazy<IJsonSerializerOptionsProvider>(() => this.serviceProvider.GetRequiredService<IJsonSerializerOptionsProvider>(), LazyThreadSafetyMode.ExecutionAndPublication);
-        }
 
         /// <inheritdoc/>
         public override bool CanConvert(Type objectType)
@@ -41,7 +24,7 @@ namespace Corvus.ContentHandling.Json.Internal
         }
 
         /// <inheritdoc/>
-        public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override ContentEnvelope? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var value = (JsonObject)JsonNode.Parse(ref reader)!;
             return ContentEnvelope.FromJson(
@@ -51,7 +34,7 @@ namespace Corvus.ContentHandling.Json.Internal
         }
 
         /// <inheritdoc/>
-        public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, ContentEnvelope value, JsonSerializerOptions options)
         {
             ArgumentNullException.ThrowIfNull(writer);
 
@@ -59,14 +42,13 @@ namespace Corvus.ContentHandling.Json.Internal
             {
                 writer.WriteNullValue();
             }
-
-            if (value is ContentEnvelope env)
+            else
             {
                 writer.WriteStartObject();
                 writer.WritePropertyName(PayloadContentTypeTag);
-                writer.WriteStringValue(env.PayloadContentType);
+                writer.WriteStringValue(value.PayloadContentType);
                 writer.WritePropertyName(SerializedPayloadTag);
-                env.SerializedPayload.WriteTo(writer);
+                value.SerializedPayload.WriteTo(writer);
                 writer.WriteEndObject();
             }
         }

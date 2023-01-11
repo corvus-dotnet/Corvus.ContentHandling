@@ -304,6 +304,7 @@ namespace Corvus.ContentHandling.Json
             }
 
             this.serializedPayload = JsonSerializer.SerializeToNode(payload, serializerOptions)!;
+            this.serializerOptions = serializerOptions;
         }
 
         /// <summary>
@@ -444,7 +445,6 @@ namespace Corvus.ContentHandling.Json
         /// <param name="match2">The second match.</param>
         /// <param name="match3">The third match.</param>
         /// <returns>True if the match was made, otherwise false.</returns>
-#pragma warning disable CA1822 // Mark members as static
         public async Task<bool> MatchAsync<T1, T2, T3>((string ContentType, Func<T1, Task> Match) match1, (string ContentType, Func<T2, Task> Match) match2, (string ContentType, Func<T3, Task> Match) match3)
         {
             if (match1.Match is null)

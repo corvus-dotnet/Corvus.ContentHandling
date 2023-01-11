@@ -114,13 +114,13 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
 
-                return ctorInfo.Invoke(new object[0]) as T;
+                return ctorInfo.Invoke(Array.Empty<object>()) as T;
             }
         }
 
@@ -153,13 +153,13 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
 
-                return ctorInfo.Invoke(new object[0]);
+                return ctorInfo.Invoke(Array.Empty<object>());
             }
         }
 
@@ -214,13 +214,13 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
 
-                result = ctorInfo.Invoke(new object[0]) as T;
+                result = ctorInfo.Invoke(Array.Empty<object>()) as T;
             }
 
             if (result is not T service)
@@ -260,13 +260,13 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(new Type[0]);
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
 
-                return ctorInfo.Invoke(new object[0]);
+                return ctorInfo.Invoke(Array.Empty<object>());
             }
         }
 
@@ -324,7 +324,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 int indexOfLastDot = contentType.LastIndexOf('.');
                 if (indexOfLastDot > 0)
                 {
-                    return TryGetTypeFor(serviceProvider, contentType.Substring(0, indexOfLastDot) + suffix, out serviceType, out usesServices);
+                    return TryGetTypeFor(serviceProvider, string.Concat(contentType.AsSpan(0, indexOfLastDot), suffix), out serviceType, out usesServices);
                 }
 
                 return false;

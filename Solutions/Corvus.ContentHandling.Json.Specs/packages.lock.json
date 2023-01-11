@@ -1438,7 +1438,7 @@
         "dependencies": {
           "Microsoft.CodeAnalysis.CSharp": "[4.4.0, )",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "[6.0.0, )",
-          "System.Runtime.Loader": "[4.*, )"
+          "System.Runtime.Loader": "[4.3.0, )"
         }
       },
       "corvus.contenthandling.json": {

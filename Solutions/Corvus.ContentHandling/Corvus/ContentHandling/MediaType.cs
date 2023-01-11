@@ -9,13 +9,8 @@ namespace Corvus.ContentHandling
     /// <summary>
     /// Represents a MediaType, which is a combination of a content type and an encoding separated by a "+".
     /// </summary>
-    public struct MediaType
+    public readonly struct MediaType
     {
-        /// <summary>
-        /// Explicitly named value for an empty MediaType.
-        /// </summary>
-        public static MediaType None = new(string.Empty, string.Empty);
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaType"/> struct.
         /// </summary>
@@ -26,6 +21,11 @@ namespace Corvus.ContentHandling
             this.TypeAndSubtype = typeAndSubtype ?? throw new ArgumentNullException(nameof(typeAndSubtype));
             this.StructuredSyntaxSuffix = structuredSyntaxSuffix ?? throw new ArgumentNullException(nameof(structuredSyntaxSuffix));
         }
+
+        /// <summary>
+        /// Gets an empty MediaType.
+        /// </summary>
+        public static MediaType None { get; } = new(string.Empty, string.Empty);
 
         /// <summary>
         /// Gets the content type and subtype for this media type.
