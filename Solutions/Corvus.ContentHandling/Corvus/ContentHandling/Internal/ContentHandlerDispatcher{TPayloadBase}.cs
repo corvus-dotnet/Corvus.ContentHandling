@@ -182,7 +182,7 @@ namespace Corvus.ContentHandling.Internal
         }
 
         /// <inheritdoc/>
-        public Task<TResult> DispatchPayloadToHanderAsync<TParam1, TResult>(TPayloadBase payload, string contentType, string handlerClass, TParam1 param1)
+        public Task<TResult> DispatchPayloadToHandlerAsync<TParam1, TResult>(TPayloadBase payload, string contentType, string handlerClass, TParam1 param1)
         {
             return this.DispatchAsync<TParam1, TResult>(payload, contentType, handlerClass, param1);
         }

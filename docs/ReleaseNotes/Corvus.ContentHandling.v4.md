@@ -11,6 +11,7 @@ Breaking change:
 * The `ContentEnvelope` no longer supplies default JSON serialization settings
 * Polymorphic deserialization driven by content type requires different registration
 * Dependency injection during deserialization not available prior to .NET 7.0
+* Fixed a typo: a few methods called `DispatchPayloadToHanderAsync` now have the missing `l` reinstated to match all the other overloads
 
 More detail:
 
