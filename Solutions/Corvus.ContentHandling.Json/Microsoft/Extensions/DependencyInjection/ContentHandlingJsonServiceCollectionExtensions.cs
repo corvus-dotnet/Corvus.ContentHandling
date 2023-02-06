@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ContentHandlingJsonServiceCollectionExtensions
     {
         /// <summary>
-        /// Add the default JSON serialization settings.
+        /// Add the default JSON serialization configuration.
         /// </summary>
         /// <param name="services">The target service collection.</param>
         /// <returns>The service collection.</returns>
@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <para>
         /// Adds custom JsonConverters to the service collection to support content type-based serialization. This
         /// relies on the Corvus.Json.Serialization IJsonSerializerOptionsProvider to make these converters
-        /// available to the JSON serializers, so calls <see cref="CorvusJsonSerializationServiceCollectionExtensions.AddJsonSerializerSettingsProvider" />.
+        /// available to the JSON serializers, so calls <see cref="CorvusJsonSerializationServiceCollectionExtensions.AddJsonSerializerOptionsProvider" />.
         /// </para>
         /// <para>
         /// You may also want to add any of the JsonConverters provided by Corvus that you require, as this method
@@ -48,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </remarks>
         public static IServiceCollection AddContentTypeBasedSerializationSupport(this IServiceCollection services)
         {
-            services.AddJsonSerializerSettingsProvider();
+            services.AddJsonSerializerOptionsProvider();
 
             if (!services.Any(s => s.ServiceType == typeof(ContentFactory)))
             {
