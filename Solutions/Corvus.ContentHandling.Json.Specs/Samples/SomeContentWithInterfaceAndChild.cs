@@ -22,12 +22,12 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <summary>
         /// Gets or sets a value.
         /// </summary>
-        public string SomeValue { get; set; }
+        public string? SomeValue { get; set; }
 
         /// <summary>
         /// Gets or sets a child.
         /// </summary>
-        public ISomeContentInterface Child { get; set; }
+        public ISomeContentInterface? Child { get; set; }
 
         /// <summary>
         /// Compares two instances of SomeContentWithInterfaceAndChild for equality.
@@ -52,19 +52,21 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         }
 
         /// <inheritdoc />
-        public bool Equals(SomeContentWithInterfaceAndChild other)
+        public bool Equals(SomeContentWithInterfaceAndChild? other)
         {
-            return this.SomeValue == other.SomeValue && ((this.Child == null && other.Child == null) || (this.Child?.Equals(other.Child) == true));
+            return other is not null &&
+                this.SomeValue == other.SomeValue &&
+                ((this.Child == null && other.Child == null) || (this.Child?.Equals(other.Child) == true));
         }
 
         /// <inheritdoc />
-        public bool Equals(ISomeContentInterface other)
+        public bool Equals(ISomeContentInterface? other)
         {
             return this.Equals(other as SomeContentWithInterfaceAndChild);
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is SomeContentWithInterfaceAndChild sci)
             {

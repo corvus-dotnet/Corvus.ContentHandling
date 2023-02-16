@@ -14,6 +14,7 @@ namespace Corvus.ContentHandling.Internal
     /// <typeparam name="THandler">The concrete type of the handler.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     public class AsyncContentHandlerWithResultAndClass<TPayloadBase, TPayload, THandler, TResult> : IAsyncContentHandlerWithResult<TPayloadBase, TResult>
+        where TPayloadBase : notnull
         where TPayload : TPayloadBase
         where THandler : IAsyncContentHandlerWithResult<TPayload, TResult>
     {

@@ -25,13 +25,13 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="serviceCollection">The service collection with which to register content handlers.</param>
         /// <param name="configure">Configure the content factory.</param>
         /// <returns>An instance of the content factory for initialization.</returns>
-        public static IServiceCollection AddContent(this IServiceCollection serviceCollection, Action<ContentFactory> configure = null)
+        public static IServiceCollection AddContent(this IServiceCollection serviceCollection, Action<ContentFactory>? configure = null)
         {
             ContentFactory contentFactory;
-            ServiceDescriptor contentFactoryDescriptor = serviceCollection.FirstOrDefault(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType));
+            ServiceDescriptor? contentFactoryDescriptor = serviceCollection.FirstOrDefault(s => typeof(ContentFactory).IsAssignableFrom(s.ServiceType));
             if (contentFactoryDescriptor is not null)
             {
-                contentFactory = (ContentFactory)contentFactoryDescriptor.ImplementationInstance;
+                contentFactory = (ContentFactory)contentFactoryDescriptor.ImplementationInstance!;
             }
             else
             {

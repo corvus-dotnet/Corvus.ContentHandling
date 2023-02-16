@@ -12,6 +12,7 @@ namespace Corvus.ContentHandling.Internal
     /// <typeparam name="TPayloadBase">The base type of payloads for this handler class.</typeparam>
     /// <typeparam name="TPayload">The concrete type of the payload.</typeparam>
     public class ContentHandlerWithAction<TPayloadBase, TPayload> : IContentHandler<TPayloadBase>
+        where TPayloadBase : notnull
         where TPayload : TPayloadBase
     {
         private readonly Action<TPayload> handle;

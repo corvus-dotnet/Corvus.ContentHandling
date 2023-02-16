@@ -7,8 +7,8 @@ namespace Corvus.ContentHandling.Json
     using System;
     using System.Linq;
     using System.Reflection;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// Extension methods that assist with contract resolution.
@@ -19,23 +19,16 @@ namespace Corvus.ContentHandling.Json
         /// Gets the predicted json member name.
         /// </summary>
         /// <param name="memberInfo">The member for which to get the predicted name.</param>
-        /// <param name="serializerSettings">The <see cref="JsonSerializerSettings"/> that apply to the context.</param>
+        /// <param name="serializerOptions">The <see cref="JsonSerializerOptions"/> that apply to the context.</param>
         /// <returns>The predicted member name.</returns>
-        public static string GetPredictedMemberName(this MemberInfo memberInfo, JsonSerializerSettings serializerSettings)
+        public static string GetPredictedMemberName(this MemberInfo memberInfo, JsonSerializerOptions serializerOptions)
         {
-            if (memberInfo is null)
-            {
-                throw new ArgumentNullException(nameof(memberInfo));
-            }
+            ArgumentNullException.ThrowIfNull(memberInfo);
+            ArgumentNullException.ThrowIfNull(serializerOptions);
 
-            if (serializerSettings is null)
-            {
-                throw new ArgumentNullException(nameof(serializerSettings));
-            }
-
-            return memberInfo.GetCustomAttributes(typeof(JsonPropertyAttribute), true).FirstOrDefault() is JsonPropertyAttribute jsonPropertyAttribute
-                ? jsonPropertyAttribute.PropertyName
-                : serializerSettings.ContractResolver is CamelCasePropertyNamesContractResolver cccr ? cccr.GetResolvedPropertyName(memberInfo.Name) : memberInfo.Name;
+            return memberInfo.GetCustomAttributes(typeof(JsonPropertyNameAttribute), true).FirstOrDefault() is JsonPropertyNameAttribute jsonPropertyNameAttribute
+                ? jsonPropertyNameAttribute.Name
+                : serializerOptions.PropertyNamingPolicy is JsonNamingPolicy np ? np.ConvertName(memberInfo.Name) : memberInfo.Name;
         }
     }
 }

@@ -701,7 +701,7 @@ namespace Corvus.ContentHandling
         /// <param name="handlerClass">The class of handler (e.g. "view", "messageProcessor").</param>
         /// <param name="param1">The first parameter.</param>
         /// <returns>A <see cref="Task{TResult}"/> which completes when the content is handled.</returns>
-        Task<TResult> DispatchPayloadToHanderAsync<TParam1, TResult>(TPayloadBaseType payload, string contentType, string handlerClass, TParam1 param1);
+        Task<TResult> DispatchPayloadToHandlerAsync<TParam1, TResult>(TPayloadBaseType payload, string contentType, string handlerClass, TParam1 param1);
 
         /// <summary>
         /// Handle the given payload.

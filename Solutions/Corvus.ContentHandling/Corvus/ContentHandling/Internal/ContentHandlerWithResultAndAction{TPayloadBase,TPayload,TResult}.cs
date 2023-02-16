@@ -13,6 +13,7 @@ namespace Corvus.ContentHandling.Internal
     /// <typeparam name="TPayload">The concrete type of the payload.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     public class ContentHandlerWithResultAndAction<TPayloadBase, TPayload, TResult> : IContentHandlerWithResult<TPayloadBase, TResult>
+        where TPayloadBase : notnull
         where TPayload : TPayloadBase
     {
         private readonly Func<TPayload, TResult> handle;

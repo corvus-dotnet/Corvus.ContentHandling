@@ -30,7 +30,7 @@ namespace Corvus.Extensions.Specs.Driver
                 "ContentType5"          => typeof(ContentType5),
                 "ContentType5Subtype1"  => typeof(ContentType5Subtype1),
                 "ContentType6"          => typeof(ContentType6),
-                _                       => throw new ArgumentException(nameof(typeName)),
+                _                       => throw new ArgumentException($"Unrecognized type name {typeName}", nameof(typeName)),
             };
         }
     }

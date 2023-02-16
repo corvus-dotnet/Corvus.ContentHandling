@@ -13,6 +13,7 @@ namespace Corvus.ContentHandling.Internal
     /// <typeparam name="TPayload">The concrete type of the payload.</typeparam>
     /// <typeparam name="THandler">The concrete type of the handler.</typeparam>
     public class AsyncContentHandlerWithClass<TPayloadBase, TPayload, THandler> : IAsyncContentHandler<TPayloadBase>
+        where TPayloadBase : notnull
         where TPayload : TPayloadBase
         where THandler : IAsyncContentHandler<TPayload>
     {
