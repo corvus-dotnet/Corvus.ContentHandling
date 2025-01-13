@@ -284,25 +284,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithAction<TPayloadBase, TPayload>(this ContentFactory contentFactory, string contentType, Action<TPayload> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithAction, key, 0);
@@ -323,20 +308,9 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithAction<TPayloadBase, TPayload, T1>(this ContentFactory contentFactory, string contentType, Action<TPayload, T1> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithActionT1, key, 1);
@@ -358,25 +332,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithAction<TPayloadBase, TPayload, T1, T2>(this ContentFactory contentFactory, string contentType, Action<TPayload, T1, T2> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithActionT1T2, key, 2);
@@ -399,25 +358,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithAction<TPayloadBase, TPayload, T1, T2, T3>(this ContentFactory contentFactory, string contentType, Action<TPayload, T1, T2, T3> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithAction", ContentHandlerWithActionT1T2T3, key, 3);
@@ -437,25 +381,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithAction<TPayloadBase, TPayload>(this ContentFactory contentFactory, string contentType, Func<TPayload, Task> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithAction, key, 0);
@@ -476,25 +405,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithAction<TPayloadBase, TPayload, T1>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, Task> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithActionT1, key, 1);
@@ -516,25 +430,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithAction<TPayloadBase, TPayload, T1, T2>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, T2, Task> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithActionT1T2, key, 2);
@@ -557,25 +456,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithAction<TPayloadBase, TPayload, T1, T2, T3>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, T2, T3, Task> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithAction", AsyncContentHandlerWithActionT1T2T3, key, 3);
@@ -598,25 +482,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithResultAndAction<TPayloadBase, TPayload, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, TResult> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndAction, key, 1);
@@ -638,25 +507,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithResultAndAction<TPayloadBase, TPayload, T1, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, TResult> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndActionT1, key, 2);
@@ -679,25 +533,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithResultAndAction<TPayloadBase, TPayload, T1, T2, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, T2, TResult> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndActionT1T2, key, 3);
@@ -721,25 +560,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterContentHandlerWithResultAndAction<TPayloadBase, TPayload, T1, T2, T3, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, T2, T3, TResult> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "ContentHandlerWithResultAndAction", ContentHandlerWithResultAndActionT1T2T3, key, 4);
@@ -760,25 +584,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithResultAndAction<TPayloadBase, TPayload, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, Task<TResult>> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndAction, key, 1);
@@ -800,25 +609,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithResultAndAction<TPayloadBase, TPayload, T1, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, Task<TResult>> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndActionT1, key, 2);
@@ -841,25 +635,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithResultAndAction<TPayloadBase, TPayload, T1, T2, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, T2, Task<TResult>> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndActionT1T2, key, 3);
@@ -883,25 +662,10 @@ namespace Corvus.ContentHandling.Internal
         /// <param name="handlerClass">The handler class.</param>
         public static void RegisterAsyncContentHandlerWithResultAndAction<TPayloadBase, TPayload, T1, T2, T3, TResult>(this ContentFactory contentFactory, string contentType, Func<TPayload, T1, T2, T3, Task<TResult>> handle, string handlerClass)
         {
-            if (contentFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (contentType is null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-
-            if (handle is null)
-            {
-                throw new ArgumentNullException(nameof(handle));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(contentType);
+            ArgumentNullException.ThrowIfNull(handle);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             (string HandlerClass, string ContentType) key = (handlerClass, contentType);
             Type genericType = GetGenericHandlerType(handlerClass, "AsyncContentHandlerWithResultAndAction", AsyncContentHandlerWithResultAndActionT1T2T3, key, 4);

@@ -25,15 +25,8 @@ namespace Corvus.ContentHandling
         /// <returns>The item. </returns>
         public static TValue GetRecursive<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, MediaType mediaType, Func<MediaType, TKey> buildKey)
         {
-            if (dictionary is null)
-            {
-                throw new ArgumentNullException(nameof(dictionary));
-            }
-
-            if (buildKey is null)
-            {
-                throw new ArgumentNullException(nameof(buildKey));
-            }
+            ArgumentNullException.ThrowIfNull(dictionary);
+            ArgumentNullException.ThrowIfNull(buildKey);
 
             if (dictionary.TryGetRecursive(mediaType, buildKey, out TValue? result))
             {
@@ -55,15 +48,8 @@ namespace Corvus.ContentHandling
         /// <returns>True if a value was found, false otherwise.</returns>
         public static bool TryGetRecursive<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, MediaType mediaType, Func<MediaType, TKey> buildKey, [MaybeNullWhen(false)] out TValue result)
         {
-            if (dictionary is null)
-            {
-                throw new ArgumentNullException(nameof(dictionary));
-            }
-
-            if (buildKey is null)
-            {
-                throw new ArgumentNullException(nameof(buildKey));
-            }
+            ArgumentNullException.ThrowIfNull(dictionary);
+            ArgumentNullException.ThrowIfNull(buildKey);
 
             if (dictionary.TryGetValue(buildKey(mediaType), out result))
             {

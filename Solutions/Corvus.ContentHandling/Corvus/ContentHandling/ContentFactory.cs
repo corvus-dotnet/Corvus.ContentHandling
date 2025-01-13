@@ -60,10 +60,7 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static string GetContentType(Type type)
         {
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             if (!TryGetContentType(type, out string? contentType))
             {
@@ -82,10 +79,7 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide an instance property called. <c>ContentType</c> which contains its content type.</remarks>
         public static bool TryGetContentType(object target, [NotNullWhen(true)] out string? contentType)
         {
-            if (target is null)
-            {
-                throw new ArgumentNullException(nameof(target));
-            }
+            ArgumentNullException.ThrowIfNull(target);
 
             Type targetType = target.GetType();
             PropertyInfo? contentTypeProp = targetType.GetProperty("ContentType", BindingFlags.Public | BindingFlags.Instance);
@@ -107,10 +101,7 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static bool TryGetContentType(Type type, [NotNullWhen(true)] out string? contentType)
         {
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             FieldInfo? contentTypeField = type.GetTypeInfo().GetField("RegisteredContentType");
             contentType = null;

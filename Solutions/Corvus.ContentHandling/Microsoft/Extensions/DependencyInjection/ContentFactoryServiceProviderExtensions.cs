@@ -74,10 +74,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static T? GetContent<T>(this IServiceProvider serviceProvider)
             where T : class
         {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
             string name = ContentFactory.GetContentType(typeof(T));
             return GetContent<T>(serviceProvider, name);
@@ -93,10 +90,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static T? GetContent<T>(this IServiceProvider serviceProvider, string contentType)
             where T : class
         {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -132,10 +126,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>An instance of the required content, or null if no content is registered.</returns>
         public static object? GetContent(this IServiceProvider serviceProvider, string contentType)
         {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -173,10 +164,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static T GetRequiredContent<T>(this IServiceProvider serviceProvider)
             where T : class
         {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
             string name = ContentFactory.GetContentType(typeof(T));
             return GetRequiredContent<T>(serviceProvider, name);
@@ -192,10 +180,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static T GetRequiredContent<T>(this IServiceProvider serviceProvider, string contentType)
             where T : class
         {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -239,10 +224,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>An instance of the required content. It throws if no content is registered.</returns>
         public static object GetRequiredContent(this IServiceProvider serviceProvider, string contentType)
         {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
             if (string.IsNullOrEmpty(contentType))
             {

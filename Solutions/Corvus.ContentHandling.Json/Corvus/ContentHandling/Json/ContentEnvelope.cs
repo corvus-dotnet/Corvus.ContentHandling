@@ -164,10 +164,7 @@ namespace Corvus.ContentHandling.Json
         /// </remarks>
         public static ContentEnvelope FromJson(string jsonString, string? contentType = null)
         {
-            if (jsonString is null)
-            {
-                throw new ArgumentNullException(nameof(jsonString));
-            }
+            ArgumentNullException.ThrowIfNull(jsonString);
 
             JsonNode json = JsonNode.Parse(jsonString)!;
 
@@ -234,10 +231,7 @@ namespace Corvus.ContentHandling.Json
         /// </remarks>
         public static ContentEnvelope FromJson(Stream stream, string? contentType = null)
         {
-            if (stream is null)
-            {
-                throw new ArgumentNullException(nameof(stream));
-            }
+            ArgumentNullException.ThrowIfNull(stream);
 
             var json = JsonNode.Parse(stream);
             return FromJson(json!, contentType);
@@ -256,10 +250,7 @@ namespace Corvus.ContentHandling.Json
         /// </remarks>
         public static async Task<ContentEnvelope> FromJsonAsync(Stream stream, string? contentType = null)
         {
-            if (stream is null)
-            {
-                throw new ArgumentNullException(nameof(stream));
-            }
+            ArgumentNullException.ThrowIfNull(stream);
 
             JsonNode? json = await JsonSerializer.DeserializeAsync<JsonNode>(stream).ConfigureAwait(false);
             return FromJson(json!, contentType);
@@ -748,15 +739,8 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2>(Func<T1, Task> match1, Func<T2, Task> match2)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -797,20 +781,9 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3>(Func<T1, Task> match1, Func<T2, Task> match2, Func<T3, Task> match3)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
-
-            if (match3 is null)
-            {
-                throw new ArgumentNullException(nameof(match3));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
+            ArgumentNullException.ThrowIfNull(match3);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -865,25 +838,10 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3, T4>(Func<T1, Task> match1, Func<T2, Task> match2, Func<T3, Task> match3, Func<T4, Task> match4)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
-
-            if (match3 is null)
-            {
-                throw new ArgumentNullException(nameof(match3));
-            }
-
-            if (match4 is null)
-            {
-                throw new ArgumentNullException(nameof(match4));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
+            ArgumentNullException.ThrowIfNull(match3);
+            ArgumentNullException.ThrowIfNull(match4);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -952,30 +910,11 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public async Task<bool> MatchAsync<T1, T2, T3, T4, T5>(Func<T1, Task> match1, Func<T2, Task> match2, Func<T3, Task> match3, Func<T4, Task> match4, Func<T5, Task> match5)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
-
-            if (match3 is null)
-            {
-                throw new ArgumentNullException(nameof(match3));
-            }
-
-            if (match4 is null)
-            {
-                throw new ArgumentNullException(nameof(match4));
-            }
-
-            if (match5 is null)
-            {
-                throw new ArgumentNullException(nameof(match5));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
+            ArgumentNullException.ThrowIfNull(match3);
+            ArgumentNullException.ThrowIfNull(match4);
+            ArgumentNullException.ThrowIfNull(match5);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -1410,15 +1349,8 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2>(Action<T1> match1, Action<T2> match2)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -1459,20 +1391,9 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3>(Action<T1> match1, Action<T2> match2, Action<T3> match3)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
-
-            if (match3 is null)
-            {
-                throw new ArgumentNullException(nameof(match3));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
+            ArgumentNullException.ThrowIfNull(match3);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -1527,25 +1448,10 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3, T4>(Action<T1> match1, Action<T2> match2, Action<T3> match3, Action<T4> match4)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
-
-            if (match3 is null)
-            {
-                throw new ArgumentNullException(nameof(match3));
-            }
-
-            if (match4 is null)
-            {
-                throw new ArgumentNullException(nameof(match4));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
+            ArgumentNullException.ThrowIfNull(match3);
+            ArgumentNullException.ThrowIfNull(match4);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -1614,30 +1520,11 @@ namespace Corvus.ContentHandling.Json
         /// <returns>True if the match was made, otherwise false.</returns>
         public bool Match<T1, T2, T3, T4, T5>(Action<T1> match1, Action<T2> match2, Action<T3> match3, Action<T4> match4, Action<T5> match5)
         {
-            if (match1 is null)
-            {
-                throw new ArgumentNullException(nameof(match1));
-            }
-
-            if (match2 is null)
-            {
-                throw new ArgumentNullException(nameof(match2));
-            }
-
-            if (match3 is null)
-            {
-                throw new ArgumentNullException(nameof(match3));
-            }
-
-            if (match4 is null)
-            {
-                throw new ArgumentNullException(nameof(match4));
-            }
-
-            if (match5 is null)
-            {
-                throw new ArgumentNullException(nameof(match5));
-            }
+            ArgumentNullException.ThrowIfNull(match1);
+            ArgumentNullException.ThrowIfNull(match2);
+            ArgumentNullException.ThrowIfNull(match3);
+            ArgumentNullException.ThrowIfNull(match4);
+            ArgumentNullException.ThrowIfNull(match5);
 
             string match1ContentType = ContentFactory.GetContentType<T1>();
             if (this.PayloadContentType == match1ContentType)
@@ -1709,15 +1596,8 @@ namespace Corvus.ContentHandling.Json
         /// <param name="handlerClass">The class of handler (e.g. "view", "messageProcessor").</param>
         public void DispatchToHandler(IContentHandlerDispatcher<ContentEnvelope> contentHandlerFactory, string handlerClass)
         {
-            if (contentHandlerFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentHandlerFactory));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentHandlerFactory);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             contentHandlerFactory.DispatchPayloadToHandler(this, this.PayloadContentType, handlerClass);
         }
@@ -1730,15 +1610,8 @@ namespace Corvus.ContentHandling.Json
         /// <returns>A <see cref="Task"/> which completes once the handler completes.</returns>
         public Task DispatchToHandlerAsync(IContentHandlerDispatcher<ContentEnvelope> contentHandlerFactory, string handlerClass)
         {
-            if (contentHandlerFactory is null)
-            {
-                throw new ArgumentNullException(nameof(contentHandlerFactory));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new ArgumentNullException(nameof(handlerClass));
-            }
+            ArgumentNullException.ThrowIfNull(contentHandlerFactory);
+            ArgumentNullException.ThrowIfNull(handlerClass);
 
             return contentHandlerFactory.DispatchPayloadToHandlerAsync(this, this.PayloadContentType, handlerClass);
         }

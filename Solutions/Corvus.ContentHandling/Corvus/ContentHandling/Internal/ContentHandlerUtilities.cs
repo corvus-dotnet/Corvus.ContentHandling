@@ -17,15 +17,8 @@ namespace Corvus.ContentHandling.Internal
         /// <returns>The content type.</returns>
         internal static string GetHandlerContentType(string payloadContentType, string handlerClass)
         {
-            if (payloadContentType is null)
-            {
-                throw new System.ArgumentNullException(nameof(payloadContentType));
-            }
-
-            if (handlerClass is null)
-            {
-                throw new System.ArgumentNullException(nameof(handlerClass));
-            }
+            System.ArgumentNullException.ThrowIfNull(payloadContentType);
+            System.ArgumentNullException.ThrowIfNull(handlerClass);
 
             return $"{payloadContentType}+{handlerClass.ToLowerInvariant()}";
         }

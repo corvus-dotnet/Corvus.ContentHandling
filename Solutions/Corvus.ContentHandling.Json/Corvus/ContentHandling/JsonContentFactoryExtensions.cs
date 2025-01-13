@@ -26,10 +26,7 @@ public static class JsonContentFactoryExtensions
     public static ContentFactory RegisterPolymorphicContentTarget<T>(this ContentFactory contentFactory)
         where T : class
     {
-        if (contentFactory == null)
-        {
-            throw new ArgumentNullException(nameof(contentFactory));
-        }
+        ArgumentNullException.ThrowIfNull(contentFactory);
 
         contentFactory.Services.AddSingleton<JsonConverter, PolymorphicTargetConverter<T>>();
 
