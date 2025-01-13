@@ -8,7 +8,7 @@ namespace Corvus.ContentHandling.Specs.Driver
 
     using Corvus.ContentHandling;
 
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     public class Registration
     {

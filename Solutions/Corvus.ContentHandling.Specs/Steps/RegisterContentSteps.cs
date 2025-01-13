@@ -14,8 +14,8 @@ namespace Corvus.ContentHandling.Specs.Steps
 
     using NUnit.Framework;
 
-    using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
+    using Reqnroll;
+    using Reqnroll.Assist;
 
     [Binding]
     public class RegisterContentSteps(ScenarioContext scenarioContext)

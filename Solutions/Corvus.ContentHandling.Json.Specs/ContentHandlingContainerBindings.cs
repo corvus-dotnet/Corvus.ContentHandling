@@ -4,9 +4,9 @@
 
 namespace Corvus.ContentHandling
 {
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Microsoft.Extensions.DependencyInjection;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     /// <summary>
     /// Provides Specflow bindings for Endjin Composition.

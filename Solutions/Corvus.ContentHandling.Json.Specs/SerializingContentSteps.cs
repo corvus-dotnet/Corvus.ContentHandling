@@ -13,14 +13,14 @@ namespace Corvus.ContentHandling.Json.Specs
 
     using Corvus.ContentHandling.Json.Specs.Samples;
     using Corvus.Json.Serialization;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
 
     using Microsoft.Extensions.DependencyInjection;
 
     using NUnit.Framework;
 
-    using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
+    using Reqnroll;
+    using Reqnroll.Assist;
 
     [Binding]
     public class SerializingContentSteps
