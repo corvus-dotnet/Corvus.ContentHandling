@@ -58,7 +58,6 @@ namespace Corvus.ContentHandling.Json.Internal
     internal class PolymorphicTargetConverter<TTarget> : JsonConverter<TTarget>
         where TTarget : class
     {
-#if NET7_0_OR_GREATER
         private static readonly ConcurrentDictionary<Type, Action<TTarget, JsonNode, JsonSerializerOptions>> DeserializeIntoInstanceCache = new();
         private static readonly DefaultJsonTypeInfoResolver JsonTypeInfoResolver = new();
         private static readonly Lazy<MethodInfo> InPlaceDeserializerGenericMethodInfo = new(() =>
@@ -66,8 +65,6 @@ namespace Corvus.ContentHandling.Json.Internal
             Action<TTarget, JsonObject, JsonSerializerOptions> m = DeserializeIntoExistingInstanceCore<TTarget>;
             return m.Method.GetGenericMethodDefinition();
         });
-
-#endif
 
         private readonly IServiceProvider serviceProvider;
 
@@ -149,7 +146,6 @@ namespace Corvus.ContentHandling.Json.Internal
 
             if (usesServices)
             {
-#if NET7_0_OR_GREATER
                 // Some content type implementation types depend on services, and must therefore be
                 // constructed through DI. The downside of this is that constructor-based property
                 // initialization is not available, which makes clean support for nullable
@@ -165,9 +161,6 @@ namespace Corvus.ContentHandling.Json.Internal
                 // even available prior to .NET 7.0).
                 var result = (TTarget)this.serviceProvider.GetRequiredContent(contentTypeName);
                 return DeserializeIntoInstance(typeToCreate, result, jo, options);
-#else
-                throw new NotSupportedException("Using DI when deserializing objects with System.Text.Json requires .NET 7.0 or later");
-#endif
             }
             else
             {
@@ -188,7 +181,6 @@ namespace Corvus.ContentHandling.Json.Internal
             JsonSerializer.Serialize(writer, value, value.GetType(), options);
         }
 
-#if NET7_0_OR_GREATER
         private static TTarget DeserializeIntoInstance(Type instanceType, TTarget instance, JsonNode json, JsonSerializerOptions options)
         {
             // Since System.Text.Json does not (as of .NET 7.0) have any equivalent to Newtonsoft's
@@ -246,6 +238,5 @@ namespace Corvus.ContentHandling.Json.Internal
             // it is.)
             _ = json.Deserialize(jsonTypeInfo);
         }
-#endif
     }
 }
