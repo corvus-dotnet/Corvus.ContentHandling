@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Corvus.Extensions.Specs.Driver
+namespace Corvus.ContentHandling.Specs.Driver
 {
     internal class ContentType3
     {

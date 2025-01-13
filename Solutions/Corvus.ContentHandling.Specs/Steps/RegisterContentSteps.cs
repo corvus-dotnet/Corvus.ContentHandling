@@ -2,26 +2,25 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Corvus.Extensions.Specs.Steps
+namespace Corvus.ContentHandling.Specs.Steps
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Corvus.Extensions.Specs.Driver;
+
+    using Corvus.ContentHandling.Specs.Driver;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using NUnit.Framework;
+
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
 
     [Binding]
-    public class RegisterContentSteps
+    public class RegisterContentSteps(ScenarioContext scenarioContext)
     {
-        public RegisterContentSteps(ScenarioContext scenarioContext)
-        {
-            this.ScenarioContext = scenarioContext;
-        }
-
-        public ScenarioContext ScenarioContext { get; }
+        public ScenarioContext ScenarioContext { get; } = scenarioContext;
 
         [Given("I have registered the following types")]
         public void GivenIHaveRegisteredTheFollowingTypes(Table table)
@@ -57,7 +56,7 @@ namespace Corvus.Extensions.Specs.Steps
         [Then("the results should be of types")]
         public void ThenTheResultsShouldBeOfTypes(Table table)
         {
-            IList<Type> types = table.CreateSet(row => TypeMap.GetTypeFor(row.GetString("Type"))).ToList();
+            var types = table.CreateSet(row => TypeMap.GetTypeFor(row.GetString("Type"))).ToList();
 
             List<object?> results = this.ScenarioContext.Get<List<object?>>("Result");
 
