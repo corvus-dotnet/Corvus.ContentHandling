@@ -167,7 +167,7 @@ task PostBuild {}
 task PreTest {}
 task PostTest {
     gci . -r -i dotnet-test.log
-    Write-Host dotnet-test.log
+    type dotnet-test.log
 }
 task PreTestReport {}
 task PostTestReport {}
