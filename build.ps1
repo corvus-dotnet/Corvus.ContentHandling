@@ -165,7 +165,10 @@ task PostVersion {}
 task PreBuild {}
 task PostBuild {}
 task PreTest {}
-task PostTest {}
+task PostTest {
+    gci . -r -i dotnet-test.log
+    Write-Host dotnet-test.log
+}
 task PreTestReport {}
 task PostTestReport {}
 task PreAnalysis {}
