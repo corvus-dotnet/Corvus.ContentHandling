@@ -2,17 +2,16 @@
 
 ## V4.0
 
-Uses `System.Text.Json`. (Earlier versions used `Newtonsoft.Json`.) Targets .NET 6.0.
+Uses `System.Text.Json`. (Earlier versions used `Newtonsoft.Json`.) Targets .NET 8.0.
 
 There are no changes to the core `Corvus.ContentHandling` library because that does not depend on any particular JSON serialization technology. (In fact it is not specific to JSON at all.) The changes are all in `Corvus.ContentHandling.Json`.
 
 Breaking change:
 * Serialization and deserialization for content type pattern no longer supported for `Newtonsoft.Json` (that's the main point of this version, so use v3.0 if you still need that)
-* .NET 6.0 minimum (.NET 7.0 for some features)
+* .NET 8.0 minimum (.NET Standard 2.0 support has been dropped)
 * Nullable reference types now supported throughout
 * The `ContentEnvelope` no longer supplies default JSON serialization settings
 * Polymorphic deserialization driven by content type requires different registration
-* Dependency injection during deserialization not available prior to .NET 7.0
 * Fixed a typo: a few methods called `DispatchPayloadToHanderAsync` now have the missing `l` reinstated to match all the other overloads
 
 More detail:
@@ -31,7 +30,7 @@ Code that really wants the old behaviour, in which the serializer behaviour is s
 
 With v3, any types that you had registered were available for polymorphic deserialization to any compatible target type, but due to limitations in the current `System.Text.Json`, we can't offer quite that level of flexibility. (It was always a bit of a hack before, and the slightly unpleasant trick we were using to make it work doesn't work on `System.Text.Json`.)
 
-It is now necessary to register the target types into which some set of content-type-discriminated concrete types might be deserializer. For example, if you have this interface:
+It is now necessary to register the target types into which some set of content-type-discriminated concrete types might be deserialized. For example, if you have this interface:
 
 ```csharp
 public interface ICommon
