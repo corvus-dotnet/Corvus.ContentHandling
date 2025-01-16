@@ -15,8 +15,9 @@
          public for technical reasaons, but they are not meant for public consumption, so XML doc comments are only
          appropriate if they aid understanding within the project.
          IDE0290 - use primary ctor: this suggestion tends to be a bit over-eager.
+         RCS1251 - Roslynator doesn't like empty classes, but these only exist for test purposes.
     -->
-    <NoWarn>SA0001;SA1204;SA1600;SA1602;CS1591;RCS1102</NoWarn>
+    <NoWarn>SA0001;SA1204;SA1600;SA1602;CS1591;IDE0290;RCS1102;RCS1251;IDE0290</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>

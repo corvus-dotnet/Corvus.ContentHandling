@@ -2,10 +2,8 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Corvus.ContentHandling
+namespace Corvus.ContentHandling.Json.Specs.Samples
 {
-    using Corvus.ContentHandling.Json.Specs.Samples;
-
     /// <summary>
     /// Installs sample content.
     /// </summary>

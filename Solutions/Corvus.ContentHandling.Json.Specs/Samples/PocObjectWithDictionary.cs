@@ -61,7 +61,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
             {
                 foreach (string current in this.Dictionary.Keys)
                 {
-                    if (!other.Dictionary.ContainsKey(current) || this.Dictionary[current] != other.Dictionary[current])
+                    if (!other.Dictionary.TryGetValue(current, out string? otherCurrentValue) || this.Dictionary[current] != otherCurrentValue)
                     {
                         return false;
                     }

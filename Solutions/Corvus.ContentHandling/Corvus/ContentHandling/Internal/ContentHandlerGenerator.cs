@@ -683,8 +683,8 @@ namespace Corvus.ContentHandling.Internal
                 SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(string.Format(syntax, typeName));
                 var compilation = CSharpCompilation.Create(
                     $"chg-{handlerClass}-{uniqueKey}",
-                    new[] { syntaxTree },
-                    new[] { MetadataReference.CreateFromFile(TrustedPlatformAssemblyMap["netstandard"]), MetadataReference.CreateFromFile(TrustedPlatformAssemblyMap["System.Runtime"]), MetadataReference.CreateFromFile(typeof(Task).GetTypeInfo().Assembly.Location), MetadataReference.CreateFromFile(typeof(ValueTuple).GetTypeInfo().Assembly.Location), MetadataReference.CreateFromFile(typeof(ContentHandlerGenerator).GetTypeInfo().Assembly.Location) },
+                    [syntaxTree],
+                    [MetadataReference.CreateFromFile(TrustedPlatformAssemblyMap["netstandard"]), MetadataReference.CreateFromFile(TrustedPlatformAssemblyMap["System.Runtime"]), MetadataReference.CreateFromFile(typeof(Task).GetTypeInfo().Assembly.Location), MetadataReference.CreateFromFile(typeof(ValueTuple).GetTypeInfo().Assembly.Location), MetadataReference.CreateFromFile(typeof(ContentHandlerGenerator).GetTypeInfo().Assembly.Location)],
                     new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, optimizationLevel: OptimizationLevel.Release));
 
                 using var dllStream = new MemoryStream();

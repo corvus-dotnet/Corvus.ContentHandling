@@ -108,13 +108,15 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor([]);
+#pragma warning disable IDE0270 // Use coalesce expression - doesn't look any clearer to me
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
+#pragma warning restore IDE0270 // Use coalesce expression
 
-                return ctorInfo.Invoke(Array.Empty<object>()) as T;
+                return ctorInfo.Invoke([]) as T;
             }
         }
 
@@ -144,13 +146,15 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
-                if (ctorInfo == null)
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor([]);
+#pragma warning disable IDE0270 // Use coalesce expression - doesn't look any clearer to me
+                if (ctorInfo is null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
+#pragma warning restore IDE0270
 
-                return ctorInfo.Invoke(Array.Empty<object>());
+                return ctorInfo.Invoke([]);
             }
         }
 
@@ -199,13 +203,15 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor([]);
+#pragma warning disable IDE0270 // Use coalesce expression - doesn't look any clearer to me
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
+#pragma warning restore IDE0270
 
-                result = ctorInfo.Invoke(Array.Empty<object>()) as T;
+                result = ctorInfo.Invoke([]) as T;
             }
 
             if (result is not T service)
@@ -242,13 +248,15 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             else
             {
-                ConstructorInfo? ctorInfo = serviceType.GetConstructor(Array.Empty<Type>());
+                ConstructorInfo? ctorInfo = serviceType.GetConstructor([]);
+#pragma warning disable IDE0270 // Use coalesce expression - doesn't look any clearer to me
                 if (ctorInfo == null)
                 {
                     throw new InvalidOperationException(string.Format(Resources.ImplementingTypeNoDefaultCtor, serviceType, contentType));
                 }
+#pragma warning restore IDE0270
 
-                return ctorInfo.Invoke(Array.Empty<object>());
+                return ctorInfo.Invoke([]);
             }
         }
 

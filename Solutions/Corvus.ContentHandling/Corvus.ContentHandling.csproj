@@ -18,6 +18,11 @@
     <PackageTags></PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
+
+    <!--
+         IDE0290 - use primary ctor: this suggestion tends to be a bit over-eager.
+    -->
+    <NoWarn>$(NoWarn);IDE0290</NoWarn>
   </PropertyGroup>
   
   <ItemGroup>
