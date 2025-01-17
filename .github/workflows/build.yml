@@ -69,10 +69,11 @@ jobs:
           "os": ["windows-latest", "ubuntu-latest"],
           "dotnetFramework": ["net8.0", "net9.0", "net481"],
           "exclude": [
-          {
-            "os": "ubuntu-latest",
-            "dotnetFramework": "net481"
-          }
+            {
+              "os": "ubuntu-latest",
+              "dotnetFramework": "net481"
+            }
+          ]
         }
       # testArtifactName: ''
       # testArtifactPath: ''
