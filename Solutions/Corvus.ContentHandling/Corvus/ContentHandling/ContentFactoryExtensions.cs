@@ -37,10 +37,7 @@ namespace Corvus.ContentHandling
         public static void RegisterSingletonContent<T>(this ContentFactory contentFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             string name = ContentFactory.GetContentType(typeof(T));
 
@@ -57,10 +54,7 @@ namespace Corvus.ContentHandling
         public static void RegisterContent<T>(this ContentFactory contentFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             string contentType = ContentFactory.GetContentType(typeof(T));
 
@@ -77,10 +71,7 @@ namespace Corvus.ContentHandling
         public static void RegisterContent<T>(this ContentFactory contentFactory, string contentType)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -99,10 +90,7 @@ namespace Corvus.ContentHandling
         public static void RegisterSingletonContent<T>(this ContentFactory contentFactory, string contentType)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -127,15 +115,8 @@ namespace Corvus.ContentHandling
         public static void RegisterSingletonContent<T>(this ContentFactory contentFactory, Func<IServiceProvider, T> implementationFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             string name = ContentFactory.GetContentType(typeof(T));
 
@@ -152,20 +133,14 @@ namespace Corvus.ContentHandling
         public static void RegisterSingletonContent<T>(this ContentFactory contentFactory, string contentType, Func<IServiceProvider, T> implementationFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
@@ -185,15 +160,8 @@ namespace Corvus.ContentHandling
         public static void RegisterSingletonContent<T>(this ContentFactory contentFactory, T implementationInstance)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (implementationInstance == null)
-            {
-                throw new ArgumentNullException(nameof(implementationInstance));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(implementationInstance);
 
             string name = ContentFactory.GetContentType(typeof(T));
 
@@ -210,20 +178,14 @@ namespace Corvus.ContentHandling
         public static void RegisterSingletonContent<T>(this ContentFactory contentFactory, string contentType, T implementationInstance)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (implementationInstance == null)
-            {
-                throw new ArgumentNullException(nameof(implementationInstance));
-            }
+            ArgumentNullException.ThrowIfNull(implementationInstance);
 
             contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
@@ -241,15 +203,8 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static void RegisterSingletonContent(this ContentFactory contentFactory, Type serviceType)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(serviceType);
 
             string name = ContentFactory.GetContentType(serviceType);
 
@@ -264,20 +219,14 @@ namespace Corvus.ContentHandling
         /// <param name="serviceType">The type of the service to register.</param>
         public static void RegisterSingletonContent(this ContentFactory contentFactory, string contentType, Type serviceType)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
+            ArgumentNullException.ThrowIfNull(serviceType);
 
             contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
@@ -295,20 +244,9 @@ namespace Corvus.ContentHandling
         /// <param name="implementationFactory">The factory function for the type.</param>
         public static void RegisterSingletonContent(this ContentFactory contentFactory, Type serviceType, Func<IServiceProvider, object> implementationFactory)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             string name = ContentFactory.GetContentType(serviceType);
 
@@ -327,25 +265,15 @@ namespace Corvus.ContentHandling
         /// <param name="implementationFactory">The factory function for the type.</param>
         public static void RegisterSingletonContent(this ContentFactory contentFactory, string contentType, Type serviceType, Func<IServiceProvider, object> implementationFactory)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
@@ -363,20 +291,9 @@ namespace Corvus.ContentHandling
         /// <param name="implementationInstance">The instance to register for the type.</param>
         public static void RegisterSingletonContent(this ContentFactory contentFactory, Type serviceType, object implementationInstance)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationInstance == null)
-            {
-                throw new ArgumentNullException(nameof(implementationInstance));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationInstance);
 
             string name = ContentFactory.GetContentType(implementationInstance.GetType());
 
@@ -392,25 +309,15 @@ namespace Corvus.ContentHandling
         /// <param name="implementationInstance">TThe instance to register for the type.</param>
         public static void RegisterSingletonContent(this ContentFactory contentFactory, string contentType, Type serviceType, object implementationInstance)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationInstance == null)
-            {
-                throw new ArgumentNullException(nameof(implementationInstance));
-            }
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationInstance);
 
             contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
@@ -429,10 +336,7 @@ namespace Corvus.ContentHandling
         public static void RegisterTransientContent<T>(this ContentFactory contentFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             string name = ContentFactory.GetContentType(typeof(T));
 
@@ -451,10 +355,7 @@ namespace Corvus.ContentHandling
         public static void RegisterTransientContent<T>(this ContentFactory contentFactory, string contentType)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -479,15 +380,8 @@ namespace Corvus.ContentHandling
         public static void RegisterTransientContent<T>(this ContentFactory contentFactory, Func<IServiceProvider, T> implementationFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             string name = ContentFactory.GetContentType(typeof(T));
 
@@ -504,20 +398,14 @@ namespace Corvus.ContentHandling
         public static void RegisterTransientContent<T>(this ContentFactory contentFactory, string contentType, Func<IServiceProvider, T> implementationFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
@@ -535,15 +423,8 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static void RegisterTransientContent(this ContentFactory contentFactory, Type serviceType)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(serviceType);
 
             string name = ContentFactory.GetContentType(serviceType);
 
@@ -559,10 +440,7 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static void RegisterTransientContent(this ContentFactory contentFactory, string contentType, Type serviceType)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -571,10 +449,7 @@ namespace Corvus.ContentHandling
 
             contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
+            ArgumentNullException.ThrowIfNull(serviceType);
 
             if (!contentFactory.Services.Any(s => s.ServiceType == serviceType))
             {
@@ -591,20 +466,9 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static void RegisterTransientContent(this ContentFactory contentFactory, Type serviceType, Func<IServiceProvider, object> implementationFactory)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             string name = ContentFactory.GetContentType(serviceType);
 
@@ -620,25 +484,15 @@ namespace Corvus.ContentHandling
         /// <param name="implementationFactory">The factory function for the type.</param>
         public static void RegisterTransientContent(this ContentFactory contentFactory, string contentType, Type serviceType, Func<IServiceProvider, object> implementationFactory)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
@@ -657,10 +511,7 @@ namespace Corvus.ContentHandling
         public static void RegisterScopedContent<T>(this ContentFactory contentFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             string name = ContentFactory.GetContentType(typeof(T));
 
@@ -676,10 +527,7 @@ namespace Corvus.ContentHandling
         public static void RegisterScopedContent<T>(this ContentFactory contentFactory, string contentType)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -704,15 +552,8 @@ namespace Corvus.ContentHandling
         public static void RegisterScopedContent<T>(this ContentFactory contentFactory, Func<IServiceProvider, T> implementationFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             string name = ContentFactory.GetContentType(typeof(T));
 
@@ -729,20 +570,14 @@ namespace Corvus.ContentHandling
         public static void RegisterScopedContent<T>(this ContentFactory contentFactory, string contentType, Func<IServiceProvider, T> implementationFactory)
             where T : class
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             contentFactory.AddTypeRequiringServices(contentType, typeof(T));
 
@@ -760,15 +595,8 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static void RegisterScopedContent(this ContentFactory contentFactory, Type serviceType)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(serviceType);
 
             string name = ContentFactory.GetContentType(serviceType);
 
@@ -783,10 +611,7 @@ namespace Corvus.ContentHandling
         /// <param name="serviceType">The type of the service to register.</param>
         public static void RegisterScopedContent(this ContentFactory contentFactory, string contentType, Type serviceType)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
@@ -795,10 +620,7 @@ namespace Corvus.ContentHandling
 
             contentFactory.AddTypeRequiringServices(contentType, serviceType);
 
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
+            ArgumentNullException.ThrowIfNull(serviceType);
 
             if (!contentFactory.Services.Any(s => s.ServiceType == serviceType))
             {
@@ -815,20 +637,9 @@ namespace Corvus.ContentHandling
         /// <remarks>The type must provide a static/const string called. <c>RegisteredContentType</c> which defines its content type.</remarks>
         public static void RegisterScopedContent(this ContentFactory contentFactory, Type serviceType, Func<IServiceProvider, object> implementationFactory)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
-
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             string name = ContentFactory.GetContentType(serviceType);
 
@@ -844,25 +655,15 @@ namespace Corvus.ContentHandling
         /// <param name="implementationFactory">The factory function for the type.</param>
         public static void RegisterScopedContent(this ContentFactory contentFactory, string contentType, Type serviceType, Func<IServiceProvider, object> implementationFactory)
         {
-            if (contentFactory == null)
-            {
-                throw new ArgumentNullException(nameof(contentFactory));
-            }
+            ArgumentNullException.ThrowIfNull(contentFactory);
 
             if (string.IsNullOrEmpty(contentType))
             {
                 throw new ArgumentNullException(nameof(contentType));
             }
 
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            if (implementationFactory == null)
-            {
-                throw new ArgumentNullException(nameof(implementationFactory));
-            }
+            ArgumentNullException.ThrowIfNull(serviceType);
+            ArgumentNullException.ThrowIfNull(implementationFactory);
 
             contentFactory.AddTypeRequiringServices(contentType, serviceType);
 

@@ -3,7 +3,8 @@
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -11,11 +12,16 @@
     <PackageDescription></PackageDescription>
     <PackageTags></PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+  
+    <!--
+         IDE0290 - use primary ctor: this suggestion tends to be a bit over-eager.
+    -->
+    <NoWarn>$(NoWarn);IDE0290</NoWarn>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="3.0.1" />
-    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.12">
+    <PackageReference Include="Corvus.Json.Serialization" Version="2.0.0-first-working-version.35" />
+    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

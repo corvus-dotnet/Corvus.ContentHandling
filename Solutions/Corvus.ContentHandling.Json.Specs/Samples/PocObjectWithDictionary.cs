@@ -15,12 +15,12 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <summary>
         /// Gets or sets a standard string value.
         /// </summary>
-        public string SomeValue { get; set; }
+        public string? SomeValue { get; set; }
 
         /// <summary>
         /// Gets or sets a dictionary of values.
         /// </summary>
-        public Dictionary<string, string> Dictionary { get; set; }
+        public Dictionary<string, string>? Dictionary { get; set; }
 
         /// <summary>
         /// Compares two instances of PocObjectWithDictionary for equality.
@@ -45,9 +45,9 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         }
 
         /// <inheritdoc />
-        public bool Equals(PocObjectWithDictionary other)
+        public bool Equals(PocObjectWithDictionary? other)
         {
-            if (this.SomeValue != other.SomeValue)
+            if (other is null || this.SomeValue != other.SomeValue)
             {
                 return false;
             }
@@ -61,7 +61,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
             {
                 foreach (string current in this.Dictionary.Keys)
                 {
-                    if (!other.Dictionary.ContainsKey(current) || this.Dictionary[current] != other.Dictionary[current])
+                    if (!other.Dictionary.TryGetValue(current, out string? otherCurrentValue) || this.Dictionary[current] != otherCurrentValue)
                     {
                         return false;
                     }
@@ -74,7 +74,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is PocObjectWithDictionary sci)
             {
