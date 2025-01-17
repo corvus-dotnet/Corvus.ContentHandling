@@ -153,12 +153,16 @@ namespace Corvus.ContentHandling.Json.Internal
                 // of being able to deserialize directly into a type that also receive services
                 // from DI outweights the pain.
                 // Note that Newtonsoft.Json had built-in support for deserializing into an existing
-                // instance (the JsonSerializer.Populate method), but it's not yet in .NET:
+                // instance (the JsonSerializer.Populate method). Although .NET 8.0 made changes to
+                // address some of the scenarios this supported:
                 //  https://github.com/dotnet/runtime/issues/78556
+                // it's not a direct equivalent to what you Newtonsoft.Json offered: it seems to
+                // let you deserialize into existing collections in properties, but there still
+                // doesn't seem to be a way to say "I already have this object, please just deserialize
+                // into it."
                 // So we have to do it ourselves by first constructing the content via the service,
                 // provider so it gets initialized by DI as required, then jumping through some
-                // hoops to get System.Text.Json to deserialize into that (hoops that aren't
-                // even available prior to .NET 7.0).
+                // hoops to get System.Text.Json to deserialize into that.
                 var result = (TTarget)this.serviceProvider.GetRequiredContent(contentTypeName);
                 return DeserializeIntoInstance(typeToCreate, result, jo, options);
             }
@@ -183,13 +187,13 @@ namespace Corvus.ContentHandling.Json.Internal
 
         private static TTarget DeserializeIntoInstance(Type instanceType, TTarget instance, JsonNode json, JsonSerializerOptions options)
         {
-            // Since System.Text.Json does not (as of .NET 7.0) have any equivalent to Newtonsoft's
+            // Since System.Text.Json does not (as of .NET 9.0) have a direct equivalent to Newtonsoft's
             // Populate method, getting System.Text.Json to deserialize into an instance that we
             // have already constructed is a little tricky.
             //
             // This works by getting a JsonTypeInfo<T> for the target concrete type from a
-            // DefaultJsonTypeInfoResolver (introduced in .NET 7.0) and then adjusting its
-            // CreateObject to return our instance instead of constructing a new object.
+            // DefaultJsonTypeInfoResolver and then adjusting its CreateObject to return our
+            // instance instead of constructing a new object.
             //
             // Annoyingly, there's no overload of JsonSerializer.Deserialize that
             // accepts the non-generic base JsonTypeInfo type, so we are required to invoke
