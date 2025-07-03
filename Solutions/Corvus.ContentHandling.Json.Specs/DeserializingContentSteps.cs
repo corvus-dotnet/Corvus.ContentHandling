@@ -4,56 +4,72 @@
 
 namespace Corvus.ContentHandling.Json.Specs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text.Json;
+
     using Corvus.ContentHandling.Json.Specs.Samples;
-    using Corvus.Extensions.Json;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Json.Serialization;
+    using Corvus.Testing.ReqnRoll;
     using Microsoft.Extensions.DependencyInjection;
-    using Newtonsoft.Json;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
+    using Reqnroll;
+    using Reqnroll.Assist;
 
     [Binding]
     public class DeserializingContentSteps
     {
         private readonly FeatureContext featureContext;
-        private readonly ScenarioContext scenarioContext;
+        private readonly IJsonSerializerOptionsProvider optionsProvider;
 
-        public DeserializingContentSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
+        private readonly Dictionary<string, object?> deserializedItems = new();
+
+        public DeserializingContentSteps(
+            FeatureContext featureContext)
         {
             this.featureContext = featureContext;
-            this.scenarioContext = scenarioContext;
+
+            IServiceProvider serviceProvider = ContainerBindings.GetServiceProvider(this.featureContext);
+            this.optionsProvider = serviceProvider.GetRequiredService<IJsonSerializerOptionsProvider>();
         }
 
         [When("I deserialize the json object '(.*)' to the common interface as '(.*)'")]
         public void WhenIDeserializeTheJsonObjectAs(string json, string instanceName)
         {
-            this.scenarioContext.Set(JsonConvert.DeserializeObject<ISomeContentInterface>(json, ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IJsonSerializerSettingsProvider>().Instance), instanceName);
+            this.deserializedItems.Add(
+                instanceName,
+                JsonSerializer.Deserialize<ISomeContentInterface>(json, this.optionsProvider.Instance));
         }
 
         [When("I deserialize the json object '(.*)' to the common base as '(.*)'")]
         public void WhenIDeserializeTheJsonObjectToTheCommonBaseAs(string json, string instanceName)
         {
-            this.scenarioContext.Set(JsonConvert.DeserializeObject<SomeContentBase>(json, ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IJsonSerializerSettingsProvider>().Instance), instanceName);
+            this.deserializedItems.Add(
+                instanceName,
+                JsonSerializer.Deserialize<SomeContentBase>(json, this.optionsProvider.Instance));
         }
 
         [When("I deserialize the json object '(.*)' to the common abstract base as '(.*)'")]
         public void WhenIDeserializeTheJsonObjectToTheCommonAbstractBaseAs(string json, string instanceName)
         {
-            this.scenarioContext.Set(JsonConvert.DeserializeObject<SomeContentAbstractBase>(json, ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IJsonSerializerSettingsProvider>().Instance), instanceName);
+            this.deserializedItems.Add(
+                instanceName,
+                JsonSerializer.Deserialize<SomeContentAbstractBase>(json, this.optionsProvider.Instance));
         }
 
         [When("I deserialize the json object '(.*)' as a poc object with dictionary as '(.*)'")]
         public void WhenIDeserializeTheJsonObjectAsAPocObjectWithDictionaryAs(string json, string instanceName)
         {
-            this.scenarioContext.Set(JsonConvert.DeserializeObject<PocObjectWithDictionary>(json, ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredService<IJsonSerializerSettingsProvider>().Instance), instanceName);
+            this.deserializedItems.Add(
+                instanceName,
+                JsonSerializer.Deserialize<PocObjectWithDictionary>(json, this.optionsProvider.Instance));
         }
 
         [Then("the value called '(.*)' should match the poc object with dictionary")]
         public void ThenTheValueCalledShouldMatchThePocObjectWithDictionary(string instanceName, Table table)
         {
             PocObjectWithDictionary expected = table.CreateInstance<PocObjectWithDictionary>();
-            object actual = this.scenarioContext.Get<object>(instanceName);
+            object? actual = this.deserializedItems[instanceName];
 
             Assert.AreEqual(expected, actual);
         }
@@ -63,9 +79,9 @@ namespace Corvus.ContentHandling.Json.Specs
         {
             Assert.AreEqual(1, table.RowCount);
 
-            object expected = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetContent(contentType));
+            object expected = table.CreateInstance(() => ContainerBindings.GetServiceProvider(this.featureContext).GetRequiredContent(contentType));
 
-            object actual = this.scenarioContext.Get<object>(instanceName);
+            object? actual = this.deserializedItems[instanceName];
 
             Assert.AreEqual(expected, actual);
         }
@@ -78,7 +94,7 @@ namespace Corvus.ContentHandling.Json.Specs
                 value,
                 new PocObjectWithCtorInitialization(childValue));
 
-            object actual = this.scenarioContext.Get<object>(instanceName);
+            object? actual = this.deserializedItems[instanceName];
 
             Assert.AreEqual(expected, actual);
         }

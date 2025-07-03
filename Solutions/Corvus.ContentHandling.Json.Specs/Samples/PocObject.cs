@@ -14,7 +14,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <summary>
         /// Gets or sets a simple value.
         /// </summary>
-        public string SomeValue { get; set; }
+        public string? SomeValue { get; set; }
 
         /// <summary>
         /// Compares two instances of PocObject for equality.
@@ -22,9 +22,9 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <param name="left">The first object to compare.</param>
         /// <param name="right">The second object to compare.</param>
         /// <returns>True if the instances are equal, false otherwise.</returns>
-        public static bool operator ==(PocObject left, PocObject right)
+        public static bool operator ==(PocObject? left, PocObject? right)
         {
-            return left?.Equals(right) ?? false;
+            return Equals(left, right);
         }
 
         /// <summary>
@@ -33,19 +33,19 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <param name="left">The first object to compare.</param>
         /// <param name="right">The second object to compare.</param>
         /// <returns>False if the instances are equal, true otherwise.</returns>
-        public static bool operator !=(PocObject left, PocObject right)
+        public static bool operator !=(PocObject? left, PocObject? right)
         {
             return !(left == right);
         }
 
         /// <inheritdoc />
-        public bool Equals(PocObject other)
+        public bool Equals(PocObject? other)
         {
-            return this.SomeValue == other.SomeValue;
+            return other is not null && this.SomeValue == other.SomeValue;
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is PocObject sci)
             {
@@ -58,7 +58,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return this.SomeValue.GetHashCode();
+            return this.SomeValue?.GetHashCode() ?? 0;
         }
     }
 }

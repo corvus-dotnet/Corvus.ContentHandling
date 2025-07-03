@@ -22,7 +22,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <summary>
         /// Gets or sets a value.
         /// </summary>
-        public string SomeValue { get; set; }
+        public string? SomeValue { get; set; }
 
         /// <summary>
         /// Compares two instances of SomeContentWithAbstractBase for equality.
@@ -47,19 +47,19 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         }
 
         /// <inheritdoc />
-        public bool Equals(SomeContentWithAbstractBase other)
+        public bool Equals(SomeContentWithAbstractBase? other)
         {
-            return this.SomeValue == other.SomeValue;
+            return other is not null && this.SomeValue == other.SomeValue;
         }
 
         /// <inheritdoc />
-        public override bool Equals(SomeContentAbstractBase other)
+        public override bool Equals(SomeContentAbstractBase? other)
         {
             return this.Equals(other as SomeContentWithAbstractBase);
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is SomeContentWithAbstractBase sci)
             {
@@ -72,7 +72,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return this.SomeValue.GetHashCode();
+            return this.SomeValue?.GetHashCode() ?? 0;
         }
     }
 }

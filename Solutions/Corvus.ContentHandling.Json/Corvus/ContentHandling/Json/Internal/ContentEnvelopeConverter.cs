@@ -5,31 +5,17 @@
 namespace Corvus.ContentHandling.Json.Internal
 {
     using System;
-    using System.Threading;
-    using Corvus.Extensions.Json;
-    using Microsoft.Extensions.DependencyInjection;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
+    using System.Text.Json;
+    using System.Text.Json.Nodes;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// A standard json converter for <see cref="ContentEnvelope"/>.
     /// </summary>
-    public class ContentEnvelopeConverter : JsonConverter
+    public class ContentEnvelopeConverter : JsonConverter<ContentEnvelope>
     {
         private const string SerializedPayloadTag = "payload";
         private const string PayloadContentTypeTag = "contentType";
-        private readonly IServiceProvider serviceProvider;
-        private readonly Lazy<IJsonSerializerSettingsProvider> jsonSerializerSettings;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentEnvelopeConverter"/> class.
-        /// </summary>
-        /// <param name="serviceProvider">The service provider for the context.</param>
-        public ContentEnvelopeConverter(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-            this.jsonSerializerSettings = new Lazy<IJsonSerializerSettingsProvider>(() => this.serviceProvider.GetService<IJsonSerializerSettingsProvider>(), LazyThreadSafetyMode.ExecutionAndPublication);
-        }
 
         /// <inheritdoc/>
         public override bool CanConvert(Type objectType)
@@ -38,37 +24,31 @@ namespace Corvus.ContentHandling.Json.Internal
         }
 
         /// <inheritdoc/>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override ContentEnvelope? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader is null)
-            {
-                throw new ArgumentNullException(nameof(reader));
-            }
-
-            var value = JToken.ReadFrom(reader) as JObject;
-            return ContentEnvelope.FromJson(value[SerializedPayloadTag], (string)value[PayloadContentTypeTag], this.jsonSerializerSettings.Value?.Instance);
+            var value = (JsonObject)JsonNode.Parse(ref reader)!;
+            return ContentEnvelope.FromJson(
+                value[SerializedPayloadTag]!,
+                options,
+                value[PayloadContentTypeTag]!.GetValue<string>());
         }
 
         /// <inheritdoc/>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, ContentEnvelope value, JsonSerializerOptions options)
         {
-            if (writer is null)
-            {
-                throw new ArgumentNullException(nameof(writer));
-            }
+            ArgumentNullException.ThrowIfNull(writer);
 
             if (value is null)
             {
-                writer.WriteNull();
+                writer.WriteNullValue();
             }
-
-            if (value is ContentEnvelope env)
+            else
             {
                 writer.WriteStartObject();
-                writer.WritePropertyName(SerializedPayloadTag);
-                writer.WriteValue(env.SerializedPayload);
                 writer.WritePropertyName(PayloadContentTypeTag);
-                writer.WriteValue(env.PayloadContentType);
+                writer.WriteStringValue(value.PayloadContentType);
+                writer.WritePropertyName(SerializedPayloadTag);
+                value.SerializedPayload.WriteTo(writer);
                 writer.WriteEndObject();
             }
         }

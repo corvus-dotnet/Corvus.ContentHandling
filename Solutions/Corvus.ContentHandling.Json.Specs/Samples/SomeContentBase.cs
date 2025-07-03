@@ -9,7 +9,7 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
     /// <summary>
     /// An base for a polymorphic content type.
     /// </summary>
-    public class SomeContentBase : IEquatable<SomeContentBase>
+    public abstract class SomeContentBase : IEquatable<SomeContentBase>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SomeContentBase"/> class.
@@ -26,9 +26,15 @@ namespace Corvus.ContentHandling.Json.Specs.Samples
         public string ContentType { get; }
 
         /// <inheritdoc />
-        public virtual bool Equals(SomeContentBase other)
+        public virtual bool Equals(SomeContentBase? other)
         {
             return this.Equals(other);
         }
+
+        /// <inheritdoc />
+        public abstract override bool Equals(object? obj);
+
+        /// <inheritdoc />
+        public abstract override int GetHashCode();
     }
 }

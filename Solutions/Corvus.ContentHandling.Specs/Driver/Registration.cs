@@ -2,11 +2,13 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Corvus.Extensions.Specs.Driver
+namespace Corvus.ContentHandling.Specs.Driver
 {
     using System;
+
     using Corvus.ContentHandling;
-    using TechTalk.SpecFlow;
+
+    using Reqnroll;
 
     public class Registration
     {

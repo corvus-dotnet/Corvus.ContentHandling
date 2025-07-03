@@ -15,6 +15,7 @@ namespace Corvus.ContentHandling.Internal
     /// <typeparam name="T2">The type of the second parameter.</typeparam>
     /// <typeparam name="T3">The type of the third parameter.</typeparam>
     public class ContentHandlerWithAction<TPayloadBase, TPayload, T1, T2, T3> : IContentHandler<TPayloadBase, T1, T2, T3>
+        where TPayloadBase : notnull
         where TPayload : TPayloadBase
     {
         private readonly Action<TPayload, T1, T2, T3> handle;

@@ -2,10 +2,8 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Corvus.ContentHandling
+namespace Corvus.ContentHandling.Json.Specs.Samples
 {
-    using Corvus.ContentHandling.Json.Specs.Samples;
-
     /// <summary>
     /// Installs sample content.
     /// </summary>
@@ -18,18 +16,29 @@ namespace Corvus.ContentHandling
         /// <returns>The service collection.</returns>
         public static ContentFactory AddSampleContent(this ContentFactory contentFactory)
         {
-            contentFactory.RegisterTransientContent<SomeContentWithInterface>();
-            contentFactory.RegisterTransientContent<SomeContentWithInterfaceAndChild>();
-            contentFactory.RegisterTransientContent<SomeContentWithInterfaceAndPocChild>();
+            // When the following types are serialization targets (either properties on objects
+            // being deserialized, or the type specified when calling deserialization APIs),
+            // the use of RegisterPolymorphicContentTarget causes a custom converter to kick in
+            // which inspects the contentType property of the source JSON to work out which
+            // concrete type to use.
+            contentFactory.RegisterPolymorphicContentTarget<ISomeContentInterface>();
+            contentFactory.RegisterPolymorphicContentTarget<SomeContentAbstractBase>();
+            contentFactory.RegisterPolymorphicContentTarget<SomeContentBase>();
+
+            contentFactory.RegisterContent<SomeContentWithInterface>();
+            contentFactory.RegisterContent<SomeContentWithInterfaceAndChild>();
+            contentFactory.RegisterContent<SomeContentWithInterfaceAndPocChild>();
             contentFactory.RegisterContent<SomeContentWithAbstractBaseAndPocChildCtorInitialized>();
 
-            contentFactory.RegisterTransientContent<SomeContentWithAbstractBase>();
-            contentFactory.RegisterTransientContent<SomeContentWithAbstractBaseAndChild>();
-            contentFactory.RegisterTransientContent<SomeContentWithAbstractBaseAndPocChild>();
+            contentFactory.RegisterContent<SomeContentWithAbstractBase>();
+            contentFactory.RegisterContent<SomeContentWithAbstractBaseAndChild>();
+            contentFactory.RegisterContent<SomeContentWithAbstractBaseAndPocChild>();
 
-            contentFactory.RegisterTransientContent<SomeContentWithBase>();
-            contentFactory.RegisterTransientContent<SomeContentWithBaseAndChild>();
-            contentFactory.RegisterTransientContent<SomeContentWithBaseAndPocChild>();
+            contentFactory.RegisterContent<SomeContentWithBase>();
+            contentFactory.RegisterContent<SomeContentWithBaseAndChild>();
+            contentFactory.RegisterContent<SomeContentWithBaseAndPocChild>();
+
+            contentFactory.RegisterTransientContent<SomeContentRequiringDiInitialization>();
             return contentFactory;
         }
     }
