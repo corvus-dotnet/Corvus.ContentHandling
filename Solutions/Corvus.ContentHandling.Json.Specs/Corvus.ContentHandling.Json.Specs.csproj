@@ -59,7 +59,7 @@
     
     TBD: look into whether there's anything Corvus we could be using instaed of JsonDiffPatch.
     -->
-    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+    <PackageReference Include="System.Text.Json" Version="10.0.7" />
     
     <!--
     Using JsonDiffPatch just for its DeepEquals method.
