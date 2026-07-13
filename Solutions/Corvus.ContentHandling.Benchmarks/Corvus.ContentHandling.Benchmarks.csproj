@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
+
+  <!--
+  Benchmarks for the v5 implementation. A mirror of the v4 benchmark project in the old
+  repository (Corvus.ContentHandling.old/Solutions/Corvus.ContentHandling.Benchmarks):
+  identical scenario names, workloads, runtime, and container version, so the two result
+  tables compare row-for-row. Run:
+
+      dotnet run -c Release &#45;&#45; &#45;&#45;filter *
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(ContinuousIntegrationBuild)' == 'true'">true</RestoreLockedMode>
+
+    <!--
+    SA1600/SA1602/CS1591 - XML documentation is not required in benchmark projects.
+    SA1402/SA1649 - benchmark sample types are grouped into shared files.
+    CA1707 - benchmark method names use underscores by convention.
+    CA1822 - BenchmarkDotNet benchmark methods must be instance methods.
+    -->
+    <NoWarn>$(NoWarn);IDE0290;SA1600;SA1602;CS1591;SA1402;SA1649;CA1707;CA1822</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Corvus.ContentHandling\Corvus.ContentHandling.csproj" />
+    <ProjectReference Include="..\Corvus.ContentHandling.Json\Corvus.ContentHandling.Json.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-﻿// <copyright file="ContentEnvelopeConverter.cs" company="Endjin Limited">
+// <copyright file="ContentEnvelopeConverter.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
@@ -10,13 +10,11 @@ namespace Corvus.ContentHandling.Json.Internal
     using System.Text.Json.Serialization;
 
     /// <summary>
-    /// A standard json converter for <see cref="ContentEnvelope"/>.
+    /// The JSON converter for <see cref="ContentEnvelope"/>, producing the
+    /// <c>{ "contentType": ..., "payload": ... }</c> wire format.
     /// </summary>
     public class ContentEnvelopeConverter : JsonConverter<ContentEnvelope>
     {
-        private const string SerializedPayloadTag = "payload";
-        private const string PayloadContentTypeTag = "contentType";
-
         /// <inheritdoc/>
         public override bool CanConvert(Type objectType)
         {
@@ -26,11 +24,23 @@ namespace Corvus.ContentHandling.Json.Internal
         /// <inheritdoc/>
         public override ContentEnvelope? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var value = (JsonObject)JsonNode.Parse(ref reader)!;
-            return ContentEnvelope.FromJson(
-                value[SerializedPayloadTag]!,
-                options,
-                value[PayloadContentTypeTag]!.GetValue<string>());
+            if (JsonNode.Parse(ref reader) is not JsonObject value)
+            {
+                throw new JsonException($"A {nameof(ContentEnvelope)} must be a JSON object.");
+            }
+
+            if (value[ContentTypeJson.ContentTypePropertyName] is not JsonValue contentTypeValue
+                || contentTypeValue.GetValueKind() != JsonValueKind.String)
+            {
+                throw new JsonException($"A {nameof(ContentEnvelope)} must have a string '{ContentTypeJson.ContentTypePropertyName}' property.");
+            }
+
+            if (value[ContentTypeJson.PayloadPropertyName] is not JsonNode payload)
+            {
+                throw new JsonException($"A {nameof(ContentEnvelope)} must have a non-null '{ContentTypeJson.PayloadPropertyName}' property.");
+            }
+
+            return ContentEnvelope.FromJson(payload, options, contentTypeValue.GetValue<string>());
         }
 
         /// <inheritdoc/>
@@ -45,9 +55,9 @@ namespace Corvus.ContentHandling.Json.Internal
             else
             {
                 writer.WriteStartObject();
-                writer.WritePropertyName(PayloadContentTypeTag);
+                writer.WritePropertyName(ContentTypeJson.ContentTypePropertyName);
                 writer.WriteStringValue(value.PayloadContentType);
-                writer.WritePropertyName(SerializedPayloadTag);
+                writer.WritePropertyName(ContentTypeJson.PayloadPropertyName);
                 value.SerializedPayload.WriteTo(writer);
                 writer.WriteEndObject();
             }

@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
+
+  <!--
+  A Spectre.Console tour of the v5 features. Run:
+
+      dotnet run                 (interactive menu)
+      dotnet run &#45;&#45; &#45;&#45;all        (run every section)
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(ContinuousIntegrationBuild)' == 'true'">true</RestoreLockedMode>
+
+    <!--
+    SA1600/SA1602/CS1591 - XML documentation is not required in demo projects.
+    SA1402/SA1649 - demo sample types are grouped into shared files.
+    IDE0130 - demo files live in a Demos folder within a single namespace.
+    -->
+    <NoWarn>$(NoWarn);IDE0290;SA1600;SA1602;CS1591;SA1402;SA1649;IDE0130</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
+    <PackageReference Include="Spectre.Console" Version="0.57.2" />
+    <PackageReference Include="Spectre.Console.Json" Version="0.57.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Corvus.ContentHandling\Corvus.ContentHandling.csproj" />
+    <ProjectReference Include="..\Corvus.ContentHandling.Json\Corvus.ContentHandling.Json.csproj" />
+  </ItemGroup>
+
+</Project>

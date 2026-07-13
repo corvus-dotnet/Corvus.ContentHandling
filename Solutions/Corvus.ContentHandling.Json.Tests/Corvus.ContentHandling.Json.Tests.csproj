@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(ContinuousIntegrationBuild)' == 'true'">true</RestoreLockedMode>
+
+    <!--
+    IDE0290 - use primary ctor: this suggestion tends to be a bit over-eager.
+    CA1707  - test method names use underscores by convention.
+    SA1600/SA1602/CS1591 - XML documentation is not required in test projects.
+    SA1402/SA1649 - test sample types are grouped into shared files.
+    -->
+    <NoWarn>$(NoWarn);IDE0290;CA1707;SA1600;SA1602;CS1591;SA1402;SA1649</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
+    <PackageReference Include="MSTest" Version="4.2.3" />
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
+    <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="SystemTextJson.JsonDiffPatch" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Corvus.ContentHandling.Json\Corvus.ContentHandling.Json.csproj" />
+  </ItemGroup>
+
+</Project>

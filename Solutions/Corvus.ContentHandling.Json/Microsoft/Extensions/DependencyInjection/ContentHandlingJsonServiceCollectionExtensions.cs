@@ -1,66 +1,92 @@
-﻿// <copyright file="ContentHandlingJsonServiceCollectionExtensions.cs" company="Endjin Limited">
+// <copyright file="ContentHandlingJsonServiceCollectionExtensions.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    using System;
     using System.Linq;
     using System.Text.Json.Serialization;
-
     using Corvus.ContentHandling;
     using Corvus.ContentHandling.Json.Internal;
 
     /// <summary>
-    /// An installer for standard <see cref="JsonConverter"/>s.
+    /// Adds content-type-based JSON serialization support to a service collection.
     /// </summary>
     public static class ContentHandlingJsonServiceCollectionExtensions
     {
         /// <summary>
-        /// Add the default JSON serialization configuration.
+        /// Adds content-type-based JSON serialization support.
         /// </summary>
-        /// <param name="services">The target service collection.</param>
-        /// <returns>The service collection.</returns>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The service collection, for chaining.</returns>
         /// <remarks>
         /// <para>
-        /// Adds custom JsonConverters to the service collection to support content type-based serialization. This
-        /// relies on the Corvus.Json.Serialization IJsonSerializerOptionsProvider to make these converters
-        /// available to the JSON serializers, so calls <see cref="CorvusJsonSerializationServiceCollectionExtensions.AddJsonSerializerOptionsProvider" />.
+        /// This registers the <see cref="Corvus.ContentHandling.Json.ContentEnvelope"/> converter
+        /// and the Corvus.Json.Serialization <c>IJsonSerializerOptionsProvider</c>, which
+        /// aggregates all <see cref="JsonConverter"/>s registered with the service collection
+        /// into the application's <c>JsonSerializerOptions</c>.
         /// </para>
         /// <para>
-        /// You may also want to add any of the JsonConverters provided by Corvus that you require, as this method
-        /// does not register them automatically. For example, if you want property bags and culture info handling,
-        /// you would write this:
-        /// </para>
-        /// <code>
-        /// <![CDATA[
-        /// services
-        ///     .AddJsonSerializerSettingsProvider()
-        ///     .AddJsonPropertyBagFactory()
-        ///     .AddJsonCultureInfoConverter()
-        ///     .AddSingleton<JsonConverter>(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)));
-        /// ]]>
-        /// </code>
-        /// <para>
-        /// Note also that this method no longer has a parameter allowing a callback to be provided to register content
-        /// types with the content factory. Instead, you should call <c>services.AddContent()</c> directly to register
-        /// your types.
+        /// Register content via <c>services.AddContentHandling(...)</c>, and polymorphic
+        /// serialization targets via <see cref="AddPolymorphicContentTarget{TTarget}(IServiceCollection)"/>.
         /// </para>
         /// </remarks>
-        public static IServiceCollection AddContentTypeBasedSerializationSupport(this IServiceCollection services)
+        public static IServiceCollection AddContentTypeBasedJsonSerializationSupport(this IServiceCollection services)
         {
+            ArgumentNullException.ThrowIfNull(services);
+
             services.AddJsonSerializerOptionsProvider();
+            services.AddContentHandling();
 
-            if (!services.Any(s => s.ServiceType == typeof(ContentFactory)))
-            {
-                services.AddSingleton(new ContentFactory(services));
-            }
-
-            if (!services.Any(s => s.ServiceType == typeof(ContentEnvelopeConverter)))
+            if (!services.Any(s => !s.IsKeyedService && s.ImplementationType == typeof(ContentEnvelopeConverter)))
             {
                 services.AddSingleton<JsonConverter, ContentEnvelopeConverter>();
             }
 
             return services;
+        }
+
+        /// <summary>
+        /// Enables polymorphic contentType-driven serialization for properties of type
+        /// <typeparamref name="TTarget"/>.
+        /// </summary>
+        /// <typeparam name="TTarget">
+        /// The target type: an interface or base type of registered content types. The concrete
+        /// registered types must differ from the target type.
+        /// </typeparam>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The service collection, for chaining.</returns>
+        public static IServiceCollection AddPolymorphicContentTarget<TTarget>(this IServiceCollection services)
+            where TTarget : class
+        {
+            ArgumentNullException.ThrowIfNull(services);
+
+            if (!services.Any(s => !s.IsKeyedService && s.ImplementationType == typeof(PolymorphicContentConverter<TTarget>)))
+            {
+                services.AddSingleton<JsonConverter, PolymorphicContentConverter<TTarget>>();
+            }
+
+            return services;
+        }
+
+        /// <summary>
+        /// Enables polymorphic contentType-driven serialization for properties of type
+        /// <typeparamref name="TTarget"/>.
+        /// </summary>
+        /// <typeparam name="TTarget">
+        /// The target type: an interface or base type of registered content types. The concrete
+        /// registered types must differ from the target type.
+        /// </typeparam>
+        /// <param name="builder">The content handling builder.</param>
+        /// <returns>The builder, for chaining.</returns>
+        public static ContentHandlingBuilder AddPolymorphicContentTarget<TTarget>(this ContentHandlingBuilder builder)
+            where TTarget : class
+        {
+            ArgumentNullException.ThrowIfNull(builder);
+
+            builder.Services.AddPolymorphicContentTarget<TTarget>();
+            return builder;
         }
     }
 }

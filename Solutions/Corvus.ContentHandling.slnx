@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Corvus.ContentHandling.Benchmarks/Corvus.ContentHandling.Benchmarks.csproj" />
+  <Project Path="Corvus.ContentHandling.Demo/Corvus.ContentHandling.Demo.csproj" />
+  <Project Path="Corvus.ContentHandling.Json.Tests/Corvus.ContentHandling.Json.Tests.csproj" />
+  <Project Path="Corvus.ContentHandling.Json/Corvus.ContentHandling.Json.csproj" />
+  <Project Path="Corvus.ContentHandling.Tests/Corvus.ContentHandling.Tests.csproj" />
+  <Project Path="Corvus.ContentHandling/Corvus.ContentHandling.csproj" />
+</Solution>

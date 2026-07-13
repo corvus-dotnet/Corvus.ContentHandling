@@ -3,51 +3,29 @@
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
-    
+
     <!--
-    IDE0057 suggests using range syntax, but that's not available on netstandard2.0
+    IDE0290 - use primary ctor: this suggestion tends to be a bit over-eager.
     -->
-    <NoWarn>$(NoWarn);IDE0057</NoWarn>
+    <NoWarn>$(NoWarn);IDE0290</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageDescription></PackageDescription>
-    <PackageTags></PackageTags>
+    <PackageDescription>Content-type driven content registration and handler dispatch built on Microsoft.Extensions.DependencyInjection keyed services.</PackageDescription>
+    <PackageTags>dependency-injection;keyed-services;content-handling;media-type;polymorphism</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
-
-    <!--
-         IDE0290 - use primary ctor: this suggestion tends to be a bit over-eager.
-    -->
-    <NoWarn>$(NoWarn);IDE0290</NoWarn>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.15">
+    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Update="Corvus\ContentHandling\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedResource Update="Corvus\ContentHandling\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Corvus.ContentHandling</CustomToolNamespace>
-    </EmbeddedResource>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.9" />
   </ItemGroup>
 
 </Project>
