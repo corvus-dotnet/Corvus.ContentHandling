@@ -51,7 +51,7 @@ jobs:
       id: prepareEnvVarsAndSecrets
       with:
         environmentVariablesYaml: |
-          BUILDVAR_NuGetPublishSource: "${{ (startsWith(github.ref, 'refs/tags/') || github.event.inputs.forcePublicNugetDestination == 'true') && 'https://api.nuget.org/v3/index.json' || format('https://nuget.pkg.github.com/{0}/index.json', github.repository_owner) }}"
+          ZF_NUGET_PUBLISH_SOURCE: "${{ (startsWith(github.ref, 'refs/tags/') || github.event.inputs.forcePublicNugetDestination == 'true') && 'https://api.nuget.org/v3/index.json' || format('https://nuget.pkg.github.com/{0}/index.json', github.repository_owner) }}"
         secretsYaml: |
           NUGET_API_KEY: "${{ (startsWith(github.ref, 'refs/tags/') || github.event.inputs.forcePublicNugetDestination == 'true') && secrets.NUGET_APIKEY || secrets.BUILD_PUBLISHER_PAT }}"
 
@@ -59,7 +59,7 @@ jobs:
     needs: prepareConfig
     uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-matrix-pipeline.yml@main
     with:
-      netSdkVersion: '9.0.x'
+      netSdkVersion: '10.0.x'
       # additionalNetSdkVersion: '7.0.x'
       # workflow_dispatch inputs are always strings, the type property is just for the UI
       forcePublish: ${{ github.event.inputs.forcePublish == 'true' }}
@@ -67,7 +67,7 @@ jobs:
       testPhaseMatrixJson: |
         {
           "os": ["windows-latest", "ubuntu-latest"],
-          "dotnetFramework": ["net8.0", "net9.0"]
+          "dotnetFramework": ["net10.0"]
         }
       # testArtifactName: ''
       # testArtifactPath: ''

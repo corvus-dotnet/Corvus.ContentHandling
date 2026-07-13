@@ -1,9 +1,100 @@
 # Corvus.ContentHandling
-[![Build Status](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_apis/build/status/corvus-dotnet.Corvus.ContentHandling?branchName=main)](https://dev.azure.com/endjin-labs/Corvus.ContentHandling/_build/latest?definitionId=5&branchName=main)
+[![Build Status](https://github.com/corvus-dotnet/Corvus.ContentHandling/actions/workflows/build.yml/badge.svg)](https://github.com/corvus-dotnet/Corvus.ContentHandling/actions/workflows/build.yml)
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/corvus-dotnet/Corvus.ContentHandling/main/LICENSE)
 [![IMM](https://imm.endjin.com/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)](https://imm.endjin.com/api/imm/github/corvus-dotnet/Corvus.ContentHandling/total?cache=false)
 
-Dispatches content to content handlers based on a content-type pattern.
+Creates instances of types, and dispatches content to content handlers, identified by media-type-like content-type strings (e.g. `application/vnd.corvus.example`), with hierarchical fallback resolution. Built on `Microsoft.Extensions.DependencyInjection` [keyed services](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#keyed-services).
+
+v5 is a ground-up rebuild of the library on keyed services. It preserves the v4 feature set and JSON wire format, with a new registration API and no runtime code generation. See [the v5 release notes](docs/ReleaseNotes/Corvus.ContentHandling.v5.md) and [ADR 0002](docs/adr/0002-rebuild-on-keyed-services.md) for details. Targets `net10.0`.
+
+## Getting started
+
+Register content, keyed by content type:
+
+```csharp
+services.AddContentHandling(content => content
+    // Resolved from the container, with a DI lifetime:
+    .AddSingletonContent<PdfRenderer>("application/vnd.corvus.renderer.pdf")
+    .AddTransientContent<AuditRecord>()          // content type discovered from the type
+    // Constructed by the serializer (no service dependencies):
+    .AddSerializedContent<OrderCreated>()
+    // A pre-built instance under an explicit key:
+    .AddContentInstance("application/vnd.corvus.template.invoice", invoiceTemplate));
+```
+
+Content types are discovered from a `[ContentType("...")]` attribute, or from the legacy `static string RegisteredContentType` field convention used by earlier versions.
+
+Resolve by content type — with **hierarchical fallback**: if `application/vnd.corvus.a.b.c+suffix` is not registered, `application/vnd.corvus.a.b+suffix` is tried, then `application/vnd.corvus.a+suffix` (the `+suffix` is preserved at every step, so distinct *roles* of one content type — `+mapper`, `+renderer`, `+template` — fall back independently):
+
+```csharp
+object? content = serviceProvider.GetContent("application/vnd.corvus.renderer.pdf.v2");
+// falls back to the "application/vnd.corvus.renderer.pdf" registration
+
+PdfRenderer renderer = serviceProvider.GetRequiredContent<PdfRenderer>("application/vnd.corvus.renderer.pdf.v2");
+```
+
+Register handlers — delegates or classes — and dispatch payloads to them by content type
+(fallback applies here too):
+
+```csharp
+services.AddContentHandling(content => content
+    .AddContentHandler<OrderEvent, OrderCreated>("audit", order => Log(order))
+    .AddContentHandler<OrderEvent, OrderCancelled, CancellationHandler>("audit"));
+
+IContentDispatcher<OrderEvent> dispatcher = serviceProvider.GetRequiredService<IContentDispatcher<OrderEvent>>();
+await dispatcher.DispatchAsync(orderEvent, "audit");
+```
+
+`Corvus.ContentHandling.Json` adds content-type-discriminated polymorphic serialization for System.Text.Json, and `ContentEnvelope` for sending heterogeneous payloads through a single channel:
+
+```csharp
+services.AddContentTypeBasedJsonSerializationSupport();
+services.AddPolymorphicContentTarget<IOrderEvent>();
+
+// {"contentType":"application/vnd.corvus...","...":...} round-trips via IOrderEvent
+IOrderEvent? evt = JsonSerializer.Deserialize<IOrderEvent>(json, options);
+
+// The envelope wire format: { "contentType": ..., "payload": ... }
+var envelope = ContentEnvelope.FromPayload(evt, options);
+bool handled = envelope.Match()
+    .When<OrderCreated>(HandleCreated)
+    .When<OrderCancelled>(HandleCancelled)
+    .Else(e => HandleUnknown(e))
+    .Execute();
+```
+
+Content that needs constructor-injected services can also be deserialized polymorphically (the instance is resolved from the container, then populated from the JSON). Such content must be registered with `AddTransientContent` — deserialization populates the resolved instance, so a shared singleton/scoped instance would be overwritten by every payload, and the converter rejects those lifetimes with a clear error.
+
+## Performance: v4 vs v5
+
+Two mirrored BenchmarkDotNet projects measure identical scenarios against v4 and v5 — same runtime (net10.0), same container version, only the library differs. Headlines (13th Gen Intel Core i7-13800H, .NET 10.0.9; full methodology and tables in [the v4 vs v5 comparison](docs/benchmarks-v4-vs-v5.md)):
+
+| Scenario                                |                    v4 |                   v5 |                                            |
+|-----------------------------------------|----------------------:|---------------------:|--------------------------------------------|
+| Register 5 lambda handlers              | 138,190 µs / 8,597 KB |    1.72 µs / 9.66 KB | **~80,000× faster, ~900× less allocation** |
+| 3-hop hierarchical fallback resolution  |      105.3 ns / 368 B |       98.2 ns / 24 B | allocation-free probing                    |
+| Lambda-handler dispatch                 |       40.1 ns / 136 B |        39.8 ns / 0 B | **allocation-free**                        |
+| Fallback dispatch                       |      131.7 ns / 464 B |        50.5 ns / 0 B | 2.6× faster, allocation-free               |
+| Deserialize (serializer-constructed)    |    864.7 ns / 1,256 B |     722.3 ns / 256 B | 5× less allocation                         |
+| Deserialize (DI-constructed + populate) | 8,440.6 ns / 10,131 B |     514.2 ns / 264 B | **16× faster, 38× less allocation**        |
+| Envelope round-trip                     |  1,591.2 ns / 2,280 B | 1,463.2 ns / 2,160 B | wire-format-identical                      |
+
+The registration row is the structural win: v4 compiled a unique wrapper type with Roslyn at runtime for every lambda handler registration (~27 ms and ~1.7 MB *each*); v5 registers keyed instances of a few closed generic adapters, and `Microsoft.CodeAnalysis.CSharp` is gone from the dependency graph entirely. Dispatch is allocation-free on every singleton-handler path, and the DI-populate deserialization path caches its serialization contracts instead of rebuilding them per call. v4 keeps a small (< 25 ns) edge on exactly two scenarios — typed resolution and transient class-handler dispatch — both inherent to the keyed-service indirection.
+
+```
+dotnet run -c Release --project Solutions/Corvus.ContentHandling.Benchmarks -- --filter '*'
+```
+
+## Building and testing
+
+```
+dotnet build Solutions/Corvus.ContentHandling.slnx
+dotnet test --solution Solutions/Corvus.ContentHandling.slnx
+```
+
+Requires the .NET 10 SDK. The test projects run on
+[Microsoft.Testing.Platform](https://learn.microsoft.com/en-us/dotnet/core/testing/microsoft-testing-platform-intro)
+(opted in via `global.json`).
 
 ## Licenses
 
@@ -66,4 +157,3 @@ The IMM is endjin's IP quality framework.
 [![Deployment](https://imm.endjin.com/api/imm/github/corvus-dotnet/Corvus.ContentHandling/rule/edea4593-d2dd-485b-bc1b-aaaf18f098f9?cache=false)](https://imm.endjin.com/api/imm/github/corvus-dotnet/Corvus.ContentHandling/rule/edea4593-d2dd-485b-bc1b-aaaf18f098f9?cache=false)
 
 [![OpenChain](https://imm.endjin.com/api/imm/github/corvus-dotnet/Corvus.ContentHandling/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)](https://imm.endjin.com/api/imm/github/corvus-dotnet/Corvus.ContentHandling/rule/66efac1a-662c-40cf-b4ec-8b34c29e9fd7?cache=false)
-

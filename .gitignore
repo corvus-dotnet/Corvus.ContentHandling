@@ -345,3 +345,5 @@ _packages/
 
 # NCrunch files
 *.ncrunchsolution
+# ZeroFailed
+.zf/extensions/

@@ -11,6 +11,11 @@ namespace Corvus.ContentHandling
     /// </summary>
     public readonly struct MediaType
     {
+        // Stored nullable so that default(MediaType) — which bypasses the constructor —
+        // normalizes to None through the property accessors.
+        private readonly string? typeAndSubtype;
+        private readonly string? structuredSyntaxSuffix;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MediaType"/> struct.
         /// </summary>
@@ -18,8 +23,8 @@ namespace Corvus.ContentHandling
         /// <param name="structuredSyntaxSuffix">The (optional) encoding for the media type.</param>
         public MediaType(string typeAndSubtype, string structuredSyntaxSuffix = "")
         {
-            this.TypeAndSubtype = typeAndSubtype ?? throw new ArgumentNullException(nameof(typeAndSubtype));
-            this.StructuredSyntaxSuffix = structuredSyntaxSuffix ?? throw new ArgumentNullException(nameof(structuredSyntaxSuffix));
+            this.typeAndSubtype = typeAndSubtype ?? throw new ArgumentNullException(nameof(typeAndSubtype));
+            this.structuredSyntaxSuffix = structuredSyntaxSuffix ?? throw new ArgumentNullException(nameof(structuredSyntaxSuffix));
         }
 
         /// <summary>
@@ -32,13 +37,13 @@ namespace Corvus.ContentHandling
         /// </summary>
         /// <remarks>This will generally be a hierarchical string, using dot separators.</remarks>
         /// <example>application/vnd.Corvus.data-catalog.data-store.data-lake-store.</example>
-        public string TypeAndSubtype { get; }
+        public string TypeAndSubtype => this.typeAndSubtype ?? string.Empty;
 
         /// <summary>
         /// Gets the encoding for the media type. Internally, we are often using this to specify a handler
         /// class when routing requests based on a content type.
         /// </summary>
-        public string StructuredSyntaxSuffix { get; }
+        public string StructuredSyntaxSuffix => this.structuredSyntaxSuffix ?? string.Empty;
 
         /// <summary>
         /// Explicit conversion from a media type to a string.
